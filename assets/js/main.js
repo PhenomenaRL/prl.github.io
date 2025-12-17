@@ -1,399 +1,193 @@
 /*
-	Dimension by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Phenomena Replication Laboratory Landing Page
 */
 
-(function($) {
-
-	var	$window = $(window),
-		$body = $('body'),
-		$wrapper = $('#wrapper'),
-		$header = $('#header'),
-		$footer = $('#footer'),
-		$main = $('#main'),
-		$main_articles = $main.children('article');
-
-	// Breakpoints.
-		breakpoints({
-			xlarge:   [ '1281px',  '1680px' ],
-			large:    [ '981px',   '1280px' ],
-			medium:   [ '737px',   '980px'  ],
-			small:    [ '481px',   '736px'  ],
-			xsmall:   [ '361px',   '480px'  ],
-			xxsmall:  [ null,      '360px'  ]
-		});
-
-	// Play initial animations on page load.
-		$(document).ready(function() {
-			$body.removeClass('is-preload');
-		});
-
-	// Fix: Flexbox min-height bug on IE.
-		if (browser.name == 'ie') {
-
-			var flexboxFixTimeoutId;
-
-			$window.on('resize.flexbox-fix', function() {
-
-				clearTimeout(flexboxFixTimeoutId);
-
-				flexboxFixTimeoutId = setTimeout(function() {
-
-					if ($wrapper.prop('scrollHeight') > $window.height())
-						$wrapper.css('height', 'auto');
-					else
-						$wrapper.css('height', '100vh');
-
-				}, 250);
-
-			}).triggerHandler('resize.flexbox-fix');
-
-		}
-
-	// Nav.
-		var $nav = $header.children('nav'),
-			$nav_li = $nav.find('li');
-
-		// Add "middle" alignment classes if we're dealing with an even number of items.
-			if ($nav_li.length % 2 == 0) {
-
-				$nav.addClass('use-middle');
-				$nav_li.eq( ($nav_li.length / 2) ).addClass('is-middle');
-
-			}
-
-	// Main.
-		var	delay = 325,
-			locked = false;
-
-		// Methods.
-			$main._show = function(id, initial) {
-
-				var $article = $main_articles.filter('#' + id);
-
-				// No such article? Bail.
-					if ($article.length == 0)
-						return;
-
-				// Handle lock.
-
-					// Already locked? Speed through "show" steps w/o delays.
-						if (locked || (typeof initial != 'undefined' && initial === true)) {
-
-							// Mark as switching.
-								$body.addClass('is-switching');
-
-							// Mark as visible.
-								$body.addClass('is-article-visible');
-
-							// Deactivate all articles (just in case one's already active).
-								$main_articles.removeClass('active');
-
-							// Hide header, footer.
-								$header.hide();
-								$footer.hide();
-
-							// Show main, article.
-								$main.show();
-								$article.show();
-
-							// Activate article.
-								$article.addClass('active');
-
-							// Unlock.
-								locked = false;
-
-							// Unmark as switching.
-								setTimeout(function() {
-									$body.removeClass('is-switching');
-								}, (initial ? 1000 : 0));
-
-							return;
-
-						}
-
-					// Lock.
-						locked = true;
-
-				// Article already visible? Just swap articles.
-					if ($body.hasClass('is-article-visible')) {
-
-						// Deactivate current article.
-							var $currentArticle = $main_articles.filter('.active');
-
-							$currentArticle.removeClass('active');
-
-						// Show article.
-							setTimeout(function() {
-
-								// Hide current article.
-									$currentArticle.hide();
-
-								// Show article.
-									$article.show();
-
-								// Activate article.
-									setTimeout(function() {
-
-										$article.addClass('active');
-
-										// Window stuff.
-											$window
-												.scrollTop(0)
-												.triggerHandler('resize.flexbox-fix');
-
-										// Unlock.
-											setTimeout(function() {
-												locked = false;
-											}, delay);
-
-									}, 25);
-
-							}, delay);
-
-					}
-
-				// Otherwise, handle as normal.
-					else {
-
-						// Mark as visible.
-							$body
-								.addClass('is-article-visible');
-
-						// Show article.
-							setTimeout(function() {
-
-								// Hide header, footer.
-									$header.hide();
-									$footer.hide();
-
-								// Show main, article.
-									$main.show();
-									$article.show();
-
-								// Activate article.
-									setTimeout(function() {
-
-										$article.addClass('active');
-
-										// Window stuff.
-											$window
-												.scrollTop(0)
-												.triggerHandler('resize.flexbox-fix');
-
-										// Unlock.
-											setTimeout(function() {
-												locked = false;
-											}, delay);
-
-									}, 25);
-
-							}, delay);
-
-					}
-
-			};
-
-			$main._hide = function(addState) {
-
-				var $article = $main_articles.filter('.active');
-
-				// Article not visible? Bail.
-					if (!$body.hasClass('is-article-visible'))
-						return;
-
-				// Add state?
-					if (typeof addState != 'undefined'
-					&&	addState === true)
-						history.pushState(null, null, '#');
-
-				// Handle lock.
-
-					// Already locked? Speed through "hide" steps w/o delays.
-						if (locked) {
-
-							// Mark as switching.
-								$body.addClass('is-switching');
-
-							// Deactivate article.
-								$article.removeClass('active');
-
-							// Hide article, main.
-								$article.hide();
-								$main.hide();
-
-							// Show footer, header.
-								$footer.show();
-								$header.show();
-
-							// Unmark as visible.
-								$body.removeClass('is-article-visible');
-
-							// Unlock.
-								locked = false;
-
-							// Unmark as switching.
-								$body.removeClass('is-switching');
-
-							// Window stuff.
-								$window
-									.scrollTop(0)
-									.triggerHandler('resize.flexbox-fix');
-
-							return;
-
-						}
-
-					// Lock.
-						locked = true;
-
-				// Deactivate article.
-					$article.removeClass('active');
-
-				// Hide article.
-					setTimeout(function() {
-
-						// Hide article, main.
-							$article.hide();
-							$main.hide();
-
-						// Show footer, header.
-							$footer.show();
-							$header.show();
-
-						// Unmark as visible.
-							setTimeout(function() {
-
-								$body.removeClass('is-article-visible');
-
-								// Window stuff.
-									$window
-										.scrollTop(0)
-										.triggerHandler('resize.flexbox-fix');
-
-								// Unlock.
-									setTimeout(function() {
-										locked = false;
-									}, delay);
-
-							}, 25);
-
-					}, delay);
-
-
-			};
-
-		// Articles.
-			$main_articles.each(function() {
-
-				var $this = $(this);
-
-				// Close.
-					$('<div class="close">Close</div>')
-						.appendTo($this)
-						.on('click', function() {
-							location.hash = '';
-						});
-
-				// Prevent clicks from inside article from bubbling.
-					$this.on('click', function(event) {
-						event.stopPropagation();
-					});
-
-			});
-
-		// Events.
-			$body.on('click', function(event) {
-
-				// Article visible? Hide.
-					if ($body.hasClass('is-article-visible'))
-						$main._hide(true);
-
-			});
-
-			$window.on('keyup', function(event) {
-
-				switch (event.keyCode) {
-
-					case 27:
-
-						// Article visible? Hide.
-							if ($body.hasClass('is-article-visible'))
-								$main._hide(true);
-
-						break;
-
-					default:
-						break;
-
-				}
-
-			});
-
-			$window.on('hashchange', function(event) {
-
-				// Empty hash?
-					if (location.hash == ''
-					||	location.hash == '#') {
-
-						// Prevent default.
-							event.preventDefault();
-							event.stopPropagation();
-
-						// Hide.
-							$main._hide();
-
-					}
-
-				// Otherwise, check for a matching article.
-					else if ($main_articles.filter(location.hash).length > 0) {
-
-						// Prevent default.
-							event.preventDefault();
-							event.stopPropagation();
-
-						// Show article.
-							$main._show(location.hash.substr(1));
-
-					}
-
-			});
-
-		// Scroll restoration.
-		// This prevents the page from scrolling back to the top on a hashchange.
-			if ('scrollRestoration' in history)
-				history.scrollRestoration = 'manual';
-			else {
-
-				var	oldScrollPos = 0,
-					scrollPos = 0,
-					$htmlbody = $('html,body');
-
-				$window
-					.on('scroll', function() {
-
-						oldScrollPos = scrollPos;
-						scrollPos = $htmlbody.scrollTop();
-
-					})
-					.on('hashchange', function() {
-						$window.scrollTop(oldScrollPos);
-					});
-
-			}
-
-		// Initialize.
-
-			// Hide main, articles.
-				$main.hide();
-				$main_articles.hide();
-
-			// Initial article.
-				if (location.hash != ''
-				&&	location.hash != '#')
-					$window.on('load', function() {
-						$main._show(location.hash.substr(1), true);
-					});
-
+(function ($) {
+    var $window = $(window),
+        $body = $("body");
+
+    // Breakpoints.
+    breakpoints({
+        xlarge: ["1281px", "1680px"],
+        large: ["981px", "1280px"],
+        medium: ["737px", "980px"],
+        small: ["481px", "736px"],
+        xsmall: ["361px", "480px"],
+        xxsmall: [null, "360px"],
+    });
+
+    // Play initial animations on page load.
+    $window.on("load", function () {
+        window.setTimeout(function () {
+            $body.removeClass("is-preload");
+        }, 100);
+    });
+
+    // Modal Handling
+    var $modal = $("#contact-modal");
+    var $btn = $("#start-project-btn");
+    var $close = $(".close-modal");
+
+    // Open Modal
+    if ($btn.length) {
+        $btn.on("click", function (e) {
+            e.preventDefault();
+            $modal.addClass("active");
+        });
+    }
+
+    // Close Modal
+    if ($close.length) {
+        $close.on("click", function () {
+            $modal.removeClass("active");
+        });
+    }
+
+    // Click outside to close
+    $window.on("click", function (e) {
+        if ($(e.target).is($modal)) {
+            $modal.removeClass("active");
+        }
+    });
+
+    // ==========================================
+    // Scroll Animations & Image Sequence Logic
+    // ==========================================
+
+    var $hero = $("#hero");
+    var $heroTitle = $("#hero-title");
+    var $heroSubtitle = $("#hero-subtitle");
+
+    // Canvas setup
+    const canvas = document.getElementById("hero-canvas");
+
+    if (canvas) {
+        const context = canvas.getContext("2d");
+
+        // Configuration
+        // Best Practice: Use a sequence of optimized JPEGs or WebPs.
+        // Create a folder 'images/sequence' and number them frame_001.jpg, frame_002.jpg, etc.
+        const frameCount = 100; // Adjust based on your actual sequence length
+        const currentFrame = (index) =>
+            `images/sequence/frame_${index.toString().padStart(3, "0")}.jpg`;
+
+        const images = [];
+        const sequence = {
+            frame: 0,
+        };
+
+        // Preload images
+        // We use a fallback to 'images/overlay.png' so the site works without the sequence uploaded.
+        for (let i = 0; i < frameCount; i++) {
+            const img = new Image();
+            const src = currentFrame(i + 1); // 1-based index for filenames
+
+            img.onload = () => {
+                if (i === 0) render(); // Render first frame immediately when ready
+            };
+
+            img.onerror = () => {
+                // Fallback if sequence not found, prevents broken animation
+                // This ensures the site still works with a static BG if no sequence is present
+                img.src = "images/overlay.png";
+            };
+
+            img.src = src;
+            images.push(img);
+        }
+
+        // Canvas resizing to cover screen
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            requestAnimationFrame(render);
+        };
+
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        function render() {
+            const img = images[sequence.frame];
+            if (!img || !img.complete || img.naturalWidth === 0) return;
+
+            // "object-fit: cover" logic for canvas
+            // Calculates ratios to ensure image covers the entire canvas while maintaining aspect ratio
+            const hRatio = canvas.width / img.width;
+            const vRatio = canvas.height / img.height;
+            const ratio = Math.max(hRatio, vRatio);
+
+            const centerShift_x = (canvas.width - img.width * ratio) / 2;
+            const centerShift_y = (canvas.height - img.height * ratio) / 2;
+
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(
+                img,
+                0,
+                0,
+                img.width,
+                img.height,
+                centerShift_x,
+                centerShift_y,
+                img.width * ratio,
+                img.height * ratio,
+            );
+        }
+
+        function updateSequence() {
+            const scrollTop = $window.scrollTop();
+            const windowHeight = $window.height();
+
+            // Define how far the user must scroll to play the entire sequence.
+            // Setting it to 1.5x window height gives a good pace relative to scrolling speed.
+            const maxScroll = windowHeight * 1.5;
+            const scrollFraction = scrollTop / maxScroll;
+
+            // Map scroll fraction to frame index
+            const frameIndex = Math.min(
+                frameCount - 1,
+                Math.ceil(scrollFraction * frameCount),
+            );
+
+            // Only update if frame changed within bounds
+            if (
+                frameIndex >= 0 &&
+                frameIndex < frameCount &&
+                frameIndex !== sequence.frame
+            ) {
+                sequence.frame = frameIndex;
+                requestAnimationFrame(render);
+            }
+        }
+
+        $window.on("scroll", () => requestAnimationFrame(updateSequence));
+    }
+
+    // Hero Text Animation (Parallax/Fade)
+    function updateHeroText() {
+        var scrollTop = $window.scrollTop();
+
+        if ($hero.length) {
+            var heroHeight = $hero.outerHeight();
+            // Start fading out
+            var opacity = 1 - scrollTop / (heroHeight * 0.6);
+            var translateX = scrollTop * 0.5;
+
+            if (opacity < 0) opacity = 0;
+            if (opacity > 1) opacity = 1;
+
+            $heroTitle.css({
+                opacity: opacity,
+                transform: "translateX(" + translateX + "px)",
+            });
+            $heroSubtitle.css({
+                opacity: opacity,
+                transform: "translateX(" + translateX + "px)",
+            });
+        }
+    }
+
+    $window.on("scroll", () => requestAnimationFrame(updateHeroText));
+
+    // Initial call
+    updateHeroText();
 })(jQuery);
