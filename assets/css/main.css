@@ -1911,10 +1911,106 @@ body,
     letter-spacing: 0.1em;
     border-bottom: none;
     transition: color 0.2s;
+    position: relative;
+    padding: 0 0.5rem;
+}
+
+#navbar a::before,
+#navbar a::after {
+    display: inline-block;
+    opacity: 0;
+    transition:
+        transform 0.3s,
+        opacity 0.2s;
+}
+
+#navbar a::before {
+    margin-right: 5px;
+    content: "[";
+    transform: translateX(10px);
+}
+
+#navbar a::after {
+    margin-left: 5px;
+    content: "]";
+    transform: translateX(-10px);
 }
 
 #navbar a:hover {
     color: #000;
+}
+
+#navbar a:hover::before,
+#navbar a:hover::after {
+    opacity: 1;
+    transform: translateX(0px);
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1002;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* Mobile Nav Overlay */
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    padding: 5rem 2rem;
+    transition: right 0.3s ease;
+}
+
+.mobile-nav-overlay.active {
+    right: 0;
+}
+
+.mobile-nav-overlay ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav-overlay a {
+    color: #333;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: none;
 }
 
 /* Hero Section */
@@ -2072,18 +2168,19 @@ body,
 /* Responsive */
 @media screen and (max-width: 736px) {
     #navbar {
-        padding: 1rem;
-        flex-direction: column;
-        background: #fff;
+        padding: 1rem 1.5rem;
+        flex-direction: row; /* Keep row for logo and hamburger */
+        background: rgba(255, 255, 255, 0.98);
     }
+
     #navbar ul {
-        margin-top: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: none; /* Hide desktop menu */
     }
-    #navbar li {
-        padding: 0 10px;
+
+    .hamburger {
+        display: flex; /* Show hamburger */
     }
+
     #hero h1 {
         font-size: 2.5rem;
     }

@@ -50,6 +50,24 @@
         }
     });
 
+    // Mobile Menu Toggle
+    var $hamburger = $(".hamburger");
+    var $mobileNav = $(".mobile-nav-overlay");
+    var $mobileLinks = $mobileNav.find("a");
+
+    if ($hamburger.length) {
+        $hamburger.on("click", function () {
+            $hamburger.toggleClass("active");
+            $mobileNav.toggleClass("active");
+        });
+
+        $mobileLinks.on("click", function () {
+            $hamburger.removeClass("active");
+            $mobileNav.removeClass("active");
+        });
+    }
+
+    // ==========================================
     // ==========================================
     // Scroll Animations & Image Sequence Logic
     // ==========================================
@@ -66,10 +84,10 @@
 
         // Configuration
         // Best Practice: Use a sequence of optimized JPEGs or WebPs.
-        // Create a folder 'images/sequence' and number them frame_001.jpg, frame_002.jpg, etc.
-        const frameCount = 100; // Adjust based on your actual sequence length
+        // Create a folder 'images/sequence' and number them frame_001.png, frame_002.png, etc.
+        const frameCount = 29; // Adjust based on your actual sequence length
         const currentFrame = (index) =>
-            `images/sequence/frame_${index.toString().padStart(3, "0")}.jpg`;
+            `images/sequence/frame_${index.toString().padStart(3, "0")}.png`;
 
         const images = [];
         const sequence = {

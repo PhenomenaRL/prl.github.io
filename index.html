@@ -7,7 +7,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1, user-scalable=no"
         />
-        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="assets/css/main.css?v=2" />
         <noscript
             ><link rel="stylesheet" href="assets/css/noscript.css"
         /></noscript>
@@ -37,7 +37,22 @@
                 <li><a href="#technology">Technology</a></li>
                 <li><a href="#tools">Tools</a></li>
             </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
+
+        <!-- Mobile Nav Overlay -->
+        <div class="mobile-nav-overlay">
+            <ul>
+                <li><a href="#our-work">Our Work</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#technology">Technology</a></li>
+                <li><a href="#tools">Tools</a></li>
+            </ul>
+        </div>
 
         <!-- Hero -->
         <section id="hero">
@@ -92,6 +107,55 @@
             </div>
         </section>
 
+        <!-- Trusted Partners -->
+        <section id="partners" class="content-section" style="padding: 2rem 0">
+            <h2
+                style="
+                    text-align: center;
+                    font-size: 1.5rem;
+                    margin-bottom: 2rem;
+                    color: #777;
+                "
+            >
+                Trusted Partners
+            </h2>
+            <div
+                style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 4rem;
+                    flex-wrap: wrap;
+                "
+            >
+                <img
+                    src="images/icon.png"
+                    alt="Partner"
+                    style="height: 50px; opacity: 0.6"
+                />
+                <img
+                    src="images/icon.png"
+                    alt="Partner"
+                    style="height: 50px; opacity: 0.6"
+                />
+                <img
+                    src="images/icon.png"
+                    alt="Partner"
+                    style="height: 50px; opacity: 0.6"
+                />
+                <img
+                    src="images/icon.png"
+                    alt="Partner"
+                    style="height: 50px; opacity: 0.6"
+                />
+                <img
+                    src="images/icon.png"
+                    alt="Partner"
+                    style="height: 50px; opacity: 0.6"
+                />
+            </div>
+        </section>
+
         <!-- Team -->
         <section id="team" class="content-section">
             <h2>Team</h2>
@@ -100,25 +164,6 @@
                 computer scientists. We are dedicated to pushing the boundaries
                 of what is possible.
             </p>
-            <div class="box alt">
-                <div class="row gtr-50 gtr-uniform">
-                    <div class="col-4">
-                        <span class="image fit"
-                            ><img src="images/icon.png" alt=""
-                        /></span>
-                    </div>
-                    <div class="col-4">
-                        <span class="image fit"
-                            ><img src="images/icon.png" alt=""
-                        /></span>
-                    </div>
-                    <div class="col-4">
-                        <span class="image fit"
-                            ><img src="images/icon.png" alt=""
-                        /></span>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <!-- Technology -->
@@ -219,6 +264,6 @@
         <script src="assets/js/browser.min.js"></script>
         <script src="assets/js/breakpoints.min.js"></script>
         <script src="assets/js/util.js"></script>
-        <script src="assets/js/main.js"></script>
+        <script src="assets/js/main.js?v=2"></script>
     </body>
 </html>
