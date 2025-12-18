@@ -1844,6 +1844,7 @@ body.is-preload #footer {
 
 html {
     background-color: #ffffff;
+    scroll-behavior: smooth;
 }
 
 body {
