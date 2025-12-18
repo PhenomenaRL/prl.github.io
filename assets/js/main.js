@@ -4,7 +4,13 @@
 
 (function ($) {
     var $window = $(window),
-        $body = $("body");
+        $body = $("body"),
+        $hero = $("#hero"),
+        $heroTitle = $("#hero-title"),
+        $heroSubtitle = $("#hero-subtitle"),
+        $heroButton = $("#start-project-btn");
+
+    var animationsDone = false;
 
     // Breakpoints.
     breakpoints({
@@ -20,6 +26,29 @@
     $window.on("load", function () {
         window.setTimeout(function () {
             $body.removeClass("is-preload");
+
+            // Slide-in Animation Sequence
+            setTimeout(function () {
+                if ($heroTitle.length) $heroTitle.addClass("visible");
+            }, 100);
+
+            setTimeout(function () {
+                if ($heroSubtitle.length) $heroSubtitle.addClass("visible");
+            }, 600);
+
+            setTimeout(function () {
+                if ($heroButton.length) $heroButton.addClass("visible");
+
+                // Enable parallax after animations complete
+                setTimeout(function () {
+                    animationsDone = true;
+                    // Remove CSS transitions to allow instant parallax updates
+                    $heroTitle.css("transition", "none");
+                    $heroSubtitle.css("transition", "none");
+                    $heroButton.css("transition", "none");
+                    updateHeroText();
+                }, 1000);
+            }, 1100);
         }, 100);
     });
 
@@ -182,6 +211,8 @@
 
     // Hero Text Animation (Parallax/Fade)
     function updateHeroText() {
+        if (!animationsDone) return;
+
         var scrollTop = $window.scrollTop();
 
         if ($hero.length) {
@@ -199,7 +230,11 @@
             });
             $heroSubtitle.css({
                 opacity: opacity,
-                transform: "translateX(" + translateX + "px)",
+                transform: "translateX(" + -translateX + "px)",
+            });
+            $heroButton.css({
+                opacity: opacity,
+                transform: "translateY(0)",
             });
         }
     }

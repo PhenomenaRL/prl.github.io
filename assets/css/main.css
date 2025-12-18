@@ -2049,6 +2049,11 @@ body,
     text-align: right;
     margin-bottom: 1rem;
     line-height: 1.2;
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+        opacity 0.8s ease-out,
+        transform 0.8s ease-out;
 }
 
 #hero p {
@@ -2057,6 +2062,26 @@ body,
     text-align: right;
     margin-bottom: 2rem;
     max-width: 600px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+        opacity 0.8s ease-out,
+        transform 0.8s ease-out;
+}
+
+#hero .button {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+        opacity 0.8s ease-out,
+        transform 0.8s ease-out;
+}
+
+#hero h1.visible,
+#hero p.visible,
+#hero .button.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Animation Section */
