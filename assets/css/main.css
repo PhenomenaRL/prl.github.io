@@ -230,7 +230,7 @@ html {
     }
 }
 
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 980px) {
     html {
         font-size: 11pt;
     }
@@ -361,7 +361,7 @@ h6 {
     font-size: 0.6rem;
 }
 
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 980px) {
     h1 {
         font-size: 1.75rem;
         line-height: 1.4;
@@ -2166,11 +2166,48 @@ body,
 .modal-content {
     background: white;
     padding: 3rem;
-    border-radius: 4px;
+    border-radius: 12px;
     width: 90%;
     max-width: 600px;
     position: relative;
-    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h2 {
+    color: #111;
+    margin-bottom: 0.5rem;
+}
+
+.modal-content p {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+#contact-modal label {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1rem;
+}
+
+#contact-modal input[type="text"],
+#contact-modal input[type="email"],
+#contact-modal textarea {
+    border: 1px solid #ddd;
+    color: #333 !important;
+    background: #f9f9f9;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+#contact-modal input[type="text"]:focus,
+#contact-modal input[type="email"]:focus,
+#contact-modal textarea:focus {
+    border-color: #333;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
 }
 
 .close-modal {
@@ -2198,7 +2235,7 @@ body,
 }
 
 /* Responsive */
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 980px) {
     #navbar {
         padding: 1rem 1.5rem;
         flex-direction: row; /* Keep row for logo and hamburger */
@@ -2213,8 +2250,36 @@ body,
         display: flex; /* Show hamburger */
     }
 
+    #hero {
+        padding-top: 7rem;
+        justify-content: flex-start;
+        height: auto;
+        min-height: 100vh;
+    }
+
     #hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+    }
+
+    #hero p {
+        margin-bottom: 1.5rem;
+    }
+
+    @media (orientation: landscape), (max-height: 500px) {
+        #hero {
+            padding-top: 4.5rem;
+        }
+        #hero h1 {
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+        #hero p {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        #navbar {
+            padding: 0.5rem 1.5rem;
+        }
     }
     .animating-image {
         max-width: 90%;
