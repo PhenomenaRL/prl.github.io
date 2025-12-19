@@ -230,7 +230,7 @@
             });
             $heroSubtitle.css({
                 opacity: opacity,
-                transform: "translateX(" + -translateX + "px)",
+                transform: "translateX(" + translateX + "px)",
             });
             $heroButton.css({
                 opacity: opacity,
