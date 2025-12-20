@@ -127,20 +127,21 @@
         // We use a fallback to 'images/overlay.png' so the site works without the sequence uploaded.
         for (let i = 0; i < frameCount; i++) {
             const img = new Image();
+            images.push(img);
             const src = currentFrame(i + 1); // 1-based index for filenames
 
             img.onload = () => {
-                if (i === 0) render(); // Render first frame immediately when ready
+                if (i === 0 || sequence.frame === i) {
+                    requestAnimationFrame(render);
+                }
             };
 
-            img.onerror = () => {
-                // Fallback if sequence not found, prevents broken animation
-                // This ensures the site still works with a static BG if no sequence is present
-                img.src = "images/overlay.png";
+            img.onerror = function () {
+                this.src = "images/overlay.png";
+                this.onerror = null;
             };
 
             img.src = src;
-            images.push(img);
         }
 
         // Canvas resizing to cover screen
@@ -190,9 +191,12 @@
             const scrollFraction = scrollTop / maxScroll;
 
             // Map scroll fraction to frame index
-            const frameIndex = Math.min(
-                frameCount - 1,
-                Math.ceil(scrollFraction * frameCount),
+            const frameIndex = Math.max(
+                0,
+                Math.min(
+                    frameCount - 1,
+                    Math.floor(scrollFraction * frameCount),
+                ),
             );
 
             // Only update if frame changed within bounds
@@ -207,6 +211,14 @@
         }
 
         $window.on("scroll", () => requestAnimationFrame(updateSequence));
+
+        // Ensure initial frame is rendered immediately
+        updateSequence();
+
+        // Extra check for Firefox/Caching: render if images[0] is already loaded
+        if (images[0] && images[0].complete) {
+            requestAnimationFrame(render);
+        }
     }
 
     // Hero Text Animation (Parallax/Fade)
