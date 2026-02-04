@@ -115,8 +115,10 @@
         // Best Practice: Use a sequence of optimized JPEGs or WebPs.
         // Create a folder 'images/sequence' and number them frame_001.png, frame_002.png, etc.
         const frameCount = 29; // Adjust based on your actual sequence length
-        const currentFrame = (index) =>
-            `images/sequence/frame_${index.toString().padStart(3, "0")}.png`;
+        const currentFrame =
+            window.currentFrame ||
+            ((index) =>
+                `images/sequence/frame_${index.toString().padStart(3, "0")}.png`);
 
         const images = [];
         const sequence = {
@@ -137,7 +139,7 @@
             };
 
             img.onerror = function () {
-                this.src = "images/overlay.png";
+                this.src = window.heroFallbackImage || "images/overlay.png";
                 this.onerror = null;
             };
 

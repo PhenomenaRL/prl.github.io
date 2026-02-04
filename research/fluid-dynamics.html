@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Fluid Dynamics | Phenomena Replication Laboratory</title>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, user-scalable=no"
+        />
+        <link rel="stylesheet" href="../assets/css/main.css?v=15" />
+        <noscript
+            ><link rel="stylesheet" href="../assets/css/noscript.css"
+        /></noscript>
+    </head>
+
+    <body class="is-preload">
+        <!-- Canvas Background for Hero Animation -->
+        <div id="hero-canvas-container">
+            <canvas id="hero-canvas"></canvas>
+        </div>
+
+        <!-- Navbar -->
+        <nav id="navbar">
+            <div class="logo">
+                <a href="../index.html"
+                    ><img
+                        src="../images/icon.png"
+                        alt="PRL"
+                        style="height: 30px"
+                    />
+                    P^RL</a
+                >
+            </div>
+            <ul>
+                <li><a href="../index.html#our-work">Our Work</a></li>
+                <li><a href="../research.html">Research</a></li>
+                <li><a href="../index.html#team">Team</a></li>
+                <li><a href="../index.html#technology">Technology</a></li>
+                <li><a href="../index.html#tools">Tools</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Mobile Nav Overlay -->
+        <div class="mobile-nav-overlay">
+            <ul>
+                <li><a href="../index.html#our-work">Our Work</a></li>
+                <li><a href="../research.html">Research</a></li>
+                <li><a href="../index.html#team">Team</a></li>
+                <li><a href="../index.html#technology">Technology</a></li>
+                <li><a href="../index.html#tools">Tools</a></li>
+            </ul>
+        </div>
+
+        <!-- Hero -->
+        <section id="hero">
+            <div class="hero-content">
+                <h1 id="hero-title">Fluid Dynamics</h1>
+                <p id="hero-subtitle">High-Fidelity Neural Radiance Fields</p>
+            </div>
+        </section>
+
+        <!-- Research Detail Content -->
+        <article class="content-section">
+            <div class="research-content">
+                <a href="../research.html" class="back-link">
+                    <span class="icon solid fa-arrow-left"></span> Back to
+                    Research
+                </a>
+
+                <div class="research-header">
+                    <h1>
+                        High-Fidelity Fluid Dynamics in Neural Radiance Fields
+                    </h1>
+                    <p class="authors">
+                        Jane Doe, John Smith, and the PRL Team
+                    </p>
+                </div>
+
+                <div class="abstract">
+                    <strong>Abstract:</strong> We present a novel framework for
+                    integrating differentiable fluid dynamics directly into the
+                    optimization loop of Neural Radiance Fields (NeRF). By
+                    leveraging particle-based simulations constrained by
+                    volumetric density gradients, we achieve real-time
+                    replication of complex fluid phenomena with unprecedented
+                    visual fidelity.
+                </div>
+
+                <h2 class="section-title">Introduction</h2>
+                <p>
+                    Replicating fluid motion has long been a challenge in
+                    computer vision and graphics. Traditional methods rely on
+                    heavy simulation or heuristic-based rendering. In this work,
+                    we bridge the gap between physical accuracy and neural
+                    representation by introducing a physics-informed loss
+                    function that operates on NeRF volumes.
+                </p>
+
+                <h2 class="section-title">Methodology</h2>
+                <p>Our approach involves three key components:</p>
+                <ol>
+                    <li>
+                        <strong>Differentiable Lagrangian Solver:</strong> A
+                        custom particle-based engine that allows gradients to
+                        flow from the pixel loss back to the fluid state.
+                    </li>
+                    <li>
+                        <strong>Volume-Aware Density Mapping:</strong> A
+                        technique to translate sparse particle data into
+                        continuous density fields compatible with volumetric
+                        rendering.
+                    </li>
+                    <li>
+                        <strong>Temporal Consistency Regularization:</strong>
+                        Ensuring that the generated frames maintain physical
+                        coherence across long sequences.
+                    </li>
+                </ol>
+
+                <h2 class="section-title">Results</h2>
+                <p>
+                    Experimental results demonstrate that our method outperforms
+                    state-of-the-art volumetric rendering techniques in both
+                    visual quality (PSNR/SSIM) and physical plausibility. We
+                    show successful replications of smoke, water, and
+                    non-Newtonian fluids.
+                </p>
+
+                <h2 class="section-title">Citation</h2>
+                <div class="bibtex">
+                    @article{prl2023fluids, title={High-Fidelity Fluid Dynamics
+                    in Neural Radiance Fields}, author={Doe, Jane and Smith,
+                    John}, journal={PRL Research Journal}, year={2023},
+                    publisher={Phenomena Replication Laboratory} }
+                </div>
+            </div>
+        </article>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <p class="copyright">
+                &copy; Phenomena Replication Laboratory. All rights reserved.
+            </p>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/browser.min.js"></script>
+        <script src="../assets/js/breakpoints.min.js"></script>
+        <script src="../assets/js/util.js"></script>
+        <script>
+            // Custom settings for research pages in subfolders
+            window.currentFrame = (index) =>
+                `../images/sequence/frame_${index.toString().padStart(3, "0")}.png`;
+            window.heroFallbackImage = "../images/overlay.png";
+        </script>
+        <script src="../assets/js/main.js?v=11"></script>
+    </body>
+</html>
