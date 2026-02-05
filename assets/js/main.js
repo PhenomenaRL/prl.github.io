@@ -22,19 +22,19 @@
         xxsmall: [null, "360px"],
     });
 
-    // Play initial animations on page load.
-    $window.on("load", function () {
+    // Play initial animations as soon as possible (DOM Ready)
+    $(function () {
         window.setTimeout(function () {
             $body.removeClass("is-preload");
 
-            // Slide-in Animation Sequence
+            // Snappier Slide-in Sequence
             setTimeout(function () {
                 if ($heroTitle.length) $heroTitle.addClass("visible");
-            }, 100);
+            }, 50);
 
             setTimeout(function () {
                 if ($heroSubtitle.length) $heroSubtitle.addClass("visible");
-            }, 600);
+            }, 350);
 
             setTimeout(function () {
                 if ($heroButton.length) $heroButton.addClass("visible");
@@ -47,9 +47,9 @@
                     $heroSubtitle.css("transition", "none");
                     $heroButton.css("transition", "none");
                     updateHeroText();
-                }, 1000);
-            }, 1100);
-        }, 100);
+                }, 800);
+            }, 800);
+        }, 50);
     });
 
     // Modal Handling
@@ -114,7 +114,7 @@
         // Configuration
         // Best Practice: Use a sequence of optimized JPEGs or WebPs.
         // Create a folder 'images/sequence' and number them frame_001.png, frame_002.png, etc.
-        const frameCount = 29; // Adjust based on your actual sequence length
+        const frameCount = window.heroFrameCount || 29; // Adjust based on your actual sequence length
         const currentFrame =
             window.currentFrame ||
             ((index) =>
@@ -125,15 +125,14 @@
             frame: 0,
         };
 
-        // Preload images
-        // We use a fallback to 'images/overlay.png' so the site works without the sequence uploaded.
+        // Preload images with priority for the first frame
         for (let i = 0; i < frameCount; i++) {
             const img = new Image();
-            images.push(img);
             const src = currentFrame(i + 1); // 1-based index for filenames
 
             img.onload = () => {
-                if (i === 0 || sequence.frame === i) {
+                // If this is the first frame, render it immediately
+                if (i === 0) {
                     requestAnimationFrame(render);
                 }
             };
@@ -144,6 +143,7 @@
             };
 
             img.src = src;
+            images.push(img);
         }
 
         // Canvas resizing to cover screen
