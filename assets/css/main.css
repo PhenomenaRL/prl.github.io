@@ -2365,6 +2365,15 @@ body,
     transform: translateY(-1px);
 }
 
+#contact-modal textarea {
+    resize: vertical;
+    width: 100%;
+}
+
+#contact-modal .actions {
+    justify-content: flex-end;
+}
+
 .close-modal {
     position: absolute;
     top: 20px;
