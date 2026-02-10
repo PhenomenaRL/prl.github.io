@@ -258,3 +258,106 @@
     // Initial call
     updateHeroText();
 })(jQuery);
+
+(function ($) {
+    // Resilience Calculator Logic
+    var $calcSection = $("#modal-calculator");
+    var $resSection = $("#modal-results");
+    var $calcBtn = $("#calc-btn");
+    var $backBtn = $("#back-to-calc");
+    var $close = $(".close-modal");
+
+    // Industry Multipliers (Cost per unit failure * frequency)
+    var industryData = {
+        logistics: { cost: 5000, uptime: 35 }, // $5k/robot/yr
+        manufacturing: { cost: 15000, uptime: 60 }, // $15k/robot/yr
+        subsea: { cost: 120000, uptime: 250 }, // $120k/robot/yr (huge retrieval cost)
+        aerospace: { cost: 850000, uptime: 500 }, // $850k/robot/yr (mission critical)
+    };
+
+    if ($calcBtn.length) {
+        $calcBtn.on("click", function () {
+            var fleetSize = parseInt($("#fleet-size").val()) || 0;
+            var industry = $("#industry").val();
+
+            if (fleetSize > 0) {
+                // Calculate
+                var data = industryData[industry];
+                var totalSavings = fleetSize * data.cost;
+
+                // Format
+                var formatter = new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    maximumFractionDigits: 0,
+                });
+
+                $("#result-savings").text(formatter.format(totalSavings));
+                $("#result-uptime").text("+" + data.uptime + "%");
+
+                // Transition
+                $calcSection.fadeOut(200, function () {
+                    $resSection.fadeIn(200);
+                });
+            } else {
+                $("#fleet-size").focus();
+            }
+        });
+    }
+
+    if ($backBtn.length) {
+        $backBtn.on("click", function () {
+            $resSection.fadeOut(200, function () {
+                $calcSection.fadeIn(200);
+            });
+        });
+    }
+
+    // Reset modal state when closed
+    if ($close.length) {
+        $close.on("click", function () {
+            setTimeout(function () {
+                $resSection.hide();
+                $calcSection.show();
+                $("#fleet-size").val("");
+            }, 300);
+        });
+    }
+})(jQuery);
+
+(function ($) {
+    // Floating Navbar Behavior
+    var $navbar = $("#navbar");
+
+    function updateNavbarScroll() {
+        if ($(window).scrollTop() > 50) {
+            $navbar.addClass("stowed");
+        } else {
+            $navbar.removeClass("stowed");
+        }
+    }
+
+    // Initialize
+    updateNavbarScroll();
+
+    // Scroll Event
+    $(window).on("scroll", updateNavbarScroll);
+
+    // Expand on Click
+    $navbar.on("click", function (e) {
+        if ($navbar.hasClass("stowed")) {
+            e.preventDefault();
+            $navbar.removeClass("stowed");
+        }
+    });
+
+    // Stow on Click Outside
+    $(document).on("click", function (e) {
+        if (
+            !$(e.target).closest("#navbar").length &&
+            $(window).scrollTop() > 50
+        ) {
+            $navbar.addClass("stowed");
+        }
+    });
+})(jQuery);

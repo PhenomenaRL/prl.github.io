@@ -35,7 +35,7 @@
                 <li><a href="#our-work">Our Work</a></li>
                 <li><a href="#technology">Technology</a></li>
                 <li><a href="#team">Team</a></li>
-                <li><a href="research.html">Research</a></li>
+                <li><a href="journal.html">Journal</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -50,7 +50,7 @@
                 <li><a href="#our-work">Our Work</a></li>
                 <li><a href="#technology">Technology</a></li>
                 <li><a href="#team">Team</a></li>
-                <li><a href="research.html">Research</a></li>
+                <li><a href="journal.html">Journal</a></li>
             </ul>
         </div>
 
@@ -59,10 +59,10 @@
             <div class="hero-content">
                 <h1 id="hero-title">Phenomena Replication Laboratory</h1>
                 <p id="hero-subtitle">
-                    In pursuit of robotic systems that last forever
+                    In pursuit of robotic systems that endure, forever
                 </p>
                 <button id="start-project-btn" class="button primary">
-                    Start Project
+                    Calculate Resilience Impact
                 </button>
             </div>
         </section>
@@ -187,58 +187,171 @@
         <section id="team" class="content-section">
             <h2>Team</h2>
             <p>
-                Our team consists of world-class engineers, physicists, and
-                computer scientists. We are dedicated to pushing the boundaries
-                of what is possible.
+                We are a collective of engineers, scientists and artists, united
+                by these central themes: permanence, sustainability &
+                understanding. At PRL, we bring hard earned lessons from
+                nature's resilience to engineered systems.
             </p>
+            <p>
+                If you share these ambitions, we want to hear from you! Take a
+                look at our openings below and send a message to
+                <a href="mailto:manit@phenomenareplicationlab.ca"
+                    >manit@phenomenareplicationlab.ca</a
+                >.
+            </p>
+            <ul>
+                <li>
+                    <strong
+                        >Senior Robotics MoCap Engineer(Visual-Inertial based
+                        MoCap)</strong
+                    >
+                </li>
+                <li>
+                    <strong>Sim-to-Real RL Specialist (Mujoco/JAX)</strong>
+                </li>
+                <li><strong>Resident Animator/Visual Artist</strong></li>
+            </ul>
         </section>
 
         <!-- Footer -->
         <footer id="footer">
-            <p class="copyright">
-                &copy; Phenomena Replication Laboratory. All rights reserved.
-            </p>
+            <p class="copyright">&copy; Phenomena Replication Laboratory</p>
         </footer>
 
         <!-- Contact Modal -->
         <div id="contact-modal">
             <div class="modal-content">
                 <span class="close-modal">&times;</span>
-                <h2>Start a Project</h2>
-                <p>
-                    Tell us about your needs and we will get back to you
-                    shortly.
-                </p>
-                <form method="post" action="#">
-                    <div class="fields">
-                        <div class="field half">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" id="name" />
+
+                <!-- Step 1: The Calculator -->
+                <div id="modal-calculator">
+                    <h2>Resilience Impact Estimator</h2>
+                    <p>
+                        Project your savings by upgrading to homeostatic
+                        autonomy.
+                    </p>
+                    <form id="roi-form">
+                        <div class="fields">
+                            <div class="field half">
+                                <label for="fleet-size"
+                                    >Number of Machines/Robots</label
+                                >
+                                <input
+                                    type="number"
+                                    id="fleet-size"
+                                    placeholder="e.g. 50"
+                                    min="1"
+                                />
+                            </div>
+                            <div class="field half">
+                                <label for="industry"
+                                    >Operating Environment</label
+                                >
+                                <select id="industry">
+                                    <option value="logistics">
+                                        Logistics / Warehousing
+                                    </option>
+                                    <option value="manufacturing">
+                                        Heavy Manufacturing
+                                    </option>
+                                    <option value="subsea">
+                                        Deep Sea / Offshore
+                                    </option>
+                                    <option value="aerospace">
+                                        Aerospace / Deep Space
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="field half">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" />
+                        <ul class="actions special">
+                            <li>
+                                <button
+                                    type="button"
+                                    id="calc-btn"
+                                    class="button primary"
+                                >
+                                    Calculate Impact
+                                </button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+
+                <!-- Step 2: Results & Contact (Hidden by default) -->
+                <div id="modal-results" style="display: none">
+                    <h2>Analysis</h2>
+
+                    <div class="result-container">
+                        <div class="result-box">
+                            <span class="result-label"
+                                >Projected Annual Savings</span
+                            >
+                            <strong id="result-savings" class="result-value"
+                                >$0</strong
+                            >
                         </div>
-                        <div class="field">
-                            <label for="message">Message</label>
-                            <textarea
-                                name="message"
-                                id="message"
-                                rows="4"
-                            ></textarea>
+                        <div class="result-box">
+                            <span class="result-label">Uptime Increase</span>
+                            <strong
+                                id="result-uptime"
+                                class="result-value green"
+                                >+0%</strong
+                            >
                         </div>
                     </div>
-                    <ul class="actions">
-                        <li><input type="reset" value="Reset" /></li>
-                        <li>
-                            <input
-                                type="submit"
-                                value="Send Message"
-                                class="primary"
-                            />
-                        </li>
-                    </ul>
-                </form>
+
+                    <p style="margin-top: 2rem; margin-bottom: 1rem">
+                        These results are just the beginning. Let's engineer
+                        your solution.
+                    </p>
+
+                    <form method="post" action="#">
+                        <div class="fields">
+                            <div class="field half">
+                                <label for="name">Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    required
+                                />
+                            </div>
+                            <div class="field half">
+                                <label for="email">Email</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    required
+                                />
+                            </div>
+                            <div class="field">
+                                <label for="message">Message</label>
+                                <textarea name="message" id="message" rows="3">
+I'm interested in capturing these projected savings for my fleet...</textarea
+                                >
+                            </div>
+                        </div>
+                        <ul class="actions">
+                            <li>
+                                <input
+                                    type="submit"
+                                    value="Start Project"
+                                    class="primary"
+                                />
+                            </li>
+                            <li>
+                                <button
+                                    type="button"
+                                    id="back-to-calc"
+                                    class="button"
+                                >
+                                    Back
+                                </button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
             </div>
         </div>
 
