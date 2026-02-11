@@ -183,44 +183,43 @@
             );
         }
 
-        function updateSequence() {
-            const scrollTop = $window.scrollTop();
-            const windowHeight = $window.height();
+        // Animation Loop Logic
+        const fps = 10; // Normal playback speed
+        const scrollMultiplier = 2.5; // Speed multiplier when scrolling
+        let lastTime = 0;
+        let isScrolling = false;
+        let scrollTimeout;
 
-            // Define how far the user must scroll to play the entire sequence.
-            // Setting it to 1.5x window height gives a good pace relative to scrolling speed.
-            const maxScroll = windowHeight * 1.5;
-            const scrollFraction = scrollTop / maxScroll;
+        // Detect scrolling
+        $window.on("scroll", () => {
+            isScrolling = true;
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                isScrolling = false;
+            }, 150);
+        });
 
-            // Map scroll fraction to frame index
-            const frameIndex = Math.max(
-                0,
-                Math.min(
-                    frameCount - 1,
-                    Math.floor(scrollFraction * frameCount),
-                ),
-            );
+        function animate(time) {
+            if (!lastTime) lastTime = time;
 
-            // Only update if frame changed within bounds
-            if (
-                frameIndex >= 0 &&
-                frameIndex < frameCount &&
-                frameIndex !== sequence.frame
-            ) {
-                sequence.frame = frameIndex;
-                requestAnimationFrame(render);
+            const currentFps = isScrolling ? fps * scrollMultiplier : fps;
+            const interval = 1000 / currentFps;
+            const delta = time - lastTime;
+
+            if (delta > interval) {
+                lastTime = time - (delta % interval);
+
+                // Advance frame and loop
+                sequence.frame = (sequence.frame + 1) % frameCount;
+                render();
             }
+
+            requestAnimationFrame(animate);
         }
 
-        $window.on("scroll", () => requestAnimationFrame(updateSequence));
-
-        // Ensure initial frame is rendered immediately
-        updateSequence();
-
-        // Extra check for Firefox/Caching: render if images[0] is already loaded
-        if (images[0] && images[0].complete) {
-            requestAnimationFrame(render);
-        }
+        // Initial render to avoid blank canvas if images are ready
+        render();
+        requestAnimationFrame(animate);
     }
 
     // Hero Text Animation (Parallax/Fade)
