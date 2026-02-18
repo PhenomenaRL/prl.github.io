@@ -188,14 +188,25 @@
         const scrollMultiplier = 1.5; // Speed multiplier when scrolling
         let lastTime = 0;
         let isScrolling = false;
+        let scrollDirection = 1;
+        let lastScrollTop = $window.scrollTop();
         let scrollTimeout;
 
         // Detect scrolling
         $window.on("scroll", () => {
+            const st = $window.scrollTop();
+            if (st > lastScrollTop) {
+                scrollDirection = 1;
+            } else if (st < lastScrollTop) {
+                scrollDirection = -1;
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+
             isScrolling = true;
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 isScrolling = false;
+                scrollDirection = 1;
             }, 150);
         });
 
@@ -210,7 +221,9 @@
                 lastTime = time - (delta % interval);
 
                 // Advance frame and loop
-                sequence.frame = (sequence.frame + 1) % frameCount;
+                const direction = isScrolling ? scrollDirection : 1;
+                sequence.frame =
+                    (sequence.frame + direction + frameCount) % frameCount;
                 render();
             }
 
