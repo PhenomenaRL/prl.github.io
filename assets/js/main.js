@@ -113,8 +113,8 @@
 
         // Configuration
         // Best Practice: Use a sequence of optimized JPEGs or WebPs.
-        // Create a folder 'images/sequence' and number them frame_001.png, frame_002.png, etc.
-        const frameCount = window.heroFrameCount || 29; // Adjust based on your actual sequence length
+        // Create a folder 'images/sequence' and number them frame_000.png, frame_001.png, etc.
+        const frameCount = window.heroFrameCount || 30; // Adjust based on your actual sequence length
         const currentFrame =
             window.currentFrame ||
             ((index) =>
@@ -128,7 +128,7 @@
         // Preload images with priority for the first frame
         for (let i = 0; i < frameCount; i++) {
             const img = new Image();
-            const src = currentFrame(i + 1); // 1-based index for filenames
+            const src = currentFrame(i); // 0-based index for filenames
 
             img.onload = () => {
                 // If this is the first frame, render it immediately
@@ -185,28 +185,17 @@
 
         // Animation Loop Logic
         const fps = 10; // Normal playback speed
-        const scrollMultiplier = 2.5; // Speed multiplier when scrolling
+        const scrollMultiplier = 1.5; // Speed multiplier when scrolling
         let lastTime = 0;
         let isScrolling = false;
-        let scrollDirection = 1;
-        let lastScrollTop = $window.scrollTop();
         let scrollTimeout;
 
         // Detect scrolling
         $window.on("scroll", () => {
-            const st = $window.scrollTop();
-            if (st > lastScrollTop) {
-                scrollDirection = 1;
-            } else if (st < lastScrollTop) {
-                scrollDirection = -1;
-            }
-            lastScrollTop = Math.max(0, st);
-
             isScrolling = true;
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 isScrolling = false;
-                scrollDirection = 1;
             }, 150);
         });
 
@@ -221,9 +210,7 @@
                 lastTime = time - (delta % interval);
 
                 // Advance frame and loop
-                const direction = isScrolling ? scrollDirection : 1;
-                sequence.frame =
-                    (sequence.frame + direction + frameCount) % frameCount;
+                sequence.frame = (sequence.frame + 1) % frameCount;
                 render();
             }
 
