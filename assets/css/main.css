@@ -2761,6 +2761,7 @@ body:not(.is-preload) .journal-column {
 
 .journal-sidebar {
     flex: 0 0 120px;
+    max-width: 120px;
     position: sticky;
     top: 10rem;
     height: calc(100vh - 15rem);
@@ -2824,7 +2825,8 @@ body:not(.is-preload) .journal-content {
 
 /* Table of Contents Tree View */
 .journal-toc {
-    margin: 2rem 0;
+    margin: 2rem 1rem 2rem -3rem;
+    width: auto;
 }
 
 .journal-toc ul {
@@ -2874,6 +2876,7 @@ body:not(.is-preload) .journal-content {
     .journal-sidebar {
         flex: 0 0 40px;
         min-width: 40px;
+        max-width: 40px;
         border-right: none;
         padding-right: 0;
         align-items: center;
