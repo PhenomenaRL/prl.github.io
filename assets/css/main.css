@@ -2037,7 +2037,8 @@ body,
 .journal-card {
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -2049,6 +2050,51 @@ body,
 
 .journal-card:last-child {
     border-bottom: none !important;
+}
+
+.journal-text {
+    width: 100%;
+}
+
+.journal-action {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+}
+
+.journal-action .icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.journal-action::before,
+.journal-action::after {
+    position: absolute;
+    display: inline-block;
+    opacity: 0;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+    font-size: 1.4rem;
+    font-weight: 100;
+    color: #000;
+    top: 50%;
+}
+
+.journal-action::before {
+    content: "[";
+    left: -0.6rem;
+    transform: translate(0.5rem, -50%);
+}
+
+.journal-action::after {
+    content: "]";
+    right: -0.6rem;
+    transform: translate(-0.5rem, -50%);
 }
 
 .journal-card h3 {
@@ -2077,33 +2123,6 @@ body,
     text-align: left !important;
 }
 
-.journal-card::before,
-.journal-card::after {
-    position: absolute;
-    display: inline-block;
-    opacity: 0;
-    transition:
-        transform 0.3s ease,
-        opacity 0.3s ease;
-    font-size: 1.4rem;
-    font-weight: 200;
-    color: #000;
-    top: 50%;
-    margin-top: -1rem;
-}
-
-.journal-card::before {
-    content: "(";
-    left: -2rem;
-    transform: translateX(1rem);
-}
-
-.journal-card::after {
-    content: ")";
-    right: -2rem;
-    transform: translateX(-1rem);
-}
-
 .journal-card:hover {
     color: #000;
 }
@@ -2112,14 +2131,14 @@ body,
     transform: translateX(0.5rem);
 }
 
-.journal-card:hover::before {
+.journal-card:hover .journal-action::before {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate(-0.1rem, -50%);
 }
 
-.journal-card:hover::after {
+.journal-card:hover .journal-action::after {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate(0.1rem, -50%);
 }
 
 .back-link {
