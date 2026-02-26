@@ -73,12 +73,8 @@
     if (canvas) {
         const context = canvas.getContext("2d");
         const frameCount = window.heroFrameCount || 30;
-        const pathPrefix = window.location.pathname.includes("/journal/")
-            ? "../"
-            : "";
-
         const currentFrame = (index) =>
-            `${pathPrefix}images/sequence/frame_${index.toString().padStart(3, "0")}.png`;
+            `images/sequence/frame_${index.toString().padStart(3, "0")}.png`;
 
         const images = [];
         const sequence = { frame: 0 };
@@ -90,7 +86,7 @@
                 if (i === 0) requestAnimationFrame(render);
             };
             img.onerror = function () {
-                this.src = pathPrefix + "images/overlay.png";
+                this.src = "images/overlay.png";
                 this.onerror = null;
             };
             img.src = src;
