@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
     <head>
         <title>Journal | Phenomena Replication Laboratory</title>
         <meta charset="utf-8" />
@@ -7,7 +7,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1, user-scalable=no"
         />
-        <link rel="stylesheet" href="assets/css/main.css?v=15" />
+        <link rel="stylesheet" href="assets/css/main.css?v=18" />
         <noscript
             ><link rel="stylesheet" href="assets/css/noscript.css"
         /></noscript>
@@ -20,77 +20,96 @@
         </div>
 
         <!-- Navbar -->
-        <nav id="navbar">
-            <div class="logo">
-                <a href="index.html"
-                    ><img
-                        src="images/icon.png"
-                        alt="PRL"
-                        style="height: 30px"
-                    />
-                    P^RL</a
-                >
-            </div>
-            <ul>
-                <li><a href="index.html#our-work">Our Work</a></li>
-                <li><a href="index.html#technology">Technology</a></li>
-                <li><a href="index.html#team">Team</a></li>
-                <li><a href="journal.html">Journal</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+        <nav id="navbar" class="stowed">
+            <div class="navbar-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img
+                            src="images/icon.png"
+                            alt="PRL"
+                            style="height: 30px"
+                        />
+                        P^RL
+                    </a>
+                </div>
+
+                <div class="nav-right-section">
+                    <div class="contact-info">
+                        <a href="mailto:manit@phenomenareplicationlab.ca">
+                            contact: manit@phenomenareplicationlab.ca
+                        </a>
+                    </div>
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
             </div>
         </nav>
 
-        <!-- Mobile Nav Overlay -->
-        <div class="mobile-nav-overlay">
-            <ul>
-                <li><a href="index.html#our-work">Our Work</a></li>
-                <li><a href="index.html#technology">Technology</a></li>
-                <li><a href="index.html#team">Team</a></li>
-                <li><a href="journal.html">Journal</a></li>
-            </ul>
-        </div>
-
-        <!-- Hero -->
+        <!-- Main Hero Layout -->
         <section id="hero">
-            <div class="hero-content">
-                <h1 id="hero-title">Journal</h1>
-                <p id="hero-subtitle">
-                    Pushing the boundaries of replication science
-                </p>
+            <div class="hero-container">
+                <!-- Left Column: Journal Cards (Scrolling) -->
+                <div class="journal-column hide-mobile">
+                    <div class="journal-list">
+                        <a
+                            href="journal/resilience-framework.html"
+                            class="journal-card"
+                        >
+                            <h3>
+                                Resilience for Autonomous Systems: A Framework
+                            </h3>
+                            <p>
+                                Exploring the intersection of predictive
+                                homeostasis and robotic endurance.
+                            </p>
+                        </a>
+                        <a href="#" class="journal-card">
+                            <h3>Robot Homeostasis</h3>
+                            <p>
+                                Vision-Language-Action models trained on
+                                self-repair and safety-alignment.
+                            </p>
+                        </a>
+                        <a href="#" class="journal-card">
+                            <h3>Soloc Dynamics</h3>
+                            <p>
+                                Solar System localizer & dynamics engine for
+                                simulation studies.
+                            </p>
+                        </a>
+                        <a href="#" class="journal-card">
+                            <h3>Mono-Ocular MoCAP</h3>
+                            <p>
+                                Monocular inertial motion capture system for
+                                real-time tracking.
+                            </p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Hero Title & Subtitle -->
+                <div class="hero-content">
+                    <div class="text-boundary">
+                        <h1 id="hero-title">Journal</h1>
+                        <p id="hero-subtitle">
+                            Pushing the boundaries of replication science
+                        </p>
+                    </div>
+                    <div class="mobile-button-container show-mobile">
+                        <a href="index.html" class="button primary">
+                            Back to Home
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Main Content -->
-        <section class="content-section">
-            <a href="index.html" class="back-link">
-                <span class="icon solid fa-arrow-left"></span> Back to Home
-            </a>
-
-            <div class="journal-list">
-                <!-- Journal Item 1 -->
-                <a
-                    href="journal/resilience-framework.html"
-                    class="journal-card"
-                >
-                    <h3>Resilience for Autonomous Systems: A Framework</h3>
-                    <p>
-                        Exploring the intersection of predictive homeostasis,
-                        degraded mode operations, and recursive optimization for
-                        robotic endurance.
-                    </p>
-                </a>
-            </div>
-        </section>
-
-        <!-- Footer -->
+        <!-- Simplified Footer -->
         <footer id="footer">
-            <p class="copyright">
-                &copy; Phenomena Replication Laboratory. All rights reserved.
-            </p>
+            <p class="copyright">&copy; Phenomena Replication Laboratory</p>
         </footer>
 
         <!-- Scripts -->
@@ -98,7 +117,6 @@
         <script src="assets/js/browser.min.js"></script>
         <script src="assets/js/breakpoints.min.js"></script>
         <script src="assets/js/util.js"></script>
-
-        <script src="assets/js/main.js?v=11"></script>
+        <script src="assets/js/main.js?v=15"></script>
     </body>
 </html>

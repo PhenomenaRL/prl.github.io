@@ -8,7 +8,10 @@
         $hero = $("#hero"),
         $heroTitle = $("#hero-title"),
         $heroSubtitle = $("#hero-subtitle"),
-        $heroButton = $("#start-project-btn");
+        $journalColumn = $(".journal-column"),
+        $journalList = $(".journal-list"),
+        $textBoundary = $(".text-boundary"),
+        $navbar = $("#navbar");
 
     var animationsDone = false;
 
@@ -22,12 +25,11 @@
         xxsmall: [null, "360px"],
     });
 
-    // Play initial animations as soon as possible (DOM Ready)
+    // Play initial animations
     $(function () {
         window.setTimeout(function () {
             $body.removeClass("is-preload");
 
-            // Snappier Slide-in Sequence
             setTimeout(function () {
                 if ($heroTitle.length) $heroTitle.addClass("visible");
             }, 50);
@@ -37,116 +39,64 @@
             }, 350);
 
             setTimeout(function () {
-                if ($heroButton.length) $heroButton.addClass("visible");
-
-                // Enable parallax after animations complete
-                setTimeout(function () {
-                    animationsDone = true;
-                    // Remove CSS transitions to allow instant parallax updates
-                    $heroTitle.css("transition", "none");
-                    $heroSubtitle.css("transition", "none");
-                    $heroButton.css("transition", "none");
-                    updateHeroText();
-                }, 800);
+                animationsDone = true;
+                alignJournalColumn();
+                // Ensure alignment after layout/fonts load
+                setTimeout(alignJournalColumn, 500);
+                setTimeout(alignJournalColumn, 2000);
             }, 800);
         }, 50);
     });
 
-    // Modal Handling
-    var $modal = $("#contact-modal");
-    var $btn = $("#start-project-btn");
-    var $close = $(".close-modal");
-
-    // Open Modal
-    if ($btn.length) {
-        $btn.on("click", function (e) {
-            e.preventDefault();
-            $modal.addClass("active");
-        });
-    }
-
-    // Close Modal
-    if ($close.length) {
-        $close.on("click", function () {
-            $modal.removeClass("active");
-        });
-    }
-
-    // Click outside to close
-    $window.on("click", function (e) {
-        if ($(e.target).is($modal)) {
-            $modal.removeClass("active");
+    // Function to align journal column height with text boundary
+    function alignJournalColumn() {
+        if (
+            $window.width() > 980 &&
+            $textBoundary.length &&
+            $journalColumn.length
+        ) {
+            var height = $textBoundary.outerHeight();
+            $journalColumn.css("height", height + "px");
+        } else {
+            $journalColumn.css("height", "");
         }
-    });
-
-    // Mobile Menu Toggle
-    var $hamburger = $(".hamburger");
-    var $mobileNav = $(".mobile-nav-overlay");
-    var $mobileLinks = $mobileNav.find("a");
-
-    if ($hamburger.length) {
-        $hamburger.on("click", function () {
-            $hamburger.toggleClass("active");
-            $mobileNav.toggleClass("active");
-        });
-
-        $mobileLinks.on("click", function () {
-            $hamburger.removeClass("active");
-            $mobileNav.removeClass("active");
-        });
     }
 
+    $window.on("resize load", alignJournalColumn);
+
     // ==========================================
-    // ==========================================
-    // Scroll Animations & Image Sequence Logic
+    // Image Sequence Logic (Background Canvas)
     // ==========================================
 
-    var $hero = $("#hero");
-    var $heroTitle = $("#hero-title");
-    var $heroSubtitle = $("#hero-subtitle");
-
-    // Canvas setup
     const canvas = document.getElementById("hero-canvas");
 
     if (canvas) {
         const context = canvas.getContext("2d");
+        const frameCount = window.heroFrameCount || 30;
+        const pathPrefix = window.location.pathname.includes("/journal/")
+            ? "../"
+            : "";
 
-        // Configuration
-        // Best Practice: Use a sequence of optimized JPEGs or WebPs.
-        // Create a folder 'images/sequence' and number them frame_000.png, frame_001.png, etc.
-        const frameCount = window.heroFrameCount || 30; // Adjust based on your actual sequence length
-        const currentFrame =
-            window.currentFrame ||
-            ((index) =>
-                `images/sequence/frame_${index.toString().padStart(3, "0")}.png`);
+        const currentFrame = (index) =>
+            `${pathPrefix}images/sequence/frame_${index.toString().padStart(3, "0")}.png`;
 
         const images = [];
-        const sequence = {
-            frame: 0,
-        };
+        const sequence = { frame: 0 };
 
-        // Preload images with priority for the first frame
         for (let i = 0; i < frameCount; i++) {
             const img = new Image();
-            const src = currentFrame(i); // 0-based index for filenames
-
+            const src = currentFrame(i);
             img.onload = () => {
-                // If this is the first frame, render it immediately
-                if (i === 0) {
-                    requestAnimationFrame(render);
-                }
+                if (i === 0) requestAnimationFrame(render);
             };
-
             img.onerror = function () {
-                this.src = window.heroFallbackImage || "images/overlay.png";
+                this.src = pathPrefix + "images/overlay.png";
                 this.onerror = null;
             };
-
             img.src = src;
             images.push(img);
         }
 
-        // Canvas resizing to cover screen
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -160,8 +110,6 @@
             const img = images[sequence.frame];
             if (!img || !img.complete || img.naturalWidth === 0) return;
 
-            // "object-fit: cover" logic for canvas
-            // Calculates ratios to ensure image covers the entire canvas while maintaining aspect ratio
             const hRatio = canvas.width / img.width;
             const vRatio = canvas.height / img.height;
             const ratio = Math.max(hRatio, vRatio);
@@ -183,192 +131,62 @@
             );
         }
 
-        // Animation Loop Logic
-        const fps = 10; // Normal playback speed
-        const scrollMultiplier = 1.5; // Speed multiplier when scrolling
+        const fps = 10;
         let lastTime = 0;
         let isScrolling = false;
-        let scrollDirection = 1;
-        let lastScrollTop = $window.scrollTop();
         let scrollTimeout;
 
-        // Detect scrolling
-        $window.on("scroll", () => {
-            const st = $window.scrollTop();
-            if (st > lastScrollTop) {
-                scrollDirection = 1;
-            } else if (st < lastScrollTop) {
-                scrollDirection = -1;
-            }
-            lastScrollTop = st <= 0 ? 0 : st;
-
+        $window.on("wheel scroll touchmove", () => {
             isScrolling = true;
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 isScrolling = false;
-                scrollDirection = 1;
             }, 150);
         });
 
         function animate(time) {
             if (!lastTime) lastTime = time;
-
-            const currentFps = isScrolling ? fps * scrollMultiplier : fps;
-            const interval = 1000 / currentFps;
+            const interval = 1000 / (isScrolling ? fps * 1.5 : fps);
             const delta = time - lastTime;
 
             if (delta > interval) {
                 lastTime = time - (delta % interval);
-
-                // Advance frame and loop
-                const direction = isScrolling ? scrollDirection : 1;
-                sequence.frame =
-                    (sequence.frame + direction + frameCount) % frameCount;
+                sequence.frame = (sequence.frame + 1) % frameCount;
                 render();
             }
-
             requestAnimationFrame(animate);
         }
 
-        // Initial render to avoid blank canvas if images are ready
         render();
         requestAnimationFrame(animate);
     }
 
-    // Hero Text Animation (Parallax/Fade)
-    function updateHeroText() {
-        if (!animationsDone) return;
+    // ==========================================
+    // Navbar Logic
+    // ==========================================
 
-        var scrollTop = $window.scrollTop();
-
-        if ($hero.length) {
-            var heroHeight = $hero.outerHeight();
-            // Start fading out
-            var opacity = 1 - scrollTop / (heroHeight * 0.6);
-            var translateX = scrollTop * 0.5;
-
-            if (opacity < 0) opacity = 0;
-            if (opacity > 1) opacity = 1;
-
-            $heroTitle.css({
-                opacity: opacity,
-                transform: "translateX(" + translateX + "px)",
-            });
-            $heroSubtitle.css({
-                opacity: opacity,
-                transform: "translateX(" + translateX + "px)",
-            });
-            $heroButton.css({
-                opacity: opacity,
-                transform: "translateY(0)",
-            });
-        }
-    }
-
-    $window.on("scroll", () => requestAnimationFrame(updateHeroText));
-
-    // Initial call
-    updateHeroText();
-})(jQuery);
-
-(function ($) {
-    // Resilience Calculator Logic
-    var $calcSection = $("#modal-calculator");
-    var $resSection = $("#modal-results");
-    var $calcBtn = $("#calc-btn");
-    var $backBtn = $("#back-to-calc");
-    var $close = $(".close-modal");
-
-    // Industry Multipliers (Cost per unit failure * frequency)
-    var industryData = {
-        logistics: { cost: 5000, uptime: 35 }, // $5k/robot/yr
-        manufacturing: { cost: 15000, uptime: 60 }, // $15k/robot/yr
-        subsea: { cost: 120000, uptime: 250 }, // $120k/robot/yr (huge retrieval cost)
-        aerospace: { cost: 850000, uptime: 500 }, // $850k/robot/yr (mission critical)
-    };
-
-    if ($calcBtn.length) {
-        $calcBtn.on("click", function () {
-            var fleetSize = parseInt($("#fleet-size").val()) || 0;
-            var industry = $("#industry").val();
-
-            if (fleetSize > 0) {
-                // Calculate
-                var data = industryData[industry];
-                var totalSavings = fleetSize * data.cost;
-
-                // Format
-                var formatter = new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                    maximumFractionDigits: 0,
-                });
-
-                $("#result-savings").text(formatter.format(totalSavings));
-                $("#result-uptime").text("+" + data.uptime + "%");
-
-                // Transition
-                $calcSection.fadeOut(200, function () {
-                    $resSection.fadeIn(200);
-                });
-            } else {
-                $("#fleet-size").focus();
-            }
-        });
-    }
-
-    if ($backBtn.length) {
-        $backBtn.on("click", function () {
-            $resSection.fadeOut(200, function () {
-                $calcSection.fadeIn(200);
-            });
-        });
-    }
-
-    // Reset modal state when closed
-    if ($close.length) {
-        $close.on("click", function () {
-            setTimeout(function () {
-                $resSection.hide();
-                $calcSection.show();
-                $("#fleet-size").val("");
-            }, 300);
-        });
-    }
-})(jQuery);
-
-(function ($) {
-    // Floating Navbar Behavior
-    var $navbar = $("#navbar");
-
-    function updateNavbarScroll() {
-        if ($(window).scrollTop() > 50) {
-            $navbar.addClass("stowed");
-        } else {
-            $navbar.removeClass("stowed");
-        }
-    }
-
-    // Initialize
-    updateNavbarScroll();
-
-    // Scroll Event
-    $(window).on("scroll", updateNavbarScroll);
-
-    // Expand on Click
+    // Expand/Collapse on Click
     $navbar.on("click", function (e) {
         if ($navbar.hasClass("stowed")) {
             e.preventDefault();
+            e.stopPropagation();
             $navbar.removeClass("stowed");
         }
     });
 
-    // Stow on Click Outside
+    // Close when clicking outside
     $(document).on("click", function (e) {
         if (
-            !$(e.target).closest("#navbar").length &&
-            $(window).scrollTop() > 50
+            !$navbar.hasClass("stowed") &&
+            !$(e.target).closest("#navbar").length
         ) {
+            $navbar.addClass("stowed");
+        }
+    });
+
+    // Collapse navbar when scrolling inside the journal list
+    $journalList.on("scroll", function () {
+        if (!$navbar.hasClass("stowed")) {
             $navbar.addClass("stowed");
         }
     });

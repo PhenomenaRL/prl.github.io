@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
     <head>
         <title>Phenomena Replication Laboratory</title>
         <meta charset="utf-8" />
@@ -7,7 +7,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1, user-scalable=no"
         />
-        <link rel="stylesheet" href="assets/css/main.css?v=14" />
+        <link rel="stylesheet" href="assets/css/main.css?v=18" />
         <noscript
             ><link rel="stylesheet" href="assets/css/noscript.css"
         /></noscript>
@@ -20,347 +20,105 @@
         </div>
 
         <!-- Navbar -->
-        <nav id="navbar">
-            <div class="logo">
-                <a href="#"
-                    ><img
-                        src="images/icon.png"
-                        alt="PRL"
-                        style="height: 30px"
-                    />
-                    P^RL</a
-                >
-            </div>
-            <ul>
-                <li><a href="#our-work">Our Work</a></li>
-                <li><a href="#technology">Technology</a></li>
-                <li><a href="#team">Team</a></li>
-                <li><a href="journal.html">Journal</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+        <nav id="navbar" class="stowed">
+            <div class="navbar-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img
+                            src="images/icon.png"
+                            alt="PRL"
+                            style="height: 30px"
+                        />
+                        P^RL
+                    </a>
+                </div>
+
+                <div class="nav-right-section">
+                    <div class="contact-info">
+                        <a href="mailto:manit@phenomenareplicationlab.ca">
+                            contact: manit@phenomenareplicationlab.ca
+                        </a>
+                    </div>
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
             </div>
         </nav>
 
-        <!-- Mobile Nav Overlay -->
-        <div class="mobile-nav-overlay">
-            <ul>
-                <li><a href="#our-work">Our Work</a></li>
-                <li><a href="#technology">Technology</a></li>
-                <li><a href="#team">Team</a></li>
-                <li><a href="journal.html">Journal</a></li>
-            </ul>
-        </div>
-
-        <!-- Hero -->
+        <!-- Main Hero Layout -->
         <section id="hero">
-            <div class="hero-content">
-                <h1 id="hero-title">Phenomena Replication Laboratory</h1>
-                <p id="hero-subtitle">
-                    In pursuit of robotic systems that endure, forever
-                </p>
-                <button id="start-project-btn" class="button primary">
-                    Calculate Resilience Impact
-                </button>
-            </div>
-        </section>
-
-        <!-- Our Work -->
-        <section id="our-work" class="content-section">
-            <h2>Our Work</h2>
-            <p>
-                At PRL, we are redefining autonomy by bridging the gap between
-                engineered efficiency and biological resilience. Modern systems
-                are built for performance, but they lack the homeostatic ability
-                to self-repair and endure without human intervention. We don't
-                just build machines; we develop robotic systems designed to
-                endure, forever, on Earth & beyond.
-            </p>
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Project</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Robot Homeostatis</td>
-                            <td>
-                                Vision-Language-Action model trained on
-                                self-repair and human-safety-alignment
-                            </td>
-                            <td>In Development</td>
-                        </tr>
-                        <tr>
-                            <td>Soloc</td>
-                            <td>
-                                Solar System localizer & dynamics engine use for
-                                simulation studies on Earth and beyond
-                            </td>
-                            <td>In Development</td>
-                        </tr>
-                        <tr>
-                            <td>Mono-Ocular Inertial MoCAP</td>
-                            <td>
+            <div class="hero-container">
+                <!-- Left Column: Journal Cards (Scrolling) -->
+                <div class="journal-column hide-mobile">
+                    <div class="journal-list">
+                        <a
+                            href="journal/resilience-framework.html"
+                            class="journal-card"
+                        >
+                            <h3>
+                                Resilience for Autonomous Systems: A Framework
+                            </h3>
+                            <p>
+                                Exploring the intersection of predictive
+                                homeostasis and robotic endurance.
+                            </p>
+                        </a>
+                        <a href="#" class="journal-card">
+                            <h3>Robot Homeostasis</h3>
+                            <p>
+                                Vision-Language-Action models trained on
+                                self-repair and safety-alignment.
+                            </p>
+                        </a>
+                        <a href="#" class="journal-card">
+                            <h3>Soloc Dynamics</h3>
+                            <p>
+                                Solar System localizer & dynamics engine for
+                                simulation studies.
+                            </p>
+                        </a>
+                        <a href="#" class="journal-card">
+                            <h3>Mono-Ocular MoCAP</h3>
+                            <p>
                                 Monocular inertial motion capture system for
-                                real-time tracking and analysis
-                            </td>
-                            <td>In Development</td>
-                        </tr>
-                    </tbody>
-                </table>
+                                real-time tracking.
+                            </p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Hero Title & Subtitle -->
+                <div class="hero-content">
+                    <div class="text-boundary">
+                        <h1 id="hero-title">
+                            Phenomena Replication Laboratory
+                        </h1>
+                        <p id="hero-subtitle">
+                            In pursuit of robotic systems that endure, forever
+                        </p>
+                    </div>
+                    <div class="mobile-button-container show-mobile">
+                        <a href="journal.html" class="button primary">
+                            View Journal
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Trusted Partners -->
-        <section id="partners" class="content-section" style="padding: 2rem 0">
-            <h2
-                style="
-                    text-align: center;
-                    font-size: 1.5rem;
-                    margin-bottom: 2rem;
-                    color: #777;
-                "
-            >
-                Trusted Partners
-            </h2>
-            <div
-                style="
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 4rem;
-                    flex-wrap: wrap;
-                "
-            >
-                <img
-                    src="images/sequence/frame_001.png"
-                    alt="Partner"
-                    style="height: 50px; opacity: 0.6"
-                />
-                <img
-                    src="images/sequence/frame_001.png"
-                    alt="Partner"
-                    style="height: 50px; opacity: 0.6"
-                />
-                <img
-                    src="images/sequence/frame_001.png"
-                    alt="Partner"
-                    style="height: 50px; opacity: 0.6"
-                />
-                <img
-                    src="images/sequence/frame_001.png"
-                    alt="Partner"
-                    style="height: 50px; opacity: 0.6"
-                />
-                <img
-                    src="images/sequence/frame_001.png"
-                    alt="Partner"
-                    style="height: 50px; opacity: 0.6"
-                />
-            </div>
-        </section>
-
-        <!-- Technology -->
-        <section id="technology" class="content-section">
-            <h2>Technology</h2>
-            <p>
-                We leverage cutting-edge technology stacks including proprietary
-                physics engines, distributed computing clusters, and AI-driven
-                predictive modeling. Our infrastructure is built for scale and
-                accuracy.
-            </p>
-            <ul class="alt">
-                <li>Proprietary Physics Engine (PPE v4.0)</li>
-                <li>Distributed Compute Nodes</li>
-                <li>Neural Network Replication Models</li>
-                <li>Real-time Data Vis</li>
-            </ul>
-        </section>
-
-        <!-- Team -->
-        <section id="team" class="content-section">
-            <h2>Team</h2>
-            <p>
-                We are a collective of engineers, scientists and artists, united
-                by these central themes: permanence, sustainability &
-                understanding. At PRL, we bring hard earned lessons from
-                nature's resilience to engineered systems.
-            </p>
-            <p>
-                If you share these ambitions, we want to hear from you! Take a
-                look at our openings below and send a message to
-                <a href="mailto:manit@phenomenareplicationlab.ca"
-                    >manit@phenomenareplicationlab.ca</a
-                >.
-            </p>
-            <ul>
-                <li>
-                    <strong
-                        >Senior Robotics MoCap Engineer(Visual-Inertial based
-                        MoCap)</strong
-                    >
-                </li>
-                <li>
-                    <strong>Sim-to-Real RL Specialist (Mujoco/JAX)</strong>
-                </li>
-                <li><strong>Resident Animator/Visual Artist</strong></li>
-            </ul>
-        </section>
-
-        <!-- Footer -->
+        <!-- Simplified Footer -->
         <footer id="footer">
             <p class="copyright">&copy; Phenomena Replication Laboratory</p>
         </footer>
-
-        <!-- Contact Modal -->
-        <div id="contact-modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-
-                <!-- Step 1: The Calculator -->
-                <div id="modal-calculator">
-                    <h2>Resilience Impact Estimator</h2>
-                    <p>
-                        Project your savings by upgrading to homeostatic
-                        autonomy.
-                    </p>
-                    <form id="roi-form">
-                        <div class="fields">
-                            <div class="field half">
-                                <label for="fleet-size"
-                                    >Number of Machines/Robots</label
-                                >
-                                <input
-                                    type="number"
-                                    id="fleet-size"
-                                    placeholder="e.g. 50"
-                                    min="1"
-                                />
-                            </div>
-                            <div class="field half">
-                                <label for="industry"
-                                    >Operating Environment</label
-                                >
-                                <select id="industry">
-                                    <option value="logistics">
-                                        Logistics / Warehousing
-                                    </option>
-                                    <option value="manufacturing">
-                                        Heavy Manufacturing
-                                    </option>
-                                    <option value="subsea">
-                                        Deep Sea / Offshore
-                                    </option>
-                                    <option value="aerospace">
-                                        Aerospace / Deep Space
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <ul class="actions special">
-                            <li>
-                                <button
-                                    type="button"
-                                    id="calc-btn"
-                                    class="button primary"
-                                >
-                                    Calculate Impact
-                                </button>
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-
-                <!-- Step 2: Results & Contact (Hidden by default) -->
-                <div id="modal-results" style="display: none">
-                    <h2>Analysis</h2>
-
-                    <div class="result-container">
-                        <div class="result-box">
-                            <span class="result-label"
-                                >Projected Annual Savings</span
-                            >
-                            <strong id="result-savings" class="result-value"
-                                >$0</strong
-                            >
-                        </div>
-                        <div class="result-box">
-                            <span class="result-label">Uptime Increase</span>
-                            <strong
-                                id="result-uptime"
-                                class="result-value green"
-                                >+0%</strong
-                            >
-                        </div>
-                    </div>
-
-                    <p style="margin-top: 2rem; margin-bottom: 1rem">
-                        These results are just the beginning. Let's engineer
-                        your solution.
-                    </p>
-
-                    <form method="post" action="#">
-                        <div class="fields">
-                            <div class="field half">
-                                <label for="name">Name</label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    id="name"
-                                    required
-                                />
-                            </div>
-                            <div class="field half">
-                                <label for="email">Email</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    id="email"
-                                    required
-                                />
-                            </div>
-                            <div class="field">
-                                <label for="message">Message</label>
-                                <textarea name="message" id="message" rows="3">
-I'm interested in capturing these projected savings for my fleet...</textarea
-                                >
-                            </div>
-                        </div>
-                        <ul class="actions">
-                            <li>
-                                <input
-                                    type="submit"
-                                    value="Start Project"
-                                    class="primary"
-                                />
-                            </li>
-                            <li>
-                                <button
-                                    type="button"
-                                    id="back-to-calc"
-                                    class="button"
-                                >
-                                    Back
-                                </button>
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-        </div>
 
         <!-- Scripts -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/browser.min.js"></script>
         <script src="assets/js/breakpoints.min.js"></script>
         <script src="assets/js/util.js"></script>
-
-        <script src="assets/js/main.js?v=11"></script>
+        <script src="assets/js/main.js?v=15"></script>
     </body>
 </html>
