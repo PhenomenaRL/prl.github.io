@@ -57,10 +57,15 @@
 
         if (isSplitView && $textBoundary.length && $journalColumn.length) {
             var height = $textBoundary.outerHeight();
+            // Match journal height to text for symmetry in split view
             $journalColumn.css("height", height + "px");
         } else {
+            // Let CSS handle height and centering in vertical layouts
             $journalColumn.css("height", "");
         }
+
+        // Recalculate scroll arrows whenever the container height changes
+        if (typeof updateArrows === "function") updateArrows();
     }
 
     $window.on("resize load", alignJournalColumn);
