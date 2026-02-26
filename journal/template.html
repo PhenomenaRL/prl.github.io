@@ -173,6 +173,12 @@
                 // Scroll Handling
                 function onScroll() {
                     var scrollTop = $window.scrollTop();
+
+                    // Collapse navbar on scroll
+                    var $navbar = $("#navbar");
+                    if (!$navbar.hasClass("stowed")) {
+                        $navbar.addClass("stowed");
+                    }
                     var windowHeight = $window.height();
                     var docHeight = $(document).height();
 
