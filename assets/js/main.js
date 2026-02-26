@@ -197,4 +197,36 @@
             $navbar.addClass("stowed");
         }
     });
+
+    // Journal Scroll Indicators (Arrows)
+    var $upArrow = $(".scroll-up");
+    var $downArrow = $(".scroll-down");
+
+    function updateArrows() {
+        if (!$journalList.length) return;
+
+        var scrollTop = $journalList.scrollTop();
+        var scrollHeight = $journalList[0].scrollHeight;
+        var height = $journalList.outerHeight();
+
+        // Update Up Arrow visibility
+        if (scrollTop <= 10) {
+            $upArrow.css("opacity", "0");
+        } else {
+            $upArrow.css("opacity", "0.5");
+        }
+
+        // Update Down Arrow visibility (with 10px buffer)
+        if (scrollTop + height >= scrollHeight - 10) {
+            $downArrow.css("opacity", "0");
+        } else {
+            $downArrow.css("opacity", "0.5");
+        }
+    }
+
+    $journalList.on("scroll", updateArrows);
+    $window.on("resize load", updateArrows);
+
+    // Initial check after layout/animations settle
+    setTimeout(updateArrows, 1500);
 })(jQuery);

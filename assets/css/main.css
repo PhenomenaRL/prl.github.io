@@ -2251,9 +2251,10 @@ body,
     height: auto;
     display: flex;
     flex-direction: column;
-    padding-left: 4rem;
-    opacity: 1;
+    padding-left: 6rem;
+    opacity: 0;
     transition: opacity 1s ease-out 0.8s;
+    position: relative;
 }
 
 body:not(.is-preload) .journal-column {
@@ -2265,10 +2266,43 @@ body:not(.is-preload) .journal-column {
     overflow-x: hidden;
     scrollbar-width: none;
     padding: 0.5rem 0;
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0)
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0)
+    );
 }
 
 .journal-column .journal-list::-webkit-scrollbar {
     display: none;
+}
+
+.scroll-arrow {
+    position: absolute;
+    left: 2.5rem;
+    z-index: 10;
+    font-size: 1.2rem;
+    color: #111;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.scroll-up {
+    top: 0;
+}
+
+.scroll-down {
+    bottom: 0;
 }
 
 .hero-content {
@@ -2598,11 +2632,15 @@ body:not(.is-preload) .journal-column {
     .journal-column {
         display: flex;
         width: 100%;
-        margin-top: 2rem;
-        padding-left: 0;
+        margin-top: 3rem;
+        padding-left: 4rem;
         padding-right: 0;
         flex: 1;
         overflow: hidden;
+    }
+
+    .scroll-arrow {
+        left: 1.5rem;
     }
 
     .hero-content {
@@ -2662,7 +2700,7 @@ body:not(.is-preload) .journal-column {
         }
 
         .journal-column {
-            padding-left: 2rem;
+            padding-left: 6rem;
         }
 
         #hero h1 {
