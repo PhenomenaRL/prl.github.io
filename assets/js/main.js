@@ -145,6 +145,16 @@
             }
         }
 
+        // Advance frames on vertical mouse motion across the screen
+        let lastMouseY = 0;
+        $window.on("mousemove", (e) => {
+            if (lastMouseY !== 0) {
+                // Advance frames proportional to mouse vertical movement speed
+                advanceFrame(e.clientY - lastMouseY);
+            }
+            lastMouseY = e.clientY;
+        });
+
         // Advance frames only when interacting with the journal list
         $journalList.on("wheel", (e) => {
             advanceFrame(e.originalEvent.deltaY || 0);
