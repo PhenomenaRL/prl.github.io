@@ -50,11 +50,12 @@
 
     // Function to align journal column height with text boundary
     function alignJournalColumn() {
-        if (
-            $window.width() > 980 &&
-            $textBoundary.length &&
-            $journalColumn.length
-        ) {
+        var isSplitView =
+            $window.width() > 980 ||
+            ($window.width() > 600 &&
+                window.matchMedia("(orientation: landscape)").matches);
+
+        if (isSplitView && $textBoundary.length && $journalColumn.length) {
             var height = $textBoundary.outerHeight();
             $journalColumn.css("height", height + "px");
         } else {
