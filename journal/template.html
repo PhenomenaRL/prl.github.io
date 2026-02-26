@@ -57,7 +57,13 @@
                 <nav class="journal-toc">
                     <ul>
                         <li><a href="#intro" class="active">Introduction</a></li>
-                        <li><a href="#methodology">Methodology</a></li>
+                        <li>
+                            <a href="#methodology">Methodology</a>
+                            <ul>
+                                <li><a href="#decentralized-architecture">Decentralized Architecture</a></li>
+                                <li><a href="#protective-states">Protective States</a></li>
+                            </ul>
+                        </li>
                         <li><a href="#analysis">Analysis</a></li>
                         <li><a href="#conclusion">Conclusion</a></li>
                     </ul>
@@ -98,6 +104,7 @@
 
                     <section id="methodology">
                         <h2>Methodology</h2>
+                        <h3 id="decentralized-architecture">Decentralized Architecture</h3>
                         <p>
                             Our approach utilizes a decentralized architecture
                             where localized sensor clusters act as autonomous
@@ -106,6 +113,7 @@
                             willingness to engage in high-risk maneuvers or
                             resource-intensive computations.
                         </p>
+                        <h3 id="protective-states">Protective States</h3>
                         <p>
                             By prioritizing self-preservation at the kernel
                             level, the robot can autonomously transition into
@@ -155,7 +163,7 @@
                 var $upArrow = $(".scroll-up");
                 var $downArrow = $(".scroll-down");
                 var $tocLinks = $(".journal-toc a");
-                var $sections = $("section");
+                var $sections = $(".journal-content section[id], .journal-content h3[id]");
 
                 // Remove preload
                 window.setTimeout(function () {
@@ -184,26 +192,60 @@
                         }
                     });
 
-                    if (currentSection) {
-                        $tocLinks.removeClass("active");
-                        $('.journal-toc a[href="#' + currentSection + '"]').addClass(
-                            "active",
-                        );
+                    // Fix for bottom of page always highlighting the last item
+                    if (scrollTop + windowHeight >= docHeight - 15) {
+                        currentSection = $sections.last().attr("id");
                     }
+                    
+                    if (currentSection && !manualOverride) {
+                        activateTocItem(currentSection);
+                    }
+                }
+
+                var manualOverride = false;
+                
+                function activateTocItem(id) {
+                    $tocLinks.removeClass("active");
+                    var $activeLink = $('.journal-toc a[href="#' + id + '"]');
+                    $activeLink.addClass("active");
+                    $activeLink.parents("li").children("a").addClass("active");
                 }
 
                 $window.on("scroll load", onScroll);
 
-                // Smooth Scroll for TOC
+                // 1. Smooth Scroll for TOC & Active State Override
                 $tocLinks.on("click", function (e) {
                     e.preventDefault();
+                    manualOverride = true;
+                    
                     var target = $(this).attr("href");
+                    var id = target.substring(1);
+                    activateTocItem(id);
+
                     $("html, body").animate(
                         {
                             scrollTop: $(target).offset().top - 120,
                         },
                         800,
+                        function () {
+                            manualOverride = false;
+                        }
                     );
+                });
+
+                // 2. Hover Section for TOC
+                $sections.on("mouseenter", function () {
+                    if (manualOverride) return;
+                    activateTocItem($(this).attr("id"));
+                });
+
+                // Smooth scroll for arrows
+                $upArrow.on("click", function () {
+                    $("html, body").animate({ scrollTop: 0 }, 800);
+                });
+
+                $downArrow.on("click", function () {
+                    $("html, body").animate({ scrollTop: $(document).height() }, 800);
                 });
             });
         </script>

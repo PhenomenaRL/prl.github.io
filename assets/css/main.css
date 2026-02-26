@@ -2288,7 +2288,8 @@ body:not(.is-preload) .journal-column {
 
 .scroll-arrow {
     position: absolute;
-    left: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
     font-size: 1.2rem;
     color: #111;
@@ -2742,7 +2743,7 @@ body:not(.is-preload) .journal-column {
 
 .journal-body {
     background-color: #fdfdfd !important;
-    overflow: auto !important;
+    overflow: visible !important;
 }
 
 .journal-body #hero-canvas-container {
@@ -2755,24 +2756,22 @@ body:not(.is-preload) .journal-column {
     margin: 0 auto;
     padding: 12rem 5% 5rem 5%;
     min-height: 100vh;
+    align-items: flex-start;
 }
 
 .journal-sidebar {
-    flex: 0 0 20%;
+    flex: 0 0 120px;
     position: sticky;
-    top: 12rem;
+    top: 10rem;
     height: calc(100vh - 15rem);
     display: flex;
     flex-direction: column;
-    padding-right: 2rem;
-}
-
-.journal-sidebar .scroll-arrow {
-    left: 0;
+    padding-right: 1.5rem;
+    justify-content: space-between;
 }
 
 .journal-main {
-    flex: 0 0 80%;
+    flex: 1;
     padding-left: 4rem;
     border-left: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -2785,12 +2784,28 @@ body:not(.is-preload) .journal-column {
     margin-bottom: 4rem;
     line-height: 1;
     color: #111;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity 1s ease-out 0.2s,
+        transform 1s ease-out 0.2s;
 }
 
 .journal-content {
     max-width: 800px;
     margin-left: auto;
     text-align: justify;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity 1s ease-out 0.7s,
+        transform 1s ease-out 0.7s;
+}
+
+body:not(.is-preload) .journal-main h1,
+body:not(.is-preload) .journal-content {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .journal-content p {
@@ -2809,7 +2824,7 @@ body:not(.is-preload) .journal-column {
 
 /* Table of Contents Tree View */
 .journal-toc {
-    margin-top: 4rem;
+    margin: 2rem 0;
 }
 
 .journal-toc ul {
@@ -2857,9 +2872,11 @@ body:not(.is-preload) .journal-column {
     }
 
     .journal-sidebar {
-        flex: 0 0 15%; /* Keep small column for arrows */
+        flex: 0 0 40px;
+        min-width: 40px;
         border-right: none;
-        padding-right: 0.5rem;
+        padding-right: 0;
+        align-items: center;
     }
 
     .journal-toc {
@@ -2867,7 +2884,7 @@ body:not(.is-preload) .journal-column {
     }
 
     .journal-main {
-        flex: 0 0 85%;
+        flex: 1;
         padding-left: 1.5rem;
         border-left: 1px solid rgba(0, 0, 0, 0.05);
     }
@@ -2882,10 +2899,25 @@ body:not(.is-preload) .journal-column {
     }
 
     .journal-sidebar .scroll-up {
-        top: -1rem;
+        top: 0;
     }
 
     .journal-sidebar .scroll-down {
-        bottom: -1rem;
+        bottom: 0;
     }
+}
+
+.journal-toc ul ul {
+    margin-top: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+.journal-toc ul ul li {
+    font-size: 0.75rem;
+    margin-bottom: 0.8rem;
+    padding-left: 1.2rem;
+}
+
+.journal-toc ul ul li::before {
+    width: 8px;
 }
