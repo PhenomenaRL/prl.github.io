@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Journal Template | Phenomena Replication Laboratory</title>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, user-scalable=no"
+        />
+        <link rel="stylesheet" href="../assets/css/main.css?v=21" />
+        <noscript
+            ><link rel="stylesheet" href="../assets/css/noscript.css"
+        /></noscript>
+    </head>
+
+    <body class="journal-body is-preload">
+        <!-- Navbar (Mirrored from landing page) -->
+        <nav id="navbar" class="stowed">
+            <div class="navbar-content">
+                <div class="logo">
+                    <a href="../index.html">
+                        <img
+                            src="../images/icon.png"
+                            alt="PRL"
+                            style="height: 30px"
+                        />
+                        P^RL
+                    </a>
+                </div>
+
+                <div class="nav-right-section">
+                    <div class="contact-info">
+                        <a href="mailto:manit@phenomenareplicationlab.ca">
+                            <span class="contact-label">contact: </span
+                            >manit@phenomenareplicationlab.ca
+                        </a>
+                    </div>
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Journal Layout Container -->
+        <div class="journal-container">
+            <!-- Left Sidebar (20% width on Desktop) -->
+            <aside class="journal-sidebar">
+                <!-- Scroll Indicators (Mirrored style from landing page) -->
+                <div class="scroll-arrow scroll-up">
+                    <span class="icon solid fa-chevron-up"></span>
+                </div>
+
+                <!-- Table of Contents (Tree View) -->
+                <nav class="journal-toc">
+                    <ul>
+                        <li><a href="#intro" class="active">Introduction</a></li>
+                        <li><a href="#methodology">Methodology</a></li>
+                        <li><a href="#analysis">Analysis</a></li>
+                        <li><a href="#conclusion">Conclusion</a></li>
+                    </ul>
+                </nav>
+
+                <div class="scroll-arrow scroll-down">
+                    <span class="icon solid fa-chevron-down"></span>
+                </div>
+            </aside>
+
+            <!-- Main Content (80% width on Desktop) -->
+            <main class="journal-main">
+                <h1 id="title">
+                    Resilience for Autonomous Systems: A Framework
+                </h1>
+
+                <div class="journal-content">
+                    <section id="intro">
+                        <h2>Introduction</h2>
+                        <p>
+                            Modern autonomous systems are frequently designed
+                            for peak performance within narrow operational
+                            envelopes. However, as robotics venture into
+                            unstructured and high-entropy environments, the
+                            priority must shift from efficiency to endurance.
+                            This framework explores the intersection of
+                            predictive homeostasis and robotic longevity.
+                        </p>
+                        <p>
+                            Biological systems provide the ultimate blueprint
+                            for replication and repair. By implementing
+                            self-diagnostic loops that mirror homeostatic
+                            regulation, we can engineer systems that not only
+                            perform tasks but also actively preserve their own
+                            operational integrity over long horizons.
+                        </p>
+                    </section>
+
+                    <section id="methodology">
+                        <h2>Methodology</h2>
+                        <p>
+                            Our approach utilizes a decentralized architecture
+                            where localized sensor clusters act as autonomous
+                            health nodes. These nodes contribute to a global
+                            "resilience score" that dictates the system's
+                            willingness to engage in high-risk maneuvers or
+                            resource-intensive computations.
+                        </p>
+                        <p>
+                            By prioritizing self-preservation at the kernel
+                            level, the robot can autonomously transition into
+                            low-power or "protective" states when environmental
+                            entropy exceeds safely modeled thresholds.
+                        </p>
+                    </section>
+
+                    <section id="analysis">
+                        <h2>Analysis</h2>
+                        <p>
+                            Initial testing in deep-sea and aerospace
+                            simulations suggests that homeostatic systems
+                            maintain 40% higher uptime compared to traditional
+                            performance-first models. The trade-off is a 5-10%
+                            reduction in instantaneous task completion speed, a
+                            margin that is easily justified by the significant
+                            increase in mission duration.
+                        </p>
+                    </section>
+
+                    <section id="conclusion">
+                        <h2>Conclusion</h2>
+                        <p>
+                            The future of robotics is not just in how well a
+                            machine can replicate a human task, but in how well
+                            it can replicate nature's ability to endure. This
+                            framework serves as the first step toward systems
+                            that operate without intervention, forever.
+                        </p>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+        <!-- Scripts -->
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/browser.min.js"></script>
+        <script src="../assets/js/breakpoints.min.js"></script>
+        <script src="../assets/js/util.js"></script>
+        <script src="../assets/js/main.js?v=16"></script>
+
+        <script>
+            $(function () {
+                var $window = $(window);
+                var $body = $("body");
+                var $upArrow = $(".scroll-up");
+                var $downArrow = $(".scroll-down");
+                var $tocLinks = $(".journal-toc a");
+                var $sections = $("section");
+
+                // Remove preload
+                window.setTimeout(function () {
+                    $body.removeClass("is-preload");
+                }, 100);
+
+                // Scroll Handling
+                function onScroll() {
+                    var scrollTop = $window.scrollTop();
+                    var windowHeight = $window.height();
+                    var docHeight = $(document).height();
+
+                    // Arrow Visibility
+                    $upArrow.css("opacity", scrollTop <= 50 ? "0" : "0.5");
+                    $downArrow.css(
+                        "opacity",
+                        scrollTop + windowHeight >= docHeight - 50 ? "0" : "0.5",
+                    );
+
+                    // TOC Active State (ScrollSpy)
+                    var currentSection = "";
+                    $sections.each(function () {
+                        var sectionTop = $(this).offset().top;
+                        if (scrollTop >= sectionTop - 150) {
+                            currentSection = $(this).attr("id");
+                        }
+                    });
+
+                    if (currentSection) {
+                        $tocLinks.removeClass("active");
+                        $('.journal-toc a[href="#' + currentSection + '"]').addClass(
+                            "active",
+                        );
+                    }
+                }
+
+                $window.on("scroll load", onScroll);
+
+                // Smooth Scroll for TOC
+                $tocLinks.on("click", function (e) {
+                    e.preventDefault();
+                    var target = $(this).attr("href");
+                    $("html, body").animate(
+                        {
+                            scrollTop: $(target).offset().top - 120,
+                        },
+                        800,
+                    );
+                });
+            });
+        </script>
+    </body>
+</html>

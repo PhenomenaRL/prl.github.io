@@ -2735,3 +2735,157 @@ body:not(.is-preload) .journal-column {
     clear: both;
     display: table;
 }
+
+/* ==========================================
+   Journal Page Template Styles
+   ========================================== */
+
+.journal-body {
+    background-color: #fdfdfd !important;
+    overflow: auto !important;
+}
+
+.journal-body #hero-canvas-container {
+    display: none; /* No canvas on template as requested */
+}
+
+.journal-container {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 12rem 5% 5rem 5%;
+    min-height: 100vh;
+}
+
+.journal-sidebar {
+    flex: 0 0 20%;
+    position: sticky;
+    top: 12rem;
+    height: calc(100vh - 15rem);
+    display: flex;
+    flex-direction: column;
+    padding-right: 2rem;
+}
+
+.journal-sidebar .scroll-arrow {
+    left: 0;
+}
+
+.journal-main {
+    flex: 0 0 80%;
+    padding-left: 4rem;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.journal-main h1 {
+    text-align: right;
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin-bottom: 4rem;
+    line-height: 1;
+    color: #111;
+}
+
+.journal-content {
+    max-width: 800px;
+    margin-left: auto;
+    text-align: justify;
+}
+
+.journal-content p {
+    margin-bottom: 2rem;
+    color: #444;
+}
+
+.journal-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 3rem 0 1.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #111;
+}
+
+/* Table of Contents Tree View */
+.journal-toc {
+    margin-top: 4rem;
+}
+
+.journal-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.journal-toc li {
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    position: relative;
+    padding-left: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.journal-toc li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65rem;
+    width: 10px;
+    height: 1px;
+    background: #ddd;
+}
+
+.journal-toc a {
+    color: #888;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-bottom: none;
+}
+
+.journal-toc a:hover,
+.journal-toc a.active {
+    color: #111;
+    font-weight: 700;
+}
+
+/* Mobile Adjustments for Journal Template */
+@media screen and (max-width: 980px) {
+    .journal-container {
+        padding-top: 8rem;
+    }
+
+    .journal-sidebar {
+        flex: 0 0 15%; /* Keep small column for arrows */
+        border-right: none;
+        padding-right: 0.5rem;
+    }
+
+    .journal-toc {
+        display: none; /* Hide TOC on mobile */
+    }
+
+    .journal-main {
+        flex: 0 0 85%;
+        padding-left: 1.5rem;
+        border-left: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .journal-main h1 {
+        font-size: 2.5rem;
+    }
+
+    .journal-sidebar .scroll-arrow {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .journal-sidebar .scroll-up {
+        top: -1rem;
+    }
+
+    .journal-sidebar .scroll-down {
+        bottom: -1rem;
+    }
+}
