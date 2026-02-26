@@ -162,6 +162,16 @@
     // Navbar Logic
     // ==========================================
 
+    // Scroll journal to top on logo click
+    $navbar.find(".logo a").on("click", function (e) {
+        if ($journalList.length) {
+            e.preventDefault();
+            e.stopPropagation();
+            $journalList.animate({ scrollTop: 0 }, 500);
+            $navbar.addClass("stowed");
+        }
+    });
+
     // Expand/Collapse on Click
     $navbar.on("click", function (e) {
         if ($navbar.hasClass("stowed")) {

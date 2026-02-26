@@ -1889,20 +1889,20 @@ body,
     left: 50%;
     transform: translateX(-50%);
     width: auto;
-    max-width: 500px;
+    max-width: 700px;
     background: rgba(255, 255, 255, 0.98);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    padding: 0.8rem 2.5rem;
+    padding: 0.8rem 3.5rem;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 #navbar.stowed {
     max-width: 180px;
     padding: 0.8rem 1.8rem;
+    overflow: hidden;
 }
 
 .navbar-content {
@@ -1927,6 +1927,12 @@ body,
     gap: 0;
 }
 
+#navbar .logo a,
+#navbar .contact-info a {
+    position: relative;
+    padding: 0 0.5rem;
+}
+
 #navbar .logo a {
     border-bottom: none;
     color: #111;
@@ -1940,12 +1946,53 @@ body,
     white-space: nowrap;
 }
 
+#navbar .logo a::before,
+#navbar .logo a::after,
+#navbar .contact-info a::before,
+#navbar .contact-info a::after {
+    position: absolute;
+    display: inline-block;
+    opacity: 0;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+    font-size: 1.4rem;
+    font-weight: 100;
+    color: #000;
+    top: 50%;
+}
+
+#navbar .logo a::before,
+#navbar .contact-info a::before {
+    content: "[";
+    left: -0.4rem;
+    transform: translate(0.5rem, -50%);
+}
+
+#navbar .logo a::after,
+#navbar .contact-info a::after {
+    content: "]";
+    right: -0.4rem;
+    transform: translate(-0.5rem, -50%);
+}
+
+#navbar .logo a:hover::before,
+#navbar .contact-info a:hover::before {
+    opacity: 1;
+    transform: translate(-0.1rem, -50%);
+}
+
+#navbar .logo a:hover::after,
+#navbar .contact-info a:hover::after {
+    opacity: 1;
+    transform: translate(0.1rem, -50%);
+}
+
 #navbar .contact-info {
     margin-right: 2rem;
     opacity: 1;
     white-space: nowrap;
     max-width: 600px;
-    overflow: hidden;
     transition:
         opacity 0.2s ease,
         max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1957,6 +2004,7 @@ body,
     max-width: 0;
     margin-right: 0;
     pointer-events: none;
+    overflow: hidden;
 }
 
 #navbar .contact-info a {
