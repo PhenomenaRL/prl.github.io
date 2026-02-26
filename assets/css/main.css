@@ -3036,3 +3036,118 @@ body:not(.is-preload) .journal-content {
         gap: 2.5rem;
     }
 }
+
+/* Journal Post Footer (Bottom Section) */
+.journal-post-footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid #666;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.journal-post-footer .footer-row {
+    margin-bottom: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.journal-post-footer .footer-label {
+    font-weight: 600;
+    min-width: 120px;
+    color: #666;
+}
+
+.journal-post-footer .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Animated links mimicking Navbar */
+.journal-post-footer a.animated-link {
+    position: relative;
+    padding: 0 0.5rem;
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+}
+
+.journal-post-footer a.animated-link .icon {
+    margin-right: 0.4rem;
+}
+
+.journal-post-footer a.animated-link::before,
+.journal-post-footer a.animated-link::after {
+    position: absolute;
+    display: inline-block;
+    opacity: 0;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+    font-size: 1.2rem;
+    top: 50%;
+    color: #111;
+    font-weight: 300;
+}
+
+.journal-post-footer a.animated-link::before {
+    content: "[";
+    left: -0.4rem;
+    transform: translate(0.5rem, -50%);
+}
+
+.journal-post-footer a.animated-link::after {
+    content: "]";
+    right: -0.4rem;
+    transform: translate(-0.5rem, -50%);
+}
+
+.journal-post-footer a.animated-link:hover {
+    color: #111;
+}
+
+.journal-post-footer a.animated-link:hover::before {
+    opacity: 1;
+    transform: translate(-0.1rem, -50%);
+}
+
+.journal-post-footer a.animated-link:hover::after {
+    opacity: 1;
+    transform: translate(0.1rem, -50%);
+}
+
+@media screen and (max-width: 480px) {
+    .journal-post-footer .footer-row {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .journal-post-footer .footer-label {
+        margin-bottom: 0;
+    }
+    .journal-post-footer .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .journal-post-footer a.animated-link {
+        color: #111;
+        margin-left: 0.5rem;
+    }
+    .journal-post-footer a.animated-link::before {
+        opacity: 1;
+        transform: translate(-0.1rem, -50%);
+    }
+    .journal-post-footer a.animated-link::after {
+        opacity: 1;
+        transform: translate(0.1rem, -50%);
+    }
+}
