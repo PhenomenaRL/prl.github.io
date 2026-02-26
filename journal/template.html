@@ -56,12 +56,22 @@
                 <!-- Table of Contents (Tree View) -->
                 <nav class="journal-toc">
                     <ul>
-                        <li><a href="#intro" class="active">Introduction</a></li>
+                        <li>
+                            <a href="#intro" class="active">Introduction</a>
+                        </li>
                         <li>
                             <a href="#methodology">Methodology</a>
                             <ul>
-                                <li><a href="#decentralized-architecture">Decentralized Architecture</a></li>
-                                <li><a href="#protective-states">Protective States</a></li>
+                                <li>
+                                    <a href="#decentralized-architecture"
+                                        >Decentralized Architecture</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#protective-states"
+                                        >Protective States</a
+                                    >
+                                </li>
                             </ul>
                         </li>
                         <li><a href="#analysis">Analysis</a></li>
@@ -92,6 +102,11 @@
                             This framework explores the intersection of
                             predictive homeostasis and robotic longevity.
                         </p>
+                        <blockquote>
+                            "The future of robotics is not just in how well a
+                            machine can replicate a human task, but in how well
+                            it can replicate nature's ability to endure."
+                        </blockquote>
                         <p>
                             Biological systems provide the ultimate blueprint
                             for replication and repair. By implementing
@@ -104,7 +119,9 @@
 
                     <section id="methodology">
                         <h2>Methodology</h2>
-                        <h3 id="decentralized-architecture">Decentralized Architecture</h3>
+                        <h3 id="decentralized-architecture">
+                            Decentralized Architecture
+                        </h3>
                         <p>
                             Our approach utilizes a decentralized architecture
                             where localized sensor clusters act as autonomous
@@ -113,13 +130,50 @@
                             willingness to engage in high-risk maneuvers or
                             resource-intensive computations.
                         </p>
+
+                        <div class="figure-grid">
+                            <figure>
+                                <img
+                                    src="../images/icon.png"
+                                    alt="Node A"
+                                    style="background: #eee; padding: 2rem"
+                                />
+                                <figcaption>
+                                    Fig 1: Localized sensor cluster operating in
+                                    nominal state.
+                                </figcaption>
+                            </figure>
+                            <figure>
+                                <img
+                                    src="../images/icon.png"
+                                    alt="Node B"
+                                    style="background: #333; padding: 2rem"
+                                />
+                                <figcaption>
+                                    Fig 2: Sensor cluster demonstrating
+                                    protective state engagement.
+                                </figcaption>
+                            </figure>
+                        </div>
+
                         <h3 id="protective-states">Protective States</h3>
                         <p>
                             By prioritizing self-preservation at the kernel
                             level, the robot can autonomously transition into
                             low-power or "protective" states when environmental
-                            entropy exceeds safely modeled thresholds.
+                            entropy exceeds safely modeled thresholds. For
+                            example, using the
+                            <code>set_protective_state(level)</code> command.
                         </p>
+
+                        <pre><code>def calculate_resilience(base_score, entropy_factor):
+    """
+    Calculates the system's willingness to engage in high-risk maneuvers.
+    """
+    if entropy_factor > MAX_ENTROPY_THRESHOLD:
+        set_protective_state(LEVEL_HIGH)
+        return 0.0
+    return base_score * (1.0 - entropy_factor)</code></pre>
                     </section>
 
                     <section id="analysis">
@@ -133,6 +187,18 @@
                             margin that is easily justified by the significant
                             increase in mission duration.
                         </p>
+
+                        <figure>
+                            <img
+                                src="../images/overlay.png"
+                                alt="Analysis Plot"
+                                style="background: #111; padding: 2rem"
+                            />
+                            <figcaption>
+                                Fig 3: Uptime vs Task Completion Speed trade-off
+                                over a 10,000 hour simulation.
+                            </figcaption>
+                        </figure>
                     </section>
 
                     <section id="conclusion">
@@ -163,7 +229,9 @@
                 var $upArrow = $(".scroll-up");
                 var $downArrow = $(".scroll-down");
                 var $tocLinks = $(".journal-toc a");
-                var $sections = $(".journal-content section[id], .journal-content h3[id]");
+                var $sections = $(
+                    ".journal-content section[id], .journal-content h3[id]",
+                );
 
                 // Remove preload
                 window.setTimeout(function () {
@@ -186,7 +254,9 @@
                     $upArrow.css("opacity", scrollTop <= 50 ? "0" : "0.5");
                     $downArrow.css(
                         "opacity",
-                        scrollTop + windowHeight >= docHeight - 50 ? "0" : "0.5",
+                        scrollTop + windowHeight >= docHeight - 50
+                            ? "0"
+                            : "0.5",
                     );
 
                     // TOC Active State (ScrollSpy)
@@ -202,14 +272,14 @@
                     if (scrollTop + windowHeight >= docHeight - 15) {
                         currentSection = $sections.last().attr("id");
                     }
-                    
+
                     if (currentSection && !manualOverride) {
                         activateTocItem(currentSection);
                     }
                 }
 
                 var manualOverride = false;
-                
+
                 function activateTocItem(id) {
                     $tocLinks.removeClass("active");
                     var $activeLink = $('.journal-toc a[href="#' + id + '"]');
@@ -223,7 +293,7 @@
                 $tocLinks.on("click", function (e) {
                     e.preventDefault();
                     manualOverride = true;
-                    
+
                     var target = $(this).attr("href");
                     var id = target.substring(1);
                     activateTocItem(id);
@@ -235,7 +305,7 @@
                         800,
                         function () {
                             manualOverride = false;
-                        }
+                        },
                     );
                 });
 
@@ -251,7 +321,10 @@
                 });
 
                 $downArrow.on("click", function () {
-                    $("html, body").animate({ scrollTop: $(document).height() }, 800);
+                    $("html, body").animate(
+                        { scrollTop: $(document).height() },
+                        800,
+                    );
                 });
             });
         </script>
