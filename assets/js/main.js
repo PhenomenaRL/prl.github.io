@@ -133,34 +133,47 @@
             );
         }
 
-        const fps = 10;
-        let lastTime = 0;
-        let isScrolling = false;
-        let scrollTimeout;
+        let scrollAccumulator = 0;
+        const scrollThreshold = 30; // Pixels to advance 1 frame
 
-        $window.on("wheel scroll touchmove", () => {
-            isScrolling = true;
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                isScrolling = false;
-            }, 150);
-        });
-
-        function animate(time) {
-            if (!lastTime) lastTime = time;
-            const interval = 1000 / (isScrolling ? fps * 1.5 : fps);
-            const delta = time - lastTime;
-
-            if (delta > interval) {
-                lastTime = time - (delta % interval);
+        function advanceFrame(delta) {
+            scrollAccumulator += Math.abs(delta);
+            if (scrollAccumulator >= scrollThreshold) {
                 sequence.frame = (sequence.frame + 1) % frameCount;
+                scrollAccumulator = 0;
                 render();
             }
-            requestAnimationFrame(animate);
         }
 
+        // Advance frames only when interacting with the journal list
+        $journalList.on("wheel", (e) => {
+            advanceFrame(e.originalEvent.deltaY || 0);
+        });
+
+        let lastScrollTop = 0;
+        $journalList.on("scroll", () => {
+            const st = $journalList.scrollTop();
+            advanceFrame(st - lastScrollTop);
+            lastScrollTop = st;
+        });
+
+        let lastTouchY = 0;
+        $journalList.on("touchstart", (e) => {
+            if (e.originalEvent.touches) {
+                lastTouchY = e.originalEvent.touches[0].clientY;
+            }
+        });
+
+        $journalList.on("touchmove", (e) => {
+            if (e.originalEvent.touches) {
+                const touchY = e.originalEvent.touches[0].clientY;
+                advanceFrame(touchY - lastTouchY);
+                lastTouchY = touchY;
+            }
+        });
+
+        // Initial render
         render();
-        requestAnimationFrame(animate);
     }
 
     // ==========================================
