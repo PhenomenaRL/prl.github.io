@@ -2058,13 +2058,23 @@ body,
     text-transform: uppercase;
     letter-spacing: 0.03em;
     transition: transform 0.3s ease;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: left !important;
 }
 
 .journal-card p {
+    margin-top: 0.4rem;
     margin-bottom: 0;
-    color: #777;
-    font-size: 0.7rem;
-    line-height: 1.4;
+    color: #666 !important;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    opacity: 1 !important;
+    display: block !important;
+    visibility: visible !important;
+    text-align: left !important;
 }
 
 .journal-card::before,
@@ -2242,7 +2252,7 @@ body,
     display: flex;
     flex-direction: column;
     padding-left: 4rem;
-    opacity: 0;
+    opacity: 1;
     transition: opacity 1s ease-out 0.8s;
 }
 
@@ -2288,7 +2298,7 @@ body:not(.is-preload) .journal-column {
     transition: opacity 1s ease-out;
 }
 
-#hero p {
+#hero-subtitle {
     font-size: 1.1rem;
     color: #666;
     text-align: right;
@@ -2318,7 +2328,7 @@ body:not(.is-preload) .journal-column {
 }
 
 #hero h1.visible,
-#hero p.visible,
+#hero-subtitle.visible,
 #hero .button.visible {
     opacity: 1;
 }
@@ -2636,7 +2646,7 @@ body:not(.is-preload) .journal-column {
             padding: 0 8%;
         }
 
-        .journal-column.hide-mobile {
+        .journal-column {
             display: flex;
             flex: 0 0 45%;
             margin-top: 0;
