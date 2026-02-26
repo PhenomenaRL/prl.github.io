@@ -7,7 +7,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1, user-scalable=no"
         />
-        <link rel="stylesheet" href="assets/css/main.css?v=18" />
+        <link rel="stylesheet" href="assets/css/main.css?v=19" />
         <noscript
             ><link rel="stylesheet" href="assets/css/noscript.css"
         /></noscript>
@@ -52,8 +52,20 @@
         <!-- Main Hero Layout -->
         <section id="hero">
             <div class="hero-container">
-                <!-- Left Column: Journal Cards (Scrolling) -->
-                <div class="journal-column hide-mobile">
+                <!-- Left Column: Hero Title & Subtitle (Desktop) -->
+                <div class="hero-content">
+                    <div class="text-boundary">
+                        <h1 id="hero-title">
+                            Phenomena Replication Laboratory
+                        </h1>
+                        <p id="hero-subtitle">
+                            In pursuit of robotic systems that endure, forever
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Column: Journal Cards (Scrolling on Desktop) -->
+                <div class="journal-column">
                     <div class="journal-list">
                         <a href="index.html" class="journal-card">
                             <h3>
@@ -84,23 +96,6 @@
                                 Monocular inertial motion capture system for
                                 real-time tracking.
                             </p>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Right Column: Hero Title & Subtitle -->
-                <div class="hero-content">
-                    <div class="text-boundary">
-                        <h1 id="hero-title">
-                            Phenomena Replication Laboratory
-                        </h1>
-                        <p id="hero-subtitle">
-                            In pursuit of robotic systems that endure, forever
-                        </p>
-                    </div>
-                    <div class="mobile-button-container show-mobile">
-                        <a href="index.html" class="button primary">
-                            View Journal
                         </a>
                     </div>
                 </div>
