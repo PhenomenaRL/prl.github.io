@@ -78,7 +78,7 @@
 
     if (canvas) {
         const context = canvas.getContext("2d");
-        const frameCount = window.heroFrameCount || 531;
+        const frameCount = window.heroFrameCount || 601;
         const currentFrame = (index) =>
             `images/sequence/${index.toString().padStart(4, "0")}.webp`;
 
