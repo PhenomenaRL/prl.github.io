@@ -78,9 +78,9 @@
 
     if (canvas) {
         const context = canvas.getContext("2d");
-        const frameCount = window.heroFrameCount || 30;
+        const frameCount = window.heroFrameCount || 531;
         const currentFrame = (index) =>
-            `images/sequence/frame_${index.toString().padStart(3, "0")}.png`;
+            `images/sequence/${index.toString().padStart(4, "0")}.webp`;
 
         const images = [];
         const sequence = { frame: 0 };
@@ -134,7 +134,7 @@
         }
 
         let scrollAccumulator = 0;
-        const scrollThreshold = 30; // Pixels to advance 1 frame
+        const scrollThreshold = 5; // Pixels to advance 1 frame
 
         function advanceFrame(delta) {
             scrollAccumulator += Math.abs(delta);
@@ -145,13 +145,17 @@
             }
         }
 
-        // Advance frames on vertical mouse motion across the screen
+        // Advance frames on mouse motion across the screen
+        let lastMouseX = 0;
         let lastMouseY = 0;
         $window.on("mousemove", (e) => {
-            if (lastMouseY !== 0) {
-                // Advance frames proportional to mouse vertical movement speed
-                advanceFrame(e.clientY - lastMouseY);
+            if (lastMouseX !== 0 || lastMouseY !== 0) {
+                // Advance frames proportional to mouse movement speed
+                let deltaX = e.clientX - lastMouseX;
+                let deltaY = e.clientY - lastMouseY;
+                advanceFrame(Math.sqrt(deltaX * deltaX + deltaY * deltaY));
             }
+            lastMouseX = e.clientX;
             lastMouseY = e.clientY;
         });
 
