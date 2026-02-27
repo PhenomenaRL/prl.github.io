@@ -2112,9 +2112,11 @@ body,
 .journal-card p {
     margin-top: 0.4rem;
     margin-bottom: 0;
-    color: #666 !important;
+    color: #444 !important;
+    font-weight: 500;
     font-size: 0.8rem;
     line-height: 1.5;
+    text-shadow: 0 0 3px rgba(253, 253, 253, 0.9);
     word-wrap: break-word;
     overflow-wrap: break-word;
     opacity: 1 !important;
@@ -2354,14 +2356,15 @@ body:not(.is-preload) .journal-column {
 
 #hero-subtitle {
     font-size: 1.1rem;
-    color: #666;
+    color: #444;
     text-align: right;
     margin-bottom: 0;
     max-width: 450px;
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: 0.01em;
     opacity: 0;
     transition: opacity 1s ease-out;
+    text-shadow: 0 0 3px rgba(253, 253, 253, 0.9);
 }
 
 #hero .button {
@@ -2549,7 +2552,8 @@ body:not(.is-preload) .journal-column {
 /* Footer */
 #footer {
     background: #fff;
-    color: #999;
+    color: #666;
+    font-weight: 500;
     padding: 1rem 4rem;
     text-align: right;
     position: fixed;
