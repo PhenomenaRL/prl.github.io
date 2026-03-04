@@ -112,25 +112,50 @@
             const img = images[sequence.frame];
             if (!img || !img.complete || img.naturalWidth === 0) return;
 
-            const hRatio = canvas.width / img.width;
-            const vRatio = canvas.height / img.height;
-            const ratio = Math.max(hRatio, vRatio);
-
-            const centerShift_x = (canvas.width - img.width * ratio) / 2;
-            const centerShift_y = (canvas.height - img.height * ratio) / 2;
+            const isPortrait = canvas.height > canvas.width;
 
             context.clearRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(
-                img,
-                0,
-                0,
-                img.width,
-                img.height,
-                centerShift_x,
-                centerShift_y,
-                img.width * ratio,
-                img.height * ratio,
-            );
+
+            if (isPortrait) {
+                const hRatio = canvas.width / img.height;
+                const vRatio = canvas.height / img.width;
+                const ratio = Math.max(hRatio, vRatio);
+
+                context.save();
+                context.translate(canvas.width / 2, canvas.height / 2);
+                context.rotate(Math.PI / 2);
+                context.drawImage(
+                    img,
+                    0,
+                    0,
+                    img.width,
+                    img.height,
+                    (-img.width * ratio) / 2,
+                    (-img.height * ratio) / 2,
+                    img.width * ratio,
+                    img.height * ratio,
+                );
+                context.restore();
+            } else {
+                const hRatio = canvas.width / img.width;
+                const vRatio = canvas.height / img.height;
+                const ratio = Math.max(hRatio, vRatio);
+
+                const centerShift_x = (canvas.width - img.width * ratio) / 2;
+                const centerShift_y = (canvas.height - img.height * ratio) / 2;
+
+                context.drawImage(
+                    img,
+                    0,
+                    0,
+                    img.width,
+                    img.height,
+                    centerShift_x,
+                    centerShift_y,
+                    img.width * ratio,
+                    img.height * ratio,
+                );
+            }
         }
 
         let scrollAccumulator = 0;
