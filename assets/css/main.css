@@ -2814,6 +2814,7 @@ body:not(.is-preload) .journal-content {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: #111;
+    text-align: left;
 }
 
 /* Table of Contents Tree View */
