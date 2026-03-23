@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Journal Template | Phenomena Replication Laboratory</title>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, user-scalable=no"
+        />
+        <link rel="stylesheet" href="../assets/css/main.css?v=21" />
+        <noscript
+            ><link rel="stylesheet" href="../assets/css/noscript.css"
+        /></noscript>
+    </head>
+
+    <body class="journal-body is-preload">
+        <!-- Navbar (Mirrored from landing page) -->
+        <nav id="navbar" class="stowed">
+            <div class="navbar-content">
+                <div class="logo">
+                    <a href="../index.html">
+                        <!--<img
+                            src="../images/icon.png"
+                            alt="PRL"
+                            style="height: 30px"
+                        />-->
+                        P^RL
+                    </a>
+                </div>
+
+                <div class="nav-right-section">
+                    <div class="contact-info">
+                        <a href="mailto:info@phenomenareplicationlab.ca">
+                            <span class="contact-label">contact: </span
+                            >info@phenomenareplicationlab.ca
+                        </a>
+                    </div>
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Journal Layout Container -->
+        <div class="journal-container">
+            <!-- Left Sidebar (20% width on Desktop) -->
+            <aside class="journal-sidebar">
+                <!-- Scroll Indicators (Mirrored style from landing page) -->
+                <div class="scroll-arrow scroll-up">
+                    <span class="icon solid fa-chevron-up"></span>
+                </div>
+
+                <!-- Table of Contents (Tree View) -->
+                <nav class="journal-toc">
+                    <ul>
+                        <li>
+                            <a href="#intro" class="active">Introduction</a>
+                        </li>
+                        <li>
+                            <a href="#promise-v-reality-as">Promise vs. Reality of Autonomous Systems</a>
+                        </li>
+                        <li>
+                            <a href="#trad-relibility-not-enough">Traditional Reliability Engineering is Not Enough</a>
+                        </li>
+                        <li>
+                            <a href="#persistence-of-natural-systems">The Persistence of Natural Systems & What we Can Learn</a>
+                            <ul>
+                                <li>
+                                    <a href="#Homeostasis">Homeostasis</a>
+                                </li>
+                                <li>
+                                    <a href="#Self-Repair">Self-Repair</a>
+                                </li>
+                                <li>
+                                    <a href="#Graceful-Degredation">Graceful Degredation</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#conclusion">Putting it All Together</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="scroll-arrow scroll-down">
+                    <span class="icon solid fa-chevron-down"></span>
+                </div>
+            </aside>
+
+            <!-- Main Content (80% width on Desktop) -->
+            <main class="journal-main">
+                <h1 id="title">The Autonomy Paradox</h1>
+
+                <div class="journal-content">
+                    <section id="intro">
+                        <p>
+                            When speaking about the performance of a system, I
+                            have often heard the term “efficiency” being thrown
+                            around loosely. From an engineering perspective,
+                            efficiency has a specific definition: the ratio of
+                            power output over power input. Beyond the
+                            engineering definition, efficiency has been widely,
+                            and vaguely, been assigned to the concept of
+                            increasing output, referring to speed, financials,
+                            quality, ease-of-use and so on. It is easy to see
+                            why maximizing efficiency or output is a good idea.
+                            Even if the word efficiency is not used, intuition
+                            highly suggests that autonomous systems, machines or
+                            robots are built to increase systems’ outputs for
+                            all end users: for example, more products
+                            manufactured, more dishes cleaned, more food parcels
+                            delivered. This train of thought is both amiable,
+                            and contains a silent paradox.
+                        </p>
+                        <p>
+                            Below, I will outline the paradox, what it can teach
+                            us about creating truly autonomous systems (robots
+                            included of course), and how natural systems are
+                            exceptional examples of autonomy that endures.
+                            Homeostasis is a not a commonly used word outside of
+                            biology and medicine. The argument I will make here
+                            is that it should be used when speaking about
+                            autonomy, and how that leads to a path towards true
+                            autonomous systems, which provide results that
+                            persist.
+                        </p>
+                    </section>
+
+                    <section id="promise-v-reality-as">
+                        <h2>The Promise vs. Reality of Autonomous Systems</h2>
+                        <p>
+                            To better understand the paradox, we will consider
+                            an anecdote. The anecdote will serve as a means to
+                            provide concrete examples of why the autonomy
+                            paradox exists, and why we mostly turn a blind eye
+                            to it.
+                        </p>
+
+                        <p>
+                            Imagine a fleet of robots designed to clean the
+                            ocean of plastic waste. These ocean-cleaning robots
+                            would traverse vast distances, diving and
+                            re-surfacing, while performing various forms of
+                            filtering. Furthermore, to be useful, they would
+                            have to operate practically indefinitely. On a
+                            surface level, the purpose of the fleet is to filter
+                            the greatest amount of plastic waste. To build such
+                            a system, there are engineering challenges that can
+                            be boiled down to the following three fundamental
+                            questions, that relate to every autonomous system.
+                            For each of these fundamental questions, I will also
+                            include specific examples that relate to our
+                            anecdote, non-exhaustive of course.
+                        </p>
+                        <ol>
+                            <li>
+                                <strong
+                                    >How will the system perform its
+                                    task(s)?</strong
+                                >
+                                <ol>
+                                    <li>
+                                        how do the individual robots locomote in
+                                        their environment?
+                                    </li>
+                                    <li>
+                                        how do the individual robots manipulate
+                                        objects (eg. a turtle in the way of a
+                                        crucial location)?
+                                    </li>
+                                    <li>
+                                        what happens if the filters encounter
+                                        some unexpected contaminant?
+                                    </li>
+                                    <li>
+                                        how are software-bugs and recovery
+                                        handled?
+                                    </li>
+                                    <li>
+                                        how is the entire fleet tracked? and is
+                                        it necessary to do so precisely, or
+                                        loosely?
+                                    </li>
+                                    <li>
+                                        what happens if communication is lost to
+                                        the fleet, or individual robots?
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                <strong
+                                    >What is the life-time of the system and
+                                    sub-systems (both hardware and software),
+                                    and how will they be
+                                    updated/re-used/decommissioned?</strong
+                                >
+                                <ol>
+                                    <li>
+                                        how long will the electromechanical
+                                        components perform optimally for, and
+                                        will they shut-down entirely after this
+                                        time period or degrade in performance?
+                                    </li>
+                                    <li>
+                                        will the fleet require software or
+                                        hardware updates, and how will those be
+                                        performed?
+                                    </li>
+                                    <li>
+                                        how will the robots be deployed, and how
+                                        will they be decommissioned after their
+                                        mission is over?
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                <strong
+                                    >How will the system use & recover
+                                    energy?</strong
+                                >
+                                <ol>
+                                    <li>
+                                        what is the distribution of energy
+                                        consumption per sub-system?
+                                    </li>
+                                    <li>
+                                        how long can the robots dive under water
+                                        for?
+                                    </li>
+                                    <li>is solar-based charging enough?</li>
+                                    <li>
+                                        during storms, and periods of low energy
+                                        availability, how would the robot go
+                                        into a low energy state without becoming
+                                        junk itself?
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+
+                        <p>
+                            When undergoing an effort to answer these questions,
+                            the autonomy paradox is easily revealed. Autonomy
+                            relies on manual human adaptability and curation:
+                            maintenance schedules, unanticipated repairs,
+                            teleoperation, etc… This in itself is not an issue,
+                            and will be a necessary part of designing a well
+                            thought out autonomy architecture for robotics or
+                            otherwise. However, when coupled with the
+                            competitive requirement of businesses to deploy
+                            quickly and widely, autonomous systems tend to
+                            overfit to nominal operation; the autonomous
+                            endurance of a system is not well considered.
+                            Typically, no consideration is made beyond
+                            traditional reliability engineering practices. In
+                            other words, there is an apparent tradeoff between
+                            efficiency/output and endurance/resilience.
+                        </p>
+
+                        <p>
+                            The unspoken consensus is that increases in
+                            performance (efficiency and output) are more
+                            valuable than increases in autonomous endurance. Why
+                            is this the common mode of thinking, especially in
+                            the tech/industrial sectors? My thoughts on this are
+                            below:
+                        </p>
+
+                        <ul>
+                            <li>
+                                building quickly and iterating compounds
+                                knowledge; solutions are only found after
+                                assumptions are validated or discarded
+                            </li>
+                            <li>
+                                algorithmic/compute capabilities previously were
+                                insufficient to control complexity, predict over
+                                long horizons, or handle edge-cases; ie. it was
+                                much easier to rely on manual human intervention
+                                when tasks were difficult or went wrong
+                            </li>
+                            <li>
+                                the market is designed for human timescales, not
+                                for systems that could outlast the companies
+                                that built them
+                            </li>
+                        </ul>
+
+                        <p>
+                            This way of building autonomy does not hold up well
+                            for future projects that rely on increasingly
+                            interconnected autonomous systems/robotics to
+                            operate with sustainable endurance, and with trust
+                            on Earth and beyond.
+                        </p>
+                    </section>
+
+                    <section id="trad-relibility-not-enough">
+                        <h2>
+                            Traditional Reliability Engineering is Not Enough
+                        </h2>
+                        <p>
+                            In the anecdote above, I used a system that does not
+                            currently exist: one which cannot exist without
+                            advances in what I am calling homeostatic autonomy,
+                            and one which outlines the class of systems we can
+                            achieve in our lifetimes. The apparent tradeoff
+                            between efficiency and resilience is not constraint
+                            to theoretical future robotic fleets. It is
+                            ever-present in all human engineered systems. Some
+                            notable examples include:
+                        </p>
+
+                        <ul>
+                          <li>factory lines are often designed to maximize throughput of manufactured goods, but the entire line comes to a stop with supply chain perturbations, or single machine failures</li>
+                          <li>mobile robotics are often designed to perform a task with the expectation that if the task fails, there exists a fallback of human teleoperation and recovery</li>
+                          <li>data-centers are made to optimize the throughput of model training and inference, but any perturbation in the energy infrastructure would cause degradation of model performance or availability</li>
+                          <li>warehouses struggle to handle good shortages during global pandemics or consumer panics</li>
+                        </ul>
+
+                        <p>
+                            Traditional reliability engineering is a mature and valuable discipline. It asks: what are the known ways this system can fail, and how do we account for them? It suggests redundant components, failure mode analyses, and maintenance schedules. Reliability engineering designs for the failure modes we can anticipate in advance; it fails to capture emergent failure modes. Failure Mode and Effects Analysis (FMEA) cannot resolve all cascading failures across an autonomous network, any more than a cardiologist's knowledge of the heart fully prepares them for treating a patient whose heart failure is driven by systemic metabolic collapse.
+                        </p>
+
+                        <p>
+                            The answer to the autonomy paradox does not require us to abandon reliability engineering, but rather to recognize the limitations, and build homeostatic principles into the layers above it. As autonomous system capabilities are expanding with modern artificial intelligence models, I suggest more particular focus on endurance compared to efficiency. The manner of this expansion will be discussed next.
+                        </p>
+
+                    <section id="persistence-of-natural-systems">
+                        <h2>The Persistence of Natural Systems & What we Can Learn</h2>
+                        <p>
+                            We have one exceptional example of autonomy that endures: life itself. Just as we have an intuition that engineered autonomous systems are created to increase efficiency, we have an intuition that life endures: “life finds a way” (cue Jurassic Park music). Under further study, the following themes appear:
+                        </p>
+
+                        <ul>
+                          <li><strong>Homeostasis: dynamic equilibrium vs. static optimization</strong></li>
+                          <li><strong>Graceful degradation</strong></li>
+                          <li><strong>Self-repair mechanisms across scales (cellular to organismal)</strong></li>
+                          <li><strong>Emergence of behaviour & sustainability</strong></li>
+                        </ul>
+
+                        <p>
+                            Once again, here I believe the best way to understand these themes is through concrete examples and how they can apply to the robotic ocean-cleaning fleet presented previously.
+                        </p>
+
+                        <h3 id="Homeostasis">Homeostasis</h3>
+                        <p>
+                            Consider on a biochemical level, the regulation of blood glucose in humans. As blood glucose rises, the secretion of insulin by the pancreas increases, absorbing the glucose. Opposingly, if blood glucose drops, glucagon is secreted instead, which promotes the release of stored glucose by the liver. There are also longer timescale mechanisms such the use of glycogen storage or the modification of baseline via cortisol and growth hormones. This is not optimization of a value, but rather a ‘station-keeping’ between bounds.
+                        </p>
+                        <p>
+                           We indeed do this in engineered systems, especially on lower levels of control. For example, the position or speed of a motor is controlled to track a specific value, and motion profiles can be achieved by changing the desired value intelligibly. However, this type of control has mostly been limited to motion control, and has not been expanded to regulate behaviour of a system wrt. endurance or recovery.
+                        </p>
+                        <p>
+                            In the anecdote of the ocean-cleaning robots, the parallel is clear. The fleet should not attempt to solely maximize the amount of filtered plastic. Instead the fleet should regulate itself towards sustainable operation. In practice the following is what that could look like. When energy is abundant, the robots operate at full capacity. When a storm hits, they throttle down or shelter, preserving hardware integrity. When one unit degrades, the fleet redistributes load. The regulation happens at multiple scales: immediate responses to sensor data, medium-term adaptation to weather patterns, long-term reallocation as units age out.
+                        </p>
+
+                        <h3 id="Self-Repair">Self-Repair</h3>
+                        <p>
+                            Natural systems perform repairs at multiple levels simultaneously: molecular, cellular, tissue, organ, behavioural, societal and so on. The interesting implication for robotics is that self-repair doesn't have to mean a robot physically fixing itself (though I argue that is one capability we can aim for sooner than later). For our ocean-cleaning robot fleet, it can mean software fault detection and rollback, dynamic reallocation of tasks across the fleet when one unit degrades, or even robots physically rendezvousing to transfer energy or provide replacement filters. If the robots in the fleet relied solely on a human to fly out to the middle of the Pacific to perform maintenance, it would be equivalent to an organism that can only heal with external surgery. True homeostatic autonomy builds repair capacity at multiple levels.
+                        </p>
+
+                        <h3 id="Graceful-Degredation">Graceful Degredation</h3>
+                        <p>
+                            Natural autonomy does not have a binary on/off failure mode: instead, compensations to behaviour are made to survive at reduced capacity while healing. This relates to the concept of homeostasis and self-repair discussed previously, but goes further to answer the question of “what happens when the limits of homeostatic operation are exceeded in part or entirely?”
+                        </p>
+                        <p>
+                            Most engineered autonomous systems effectively have binary failure: a sensor fails, the robot halts or requires teleoperation. A homeostatic robot and fleet would instead tolerate partial failure, or failing forward so to speak. For our anecdote: a robot with a degraded filter continues navigating, and returns to a maintenance bay, a robot with a damaged thruster reduces its operational zone rather than going inert. The system as a whole continues to function, at reduced fidelity until the damage can be rectified manually or with another autonomous procedure. There are two industries I will mention here that do a fairly good job at achieving this first idea under the umbrella of graceful degradation: aviation and nuclear power.
+                        </p>
+                        <p>
+                            Graceful degradation has a second, less comfortable dimension. Take the example of a bird with an injured wing. It initially modifies behaviour to aid in healing. When the capacity to heal is exceeded, it dies, and in doing so returns its resources to the ecosystem. Degradation is graceful both by means of reduced function when homeostatic limits are stressed, and by a clean exit when exceeded entirely. Evolution selected for this. A diseased animal that consumed resources without limit, or that contaminated its environment in dying, would compromise the local ecosphere.
+                        </p>
+                        <p>
+                            We have one important advantage over natural systems: the ability to choose what we select for. The autonomous systems we build can be deliberately designed to degrade gracefully under stress, and to decommission gracefully when they cannot recover. Practically this means returning materials, ceasing energy consumption, limiting hazardous residue. This goes beyond good engineering. With the increase of interconnected autonomy, a system that fails ungracefully is a system that becomes a liability. This is the only design philosophy that remains responsible at scale.
+                        </p>
+
+                        <h3 id="Emergence-Behaviour">Emergence of Behaviour & Sustainability</h3>
+                        <p>
+                            Physarum polycephalum (slime mould) is a single-celled organism with no nervous system, but it is capable of exploring its environment by extending tendrils in all directions. The manner by which slime mould handles resource scarcity is coupled to the manner in which exploration is conducted. Under abundance, it grows expansively. As nutrients deplete, it does not continue expending energy, but rather it withdraws resources from low-yield pathways and redirects. In this way, it can be said that the organism’s ‘ambition’ scales with availability of resources. The organism never optimizes for maximum growth; it regulates toward sustainable throughput under detected conditions. The simple system, or set of rules, that produces normal growth behaviour is the same as the system that responds to scarcity. In other words, well constructed homeostatic design has the additional benefit of emergent sustainability.
+                        </p>
+                        <p>
+                            Back to the ocean-cleaning fleet anecdote: say each robot in the fleet has the capability to detect weather conditions, availability of energy, battery capacity, density of pollutants and so on. With abundant energy and calm seas, the fleet explores widely and filters aggressively. When conditions deteriorate, the local behaviour of each robot in the fleet could be designed to allow for prioritization high-density plastic zones, clustering to enable energy sharing, or diving to avoid rough seas. There is no separate fault-response module that activates when things go wrong. The same local rules that drive behaviour under nominal conditions produce appropriate behaviour under stress. The fleet has no concept of failure, only behaviour that is appropriate to detected conditions.
+                        </p>
+                        <p>-</p>
+
+                        <p>
+                            It is important to mention that I have deliberately excluded one principle of autonomy that natural systems have which engineered systems do not: self-replication. That topic and all of its considerations is good story, for another time. Even so, the discussed themes sufficiently describe what makes natural systems so enduring and sustainable. This makes them good educational models for the autonomous systems we are trying to build.
+                        </p>
+
+                    </section>
+                    <section id="conclusion">
+                        <h2>
+                            Putting it all Together: How do We Achieve Valuable Autonomous Systems that Endure, Forever?
+                        </h2>
+                        <p>
+                            The autonomous systems being built today are extraordinary. They are also brittle. We have optimized for peak output, accepted that endurance is a ‘tomorrow problem,’ and called it progress. Until now, that has been a reasonable, even the only, way forward. Autonomy was new, compute was scarce, and deploying quickly compounded knowledge faster in a meaningful manner. The tradeoff made sense.
+                        </p>
+                        <p>
+                            It is starting not to.
+                        </p>
+                        <p>
+                            As autonomous systems capability is widely increasing, and becoming more interconnected, the failure horizon is expanding. A brittle node in a dense autonomous network doesn't just fail, it cascades. We have watched this dynamic play out in financial systems, power grids, manufacturing, and global supply chains. Autonomous robotics is next; the capability to build the right foundations is available now.
+                        </p>
+                        <p>
+                            To be clear, the argument here is not for slowing down. I am arguing for the opposite. Homeostatic autonomy is the design philosophy that makes it possible to scale autonomous systems with confidence. It enables us to build faster, deploy wider, and most importantly trust the result. When I speak about the tradeoff between efficiency and endurance, I have been careful to always qualify it with the term ‘apparent.’ This is because the tradeoff is not definitive; it dissolves when you extend the time horizon. A system that regulates itself, degrades gracefully, and repairs across scales will outperform a brittle, peak-optimized system every time, measured over the timescales that will matter in the future. This is especially true in harsh environments.
+                        </p>
+                        <p>
+                            Nature has been running this experiment for billions of years. The solution it came up with for the Autonomy Paradox is homeostasis: dynamic regulation toward a sustainable envelope, graceful degradation under stress, self-repair at every scale, and collective behaviour that adapts without central instruction. These are not just biological curiosities. They are directly transferable, and perhaps somehow universally fundamental, to the artificial autonomy we desire.
+                        </p>
+                        <p>
+                            It is also worth mentioning something of the beauty and culture of autonomous systems here. When architecture was the defining technology of its age, we built cathedrals, shrines, pyramids, castles, aqueducts, colosseums and so on, all designed to last centuries and to inspire. Beauty was part of the cultural ambition of building something useful. We have largely lost that instinct with modern technology due to practicality and profitability. For robotics particularly, homeostatic autonomy offers a chance to recover it. Referring a final time to our anecdote: a fleet of robots that sustains itself while quietly restoring one of the world's most damaged ecosystems is both meaningful and inspiring, not because it was designed to look or feel that way, but because both purpose and behaviour are truly aligned with something humans care about. That alignment between autonomous behaviour and human values is what the next generation of autonomous systems could, and I strongly argue should, be designed for. Humanoid robots moving boxes are great, but I argue our ambitions for autonomy should be more endearingly ambitious.
+                        </p>
+                        <p>
+                            So why is now the right time? We now have the computational and algorithmic capabilities to implement the concepts discussed here. Modern artificial intelligence models can be trained to predict over long horizons, detect emergent failure signatures, and coordinate complex multi-agent behaviour in real time. The tools exist. The question is whether we choose to use them toward endurance, or continue to use them primarily toward efficiency. That question, and the architectures, control paradigms, data collection, and hardware designs required to answer it well, is what the team at PRL is working on.
+                        </p>
+                        <p>
+                            The goal is autonomous systems that can be trusted to operate where humans cannot intervene, trusted to persist through conditions no designer anticipated, trusted to be sustainable, and trusted to keep working. Trust is also the most durable economic asset a technology company can build. Homeostatic design is the right engineering philosophy and the right business philosophy for companies building or operating autonomous systems, robots or otherwise.
+                        </p>
+                        <p>
+                            If you also think and care about The Autonomy Paradox as I have described, whether as an engineer, a researcher, enthusiast of nature, or someone struggling to get past pilot projects with robotics, let’s chat.
+                        </p>
+                    </section>
+
+                        <div class="journal-post-footer">
+                        <div class="footer-row">
+                            <div class="footer-label">Authors:</div>
+                            <div class="footer-content">Manit Ginoya</div>
+                        </div>
+                        <div class="footer-row">
+                            <div class="footer-label">Contact:</div>
+                            <div class="footer-content">
+                                <a
+                                    href="mailto:manit@phenomenareplicationlab.ca"
+                                    class="animated-link"
+                                    ><span
+                                        class="icon solid fa-envelope"
+                                    ></span>
+                                    manit@phenomenareplicationlab.ca</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Simplified Footer -->
+        <footer id="footer">
+            <p class="copyright">
+                speak to a human at PRL: info@phenomenareplicationlab.ca
+            </p>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/browser.min.js"></script>
+        <script src="../assets/js/breakpoints.min.js"></script>
+        <script src="../assets/js/util.js"></script>
+        <script src="../assets/js/main.js?v=16"></script>
+
+        <script>
+            $(function () {
+                var $window = $(window);
+                var $body = $("body");
+                var $upArrow = $(".scroll-up");
+                var $downArrow = $(".scroll-down");
+                var $tocLinks = $(".journal-toc a");
+                var $sections = $(
+                    ".journal-content section[id], .journal-content h3[id]",
+                );
+
+                // Remove preload
+                window.setTimeout(function () {
+                    $body.removeClass("is-preload");
+                }, 100);
+
+                // Scroll Handling
+                function onScroll() {
+                    var scrollTop = $window.scrollTop();
+
+                    // Collapse navbar on scroll
+                    var $navbar = $("#navbar");
+                    if (!$navbar.hasClass("stowed")) {
+                        $navbar.addClass("stowed");
+                    }
+                    var windowHeight = $window.height();
+                    var docHeight = $(document).height();
+
+                    // Arrow Visibility
+                    $upArrow.css("opacity", scrollTop <= 50 ? "0" : "0.5");
+                    $downArrow.css(
+                        "opacity",
+                        scrollTop + windowHeight >= docHeight - 50
+                            ? "0"
+                            : "0.5",
+                    );
+
+                    // TOC Active State (ScrollSpy)
+                    var currentSection = "";
+                    $sections.each(function () {
+                        var sectionTop = $(this).offset().top;
+                        if (scrollTop >= sectionTop - 150) {
+                            currentSection = $(this).attr("id");
+                        }
+                    });
+
+                    // Fix for bottom of page always highlighting the last item
+                    if (scrollTop + windowHeight >= docHeight - 15) {
+                        currentSection = $sections.last().attr("id");
+                    }
+
+                    if (currentSection && !manualOverride) {
+                        activateTocItem(currentSection);
+                    }
+                }
+
+                var manualOverride = false;
+
+                function activateTocItem(id) {
+                    $tocLinks.removeClass("active");
+                    var $activeLink = $('.journal-toc a[href="#' + id + '"]');
+                    $activeLink.addClass("active");
+                    $activeLink.parents("li").children("a").addClass("active");
+                }
+
+                $window.on("scroll load", onScroll);
+
+                // 1. Smooth Scroll for TOC & Active State Override
+                $tocLinks.on("click", function (e) {
+                    e.preventDefault();
+                    manualOverride = true;
+
+                    var target = $(this).attr("href");
+                    var id = target.substring(1);
+                    activateTocItem(id);
+
+                    $("html, body").animate(
+                        {
+                            scrollTop: $(target).offset().top - 120,
+                        },
+                        800,
+                        function () {
+                            manualOverride = false;
+                        },
+                    );
+                });
+
+                // 2. Hover Section for TOC
+                $sections.on("mouseenter", function () {
+                    if (manualOverride) return;
+                    activateTocItem($(this).attr("id"));
+                });
+
+                // Smooth scroll for arrows
+                $upArrow.on("click", function () {
+                    $("html, body").animate({ scrollTop: 0 }, 800);
+                });
+
+                $downArrow.on("click", function () {
+                    $("html, body").animate(
+                        { scrollTop: $(document).height() },
+                        800,
+                    );
+                });
+            });
+        </script>
+    </body>
+</html>

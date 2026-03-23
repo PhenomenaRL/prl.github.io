@@ -1,50 +1,136 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Phenomena Replication Laboratory </title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Phenomena Replication Laboratory</title>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, user-scalable=no"
+        />
+        <link rel="stylesheet" href="assets/css/main.css?v=21" />
+        <noscript
+            ><link rel="stylesheet" href="assets/css/noscript.css"
+        /></noscript>
+    </head>
 
-	<body class="is-preload">
-		<div class="background-image"></div>
-
-		<!-- Wrapper -->
-			<div id="wrapper">
-				<!-- Header -->
-					<header id="header">
-
-						<div class="logo">
-							<img src="images/icon.png">
-						</div>
-
-						<div class="content">
-							<div class="inner">
-								<h1>Phenomena Replication Laboratory</h1>
-								<p>coming soon</p>
-							</div>
-						</div>
-
-						<nav>
-							<ul>
-							</ul>
-						</nav>
-
-					</header>
-
-				<!-- Main -->
-        <div id="main">
+    <body class="is-preload">
+        <!-- Canvas Background for Hero Animation -->
+        <div id="hero-canvas-container">
+            <canvas id="hero-canvas"></canvas>
         </div>
-	    <div id="bg">
-      </div>
 
-    <!-- Scripts -->
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/browser.min.js"></script>
-      <script src="assets/js/breakpoints.min.js"></script>
-      <script src="assets/js/util.js"></script>
-      <script src="assets/js/main.js"></script>
-  </body>
+        <!-- Navbar -->
+        <nav id="navbar" class="stowed">
+            <div class="navbar-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <!--<img
+                            src="images/icon.png"
+                            alt="PRL"
+                            style="height: 30px"
+                        />-->
+                        P^RL
+                    </a>
+                </div>
+
+                <div class="nav-right-section">
+                    <div class="contact-info">
+                        <a href="mailto:info@phenomenareplicationlab.ca">
+                            <span class="contact-label">contact: </span
+                            >info@phenomenareplicationlab.ca
+                        </a>
+                    </div>
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Hero Layout -->
+        <section id="hero">
+            <div class="hero-container">
+                <!-- Left Column: Hero Title & Subtitle (Desktop) -->
+                <div class="hero-content">
+                    <div class="text-boundary">
+                        <h1 id="hero-title">
+                            Phenomena Replication Laboratory
+                        </h1>
+                        <p id="hero-subtitle">
+                            In pursuit of robotic systems that endure, forever
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Column: Journal Cards (Scrolling on Desktop) -->
+                <div class="journal-column">
+                    <div class="scroll-arrow scroll-up">
+                        <span class="icon solid fa-chevron-up"></span>
+                    </div>
+                    <div class="journal-list">
+                        <a
+                            href="journal/autonomy_paradox.html"
+                            class="journal-card"
+                        >
+                            <div class="journal-text">
+                                <h3>The Autonomy Paradox</h3>
+                                <p>
+                                    Exploring the intersection of homeostasis
+                                    and robotic endurance.
+                                </p>
+                            </div>
+                            <div class="journal-action">
+                                <span class="icon solid fa-arrow-right"></span>
+                            </div>
+                        </a>
+                        <a href="journal/soloc.html" class="journal-card">
+                            <div class="journal-text">
+                                <h3>Solar System Localizer</h3>
+                                <p>
+                                    Solar System localizer & dynamics engine &
+                                    why it is needed.
+                                </p>
+                            </div>
+                            <div class="journal-action">
+                                <span class="icon solid fa-arrow-right"></span>
+                            </div>
+                        </a>
+
+                        <a href="index.html" class="journal-card">
+                            <div class="journal-text">
+                                <h3>The PRL Team</h3>
+                                <p>
+                                    People who have lived the problem of The
+                                    Autonomy Paradox & People who want to see
+                                    graceful autonomy.
+                                </p>
+                            </div>
+                            <div class="journal-action">
+                                <span class="icon solid fa-arrow-right"></span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="scroll-arrow scroll-down">
+                        <span class="icon solid fa-chevron-down"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simplified Footer -->
+        <footer id="footer">
+            <p class="copyright">
+                speak to a human at PRL: info@phenomenareplicationlab.ca
+            </p>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js?v=16"></script>
+    </body>
 </html>

@@ -1,399 +1,289 @@
 /*
-	Dimension by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Phenomena Replication Laboratory Landing Page
 */
 
-(function($) {
-
-	var	$window = $(window),
-		$body = $('body'),
-		$wrapper = $('#wrapper'),
-		$header = $('#header'),
-		$footer = $('#footer'),
-		$main = $('#main'),
-		$main_articles = $main.children('article');
-
-	// Breakpoints.
-		breakpoints({
-			xlarge:   [ '1281px',  '1680px' ],
-			large:    [ '981px',   '1280px' ],
-			medium:   [ '737px',   '980px'  ],
-			small:    [ '481px',   '736px'  ],
-			xsmall:   [ '361px',   '480px'  ],
-			xxsmall:  [ null,      '360px'  ]
-		});
-
-	// Play initial animations on page load.
-		$(document).ready(function() {
-			$body.removeClass('is-preload');
-		});
-
-	// Fix: Flexbox min-height bug on IE.
-		if (browser.name == 'ie') {
-
-			var flexboxFixTimeoutId;
-
-			$window.on('resize.flexbox-fix', function() {
-
-				clearTimeout(flexboxFixTimeoutId);
-
-				flexboxFixTimeoutId = setTimeout(function() {
-
-					if ($wrapper.prop('scrollHeight') > $window.height())
-						$wrapper.css('height', 'auto');
-					else
-						$wrapper.css('height', '100vh');
-
-				}, 250);
-
-			}).triggerHandler('resize.flexbox-fix');
-
-		}
-
-	// Nav.
-		var $nav = $header.children('nav'),
-			$nav_li = $nav.find('li');
-
-		// Add "middle" alignment classes if we're dealing with an even number of items.
-			if ($nav_li.length % 2 == 0) {
-
-				$nav.addClass('use-middle');
-				$nav_li.eq( ($nav_li.length / 2) ).addClass('is-middle');
-
-			}
-
-	// Main.
-		var	delay = 325,
-			locked = false;
-
-		// Methods.
-			$main._show = function(id, initial) {
-
-				var $article = $main_articles.filter('#' + id);
-
-				// No such article? Bail.
-					if ($article.length == 0)
-						return;
-
-				// Handle lock.
-
-					// Already locked? Speed through "show" steps w/o delays.
-						if (locked || (typeof initial != 'undefined' && initial === true)) {
-
-							// Mark as switching.
-								$body.addClass('is-switching');
-
-							// Mark as visible.
-								$body.addClass('is-article-visible');
-
-							// Deactivate all articles (just in case one's already active).
-								$main_articles.removeClass('active');
-
-							// Hide header, footer.
-								$header.hide();
-								$footer.hide();
-
-							// Show main, article.
-								$main.show();
-								$article.show();
-
-							// Activate article.
-								$article.addClass('active');
-
-							// Unlock.
-								locked = false;
-
-							// Unmark as switching.
-								setTimeout(function() {
-									$body.removeClass('is-switching');
-								}, (initial ? 1000 : 0));
-
-							return;
-
-						}
-
-					// Lock.
-						locked = true;
-
-				// Article already visible? Just swap articles.
-					if ($body.hasClass('is-article-visible')) {
-
-						// Deactivate current article.
-							var $currentArticle = $main_articles.filter('.active');
-
-							$currentArticle.removeClass('active');
-
-						// Show article.
-							setTimeout(function() {
-
-								// Hide current article.
-									$currentArticle.hide();
-
-								// Show article.
-									$article.show();
-
-								// Activate article.
-									setTimeout(function() {
-
-										$article.addClass('active');
-
-										// Window stuff.
-											$window
-												.scrollTop(0)
-												.triggerHandler('resize.flexbox-fix');
-
-										// Unlock.
-											setTimeout(function() {
-												locked = false;
-											}, delay);
-
-									}, 25);
-
-							}, delay);
-
-					}
-
-				// Otherwise, handle as normal.
-					else {
-
-						// Mark as visible.
-							$body
-								.addClass('is-article-visible');
-
-						// Show article.
-							setTimeout(function() {
-
-								// Hide header, footer.
-									$header.hide();
-									$footer.hide();
-
-								// Show main, article.
-									$main.show();
-									$article.show();
-
-								// Activate article.
-									setTimeout(function() {
-
-										$article.addClass('active');
-
-										// Window stuff.
-											$window
-												.scrollTop(0)
-												.triggerHandler('resize.flexbox-fix');
-
-										// Unlock.
-											setTimeout(function() {
-												locked = false;
-											}, delay);
-
-									}, 25);
-
-							}, delay);
-
-					}
-
-			};
-
-			$main._hide = function(addState) {
-
-				var $article = $main_articles.filter('.active');
-
-				// Article not visible? Bail.
-					if (!$body.hasClass('is-article-visible'))
-						return;
-
-				// Add state?
-					if (typeof addState != 'undefined'
-					&&	addState === true)
-						history.pushState(null, null, '#');
-
-				// Handle lock.
-
-					// Already locked? Speed through "hide" steps w/o delays.
-						if (locked) {
-
-							// Mark as switching.
-								$body.addClass('is-switching');
-
-							// Deactivate article.
-								$article.removeClass('active');
-
-							// Hide article, main.
-								$article.hide();
-								$main.hide();
-
-							// Show footer, header.
-								$footer.show();
-								$header.show();
-
-							// Unmark as visible.
-								$body.removeClass('is-article-visible');
-
-							// Unlock.
-								locked = false;
-
-							// Unmark as switching.
-								$body.removeClass('is-switching');
-
-							// Window stuff.
-								$window
-									.scrollTop(0)
-									.triggerHandler('resize.flexbox-fix');
-
-							return;
-
-						}
-
-					// Lock.
-						locked = true;
-
-				// Deactivate article.
-					$article.removeClass('active');
-
-				// Hide article.
-					setTimeout(function() {
-
-						// Hide article, main.
-							$article.hide();
-							$main.hide();
-
-						// Show footer, header.
-							$footer.show();
-							$header.show();
-
-						// Unmark as visible.
-							setTimeout(function() {
-
-								$body.removeClass('is-article-visible');
-
-								// Window stuff.
-									$window
-										.scrollTop(0)
-										.triggerHandler('resize.flexbox-fix');
-
-								// Unlock.
-									setTimeout(function() {
-										locked = false;
-									}, delay);
-
-							}, 25);
-
-					}, delay);
-
-
-			};
-
-		// Articles.
-			$main_articles.each(function() {
-
-				var $this = $(this);
-
-				// Close.
-					$('<div class="close">Close</div>')
-						.appendTo($this)
-						.on('click', function() {
-							location.hash = '';
-						});
-
-				// Prevent clicks from inside article from bubbling.
-					$this.on('click', function(event) {
-						event.stopPropagation();
-					});
-
-			});
-
-		// Events.
-			$body.on('click', function(event) {
-
-				// Article visible? Hide.
-					if ($body.hasClass('is-article-visible'))
-						$main._hide(true);
-
-			});
-
-			$window.on('keyup', function(event) {
-
-				switch (event.keyCode) {
-
-					case 27:
-
-						// Article visible? Hide.
-							if ($body.hasClass('is-article-visible'))
-								$main._hide(true);
-
-						break;
-
-					default:
-						break;
-
-				}
-
-			});
-
-			$window.on('hashchange', function(event) {
-
-				// Empty hash?
-					if (location.hash == ''
-					||	location.hash == '#') {
-
-						// Prevent default.
-							event.preventDefault();
-							event.stopPropagation();
-
-						// Hide.
-							$main._hide();
-
-					}
-
-				// Otherwise, check for a matching article.
-					else if ($main_articles.filter(location.hash).length > 0) {
-
-						// Prevent default.
-							event.preventDefault();
-							event.stopPropagation();
-
-						// Show article.
-							$main._show(location.hash.substr(1));
-
-					}
-
-			});
-
-		// Scroll restoration.
-		// This prevents the page from scrolling back to the top on a hashchange.
-			if ('scrollRestoration' in history)
-				history.scrollRestoration = 'manual';
-			else {
-
-				var	oldScrollPos = 0,
-					scrollPos = 0,
-					$htmlbody = $('html,body');
-
-				$window
-					.on('scroll', function() {
-
-						oldScrollPos = scrollPos;
-						scrollPos = $htmlbody.scrollTop();
-
-					})
-					.on('hashchange', function() {
-						$window.scrollTop(oldScrollPos);
-					});
-
-			}
-
-		// Initialize.
-
-			// Hide main, articles.
-				$main.hide();
-				$main_articles.hide();
-
-			// Initial article.
-				if (location.hash != ''
-				&&	location.hash != '#')
-					$window.on('load', function() {
-						$main._show(location.hash.substr(1), true);
-					});
-
+(function ($) {
+    var $window = $(window),
+        $body = $("body"),
+        $hero = $("#hero"),
+        $heroTitle = $("#hero-title"),
+        $heroSubtitle = $("#hero-subtitle"),
+        $journalColumn = $(".journal-column"),
+        $journalList = $(".journal-list"),
+        $textBoundary = $(".text-boundary"),
+        $navbar = $("#navbar");
+
+    var animationsDone = false;
+
+    // Breakpoints.
+    breakpoints({
+        xlarge: ["1281px", "1680px"],
+        large: ["981px", "1280px"],
+        medium: ["737px", "980px"],
+        small: ["481px", "736px"],
+        xsmall: ["361px", "480px"],
+        xxsmall: [null, "360px"],
+    });
+
+    // Play initial animations
+    $(function () {
+        window.setTimeout(function () {
+            $body.removeClass("is-preload");
+
+            setTimeout(function () {
+                if ($heroTitle.length) $heroTitle.addClass("visible");
+            }, 50);
+
+            setTimeout(function () {
+                if ($heroSubtitle.length) $heroSubtitle.addClass("visible");
+            }, 350);
+
+            setTimeout(function () {
+                animationsDone = true;
+                alignJournalColumn();
+                // Ensure alignment after layout/fonts load
+                setTimeout(alignJournalColumn, 500);
+                setTimeout(alignJournalColumn, 2000);
+            }, 800);
+        }, 50);
+    });
+
+    // Function to align journal column height with text boundary
+    function alignJournalColumn() {
+        var isSplitView =
+            $window.width() > 980 ||
+            ($window.width() > 600 &&
+                window.matchMedia("(orientation: landscape)").matches);
+
+        if (isSplitView && $textBoundary.length && $journalColumn.length) {
+            var height = $textBoundary.outerHeight();
+            // Match journal height to text for symmetry in split view
+            $journalColumn.css("height", height + "px");
+        } else {
+            // Let CSS handle height and centering in vertical layouts
+            $journalColumn.css("height", "");
+        }
+
+        // Recalculate scroll arrows whenever the container height changes
+        if (typeof updateArrows === "function") updateArrows();
+    }
+
+    $window.on("resize load", alignJournalColumn);
+
+    // ==========================================
+    // Image Sequence Logic (Background Canvas)
+    // ==========================================
+
+    const canvas = document.getElementById("hero-canvas");
+
+    if (canvas) {
+        const context = canvas.getContext("2d");
+        const frameCount = window.heroFrameCount || 601;
+        const currentFrame = (index) =>
+            `images/sequence/${index.toString().padStart(4, "0")}.webp`;
+
+        const images = [];
+        const sequence = { frame: 0 };
+
+        for (let i = 0; i < frameCount; i++) {
+            const img = new Image();
+            const src = currentFrame(i);
+            img.onload = () => {
+                if (i === 0) requestAnimationFrame(render);
+            };
+            img.onerror = function () {
+                this.src = "images/overlay.png";
+                this.onerror = null;
+            };
+            img.src = src;
+            images.push(img);
+        }
+
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            requestAnimationFrame(render);
+        };
+
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        function render() {
+            const img = images[sequence.frame];
+            if (!img || !img.complete || img.naturalWidth === 0) return;
+
+            const isPortrait = canvas.height > canvas.width;
+
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (isPortrait) {
+                const hRatio = canvas.width / img.height;
+                const vRatio = canvas.height / img.width;
+                const ratio = Math.max(hRatio, vRatio);
+
+                context.save();
+                context.translate(canvas.width / 2, canvas.height / 2);
+                context.rotate(Math.PI / 2);
+                context.drawImage(
+                    img,
+                    0,
+                    0,
+                    img.width,
+                    img.height,
+                    (-img.width * ratio) / 2,
+                    (-img.height * ratio) / 2,
+                    img.width * ratio,
+                    img.height * ratio,
+                );
+                context.restore();
+            } else {
+                const hRatio = canvas.width / img.width;
+                const vRatio = canvas.height / img.height;
+                const ratio = Math.max(hRatio, vRatio);
+
+                const centerShift_x = (canvas.width - img.width * ratio) / 2;
+                const centerShift_y = (canvas.height - img.height * ratio) / 2;
+
+                context.drawImage(
+                    img,
+                    0,
+                    0,
+                    img.width,
+                    img.height,
+                    centerShift_x,
+                    centerShift_y,
+                    img.width * ratio,
+                    img.height * ratio,
+                );
+            }
+        }
+
+        let scrollAccumulator = 0;
+        const scrollThreshold = 5; // Pixels to advance 1 frame
+
+        function advanceFrame(delta) {
+            scrollAccumulator += Math.abs(delta);
+            if (scrollAccumulator >= scrollThreshold) {
+                sequence.frame = (sequence.frame + 1) % frameCount;
+                scrollAccumulator = 0;
+                render();
+            }
+        }
+
+        // Advance frames on mouse motion across the screen
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+        $window.on("mousemove", (e) => {
+            if (lastMouseX !== 0 || lastMouseY !== 0) {
+                // Advance frames proportional to mouse movement speed
+                let deltaX = e.clientX - lastMouseX;
+                let deltaY = e.clientY - lastMouseY;
+                advanceFrame(Math.sqrt(deltaX * deltaX + deltaY * deltaY));
+            }
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        });
+
+        // Advance frames only when interacting with the journal list
+        $journalList.on("wheel", (e) => {
+            advanceFrame(e.originalEvent.deltaY || 0);
+        });
+
+        let lastScrollTop = 0;
+        $journalList.on("scroll", () => {
+            const st = $journalList.scrollTop();
+            advanceFrame(st - lastScrollTop);
+            lastScrollTop = st;
+        });
+
+        let lastTouchY = 0;
+        $journalList.on("touchstart", (e) => {
+            if (e.originalEvent.touches) {
+                lastTouchY = e.originalEvent.touches[0].clientY;
+            }
+        });
+
+        $journalList.on("touchmove", (e) => {
+            if (e.originalEvent.touches) {
+                const touchY = e.originalEvent.touches[0].clientY;
+                advanceFrame(touchY - lastTouchY);
+                lastTouchY = touchY;
+            }
+        });
+
+        // Initial render
+        render();
+    }
+
+    // ==========================================
+    // Navbar Logic
+    // ==========================================
+
+    // Scroll journal to top on logo click
+    $navbar.find(".logo a").on("click", function (e) {
+        if ($journalList.length) {
+            e.preventDefault();
+            e.stopPropagation();
+            $journalList.animate({ scrollTop: 0 }, 500);
+            $navbar.addClass("stowed");
+        }
+    });
+
+    // Expand/Collapse on Click
+    $navbar.on("click", function (e) {
+        if ($navbar.hasClass("stowed")) {
+            e.preventDefault();
+            e.stopPropagation();
+            $navbar.removeClass("stowed");
+        }
+    });
+
+    // Close when clicking outside
+    $(document).on("click", function (e) {
+        if (
+            !$navbar.hasClass("stowed") &&
+            !$(e.target).closest("#navbar").length
+        ) {
+            $navbar.addClass("stowed");
+        }
+    });
+
+    // Collapse navbar when scrolling inside the journal list
+    $journalList.on("scroll", function () {
+        if (!$navbar.hasClass("stowed")) {
+            $navbar.addClass("stowed");
+        }
+    });
+
+    // Journal Scroll Indicators (Arrows)
+    var $upArrow = $(".scroll-up");
+    var $downArrow = $(".scroll-down");
+
+    function updateArrows() {
+        if (!$journalList.length) return;
+
+        var scrollTop = $journalList.scrollTop();
+        var scrollHeight = $journalList[0].scrollHeight;
+        var height = $journalList.outerHeight();
+
+        // Update Up Arrow visibility
+        if (scrollTop <= 10) {
+            $upArrow.css("opacity", "0");
+        } else {
+            $upArrow.css("opacity", "0.5");
+        }
+
+        // Update Down Arrow visibility (with 10px buffer)
+        if (scrollTop + height >= scrollHeight - 10) {
+            $downArrow.css("opacity", "0");
+        } else {
+            $downArrow.css("opacity", "0.5");
+        }
+    }
+
+    $journalList.on("scroll", updateArrows);
+    $window.on("resize load", updateArrows);
+
+    // Initial check after layout/animations settle
+    setTimeout(updateArrows, 1500);
 })(jQuery);
