@@ -145,6 +145,9 @@ table {
 
 body {
     -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    text-size-adjust: none;
 }
 
 mark {
