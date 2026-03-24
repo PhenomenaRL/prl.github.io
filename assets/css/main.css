@@ -2187,26 +2187,11 @@ body,
 }
 
 /* Hero Section */
-#hero-canvas-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: -1;
-}
-
-#hero-canvas {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
 
 #hero {
     height: 100vh;
     width: 100%;
-    background: transparent;
+    background: #ffffff;
     position: relative;
     overflow: hidden;
 }
@@ -2269,7 +2254,8 @@ body:not(.is-preload) .journal-column {
     color: #111;
     opacity: 0;
     transition: opacity 0.3s ease;
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 .scroll-up {
@@ -2737,11 +2723,10 @@ body.is-preload #footer {
 
 .journal-body {
     background-color: #fdfdfd !important;
-    overflow: visible !important;
-}
-
-.journal-body #hero-canvas-container {
-    display: none; /* No canvas on template as requested */
+    overflow: hidden !important;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .journal-container {
@@ -2749,16 +2734,18 @@ body.is-preload #footer {
     max-width: 1400px;
     margin: 0 auto;
     padding: 12rem 5% 5rem 5%;
-    min-height: 100vh;
-    align-items: flex-start;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: stretch;
 }
 
 .journal-sidebar {
     flex: 0 0 120px;
     max-width: 120px;
-    position: sticky;
-    top: 10rem;
-    height: calc(100vh - 15rem);
+    position: relative;
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding-right: 1.5rem;
@@ -2770,6 +2757,8 @@ body.is-preload #footer {
     min-width: 0;
     padding-left: 4rem;
     border-left: 1px solid rgba(0, 0, 0, 0.05);
+    height: 100%;
+    overflow-y: auto;
 }
 
 .journal-main h1 {
@@ -2823,6 +2812,14 @@ body:not(.is-preload) .journal-content {
 .journal-toc {
     margin: 2rem 1rem 2rem -3rem;
     width: auto;
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.journal-toc::-webkit-scrollbar {
+    display: none;
 }
 
 .journal-toc ul {
