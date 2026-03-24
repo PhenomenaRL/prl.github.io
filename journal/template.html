@@ -282,31 +282,54 @@
                     $body.removeClass("is-preload");
                 }, 100);
 
+                var $scrollContainer = $(".journal-main");
+                var $tocContainer = $(".journal-toc");
+
+                function updateSidebarArrows() {
+                    if (!$tocContainer.length) return;
+                    var tocScrollTop = $tocContainer.scrollTop();
+                    var tocScrollHeight = $tocContainer[0].scrollHeight;
+                    var tocHeight = $tocContainer.innerHeight();
+
+                    $upArrow.css({
+                        opacity: tocScrollTop <= 10 ? "0" : "0.5",
+                        "pointer-events": tocScrollTop <= 10 ? "none" : "auto",
+                    });
+                    $downArrow.css({
+                        opacity:
+                            tocScrollTop + tocHeight >= tocScrollHeight - 10
+                                ? "0"
+                                : "0.5",
+                        "pointer-events":
+                            tocScrollTop + tocHeight >= tocScrollHeight - 10
+                                ? "none"
+                                : "auto",
+                    });
+                }
+
+                $tocContainer.on("scroll", updateSidebarArrows);
+                $window.on("load resize", updateSidebarArrows);
+                setTimeout(updateSidebarArrows, 100);
+
                 // Scroll Handling
                 function onScroll() {
-                    var scrollTop = $window.scrollTop();
+                    var scrollTop = $scrollContainer.scrollTop();
 
                     // Collapse navbar on scroll
                     var $navbar = $("#navbar");
                     if (!$navbar.hasClass("stowed")) {
                         $navbar.addClass("stowed");
                     }
-                    var windowHeight = $window.height();
-                    var docHeight = $(document).height();
-
-                    // Arrow Visibility
-                    $upArrow.css("opacity", scrollTop <= 50 ? "0" : "0.5");
-                    $downArrow.css(
-                        "opacity",
-                        scrollTop + windowHeight >= docHeight - 50
-                            ? "0"
-                            : "0.5",
-                    );
+                    var windowHeight = $scrollContainer.height();
+                    var docHeight = $scrollContainer[0].scrollHeight;
 
                     // TOC Active State (ScrollSpy)
                     var currentSection = "";
                     $sections.each(function () {
-                        var sectionTop = $(this).offset().top;
+                        var sectionTop =
+                            $(this).offset().top -
+                            $scrollContainer.offset().top +
+                            scrollTop;
                         if (scrollTop >= sectionTop - 150) {
                             currentSection = $(this).attr("id");
                         }
@@ -331,7 +354,8 @@
                     $activeLink.parents("li").children("a").addClass("active");
                 }
 
-                $window.on("scroll load", onScroll);
+                $scrollContainer.on("scroll", onScroll);
+                $window.on("load resize", onScroll);
 
                 // 1. Smooth Scroll for TOC & Active State Override
                 $tocLinks.on("click", function (e) {
@@ -342,9 +366,13 @@
                     var id = target.substring(1);
                     activateTocItem(id);
 
-                    $("html, body").animate(
+                    $scrollContainer.animate(
                         {
-                            scrollTop: $(target).offset().top - 120,
+                            scrollTop:
+                                $(target).offset().top -
+                                $scrollContainer.offset().top +
+                                $scrollContainer.scrollTop() -
+                                120,
                         },
                         800,
                         function () {
@@ -361,14 +389,11 @@
 
                 // Smooth scroll for arrows
                 $upArrow.on("click", function () {
-                    $("html, body").animate({ scrollTop: 0 }, 800);
+                    $tocContainer.animate({ scrollTop: "-=200px" }, 300);
                 });
 
                 $downArrow.on("click", function () {
-                    $("html, body").animate(
-                        { scrollTop: $(document).height() },
-                        800,
-                    );
+                    $tocContainer.animate({ scrollTop: "+=200px" }, 300);
                 });
             });
         </script>

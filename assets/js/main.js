@@ -71,151 +71,6 @@
     $window.on("resize load", alignJournalColumn);
 
     // ==========================================
-    // Image Sequence Logic (Background Canvas)
-    // ==========================================
-
-    const canvas = document.getElementById("hero-canvas");
-
-    if (canvas) {
-        const context = canvas.getContext("2d");
-        const frameCount = window.heroFrameCount || 601;
-        const currentFrame = (index) =>
-            `images/sequence/${index.toString().padStart(4, "0")}.webp`;
-
-        const images = [];
-        const sequence = { frame: 0 };
-
-        for (let i = 0; i < frameCount; i++) {
-            const img = new Image();
-            const src = currentFrame(i);
-            img.onload = () => {
-                if (i === 0) requestAnimationFrame(render);
-            };
-            img.onerror = function () {
-                this.src = "images/overlay.png";
-                this.onerror = null;
-            };
-            img.src = src;
-            images.push(img);
-        }
-
-        const resizeCanvas = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            requestAnimationFrame(render);
-        };
-
-        window.addEventListener("resize", resizeCanvas);
-        resizeCanvas();
-
-        function render() {
-            const img = images[sequence.frame];
-            if (!img || !img.complete || img.naturalWidth === 0) return;
-
-            const isPortrait = canvas.height > canvas.width;
-
-            context.clearRect(0, 0, canvas.width, canvas.height);
-
-            if (isPortrait) {
-                const hRatio = canvas.width / img.height;
-                const vRatio = canvas.height / img.width;
-                const ratio = Math.max(hRatio, vRatio);
-
-                context.save();
-                context.translate(canvas.width / 2, canvas.height / 2);
-                context.rotate(Math.PI / 2);
-                context.drawImage(
-                    img,
-                    0,
-                    0,
-                    img.width,
-                    img.height,
-                    (-img.width * ratio) / 2,
-                    (-img.height * ratio) / 2,
-                    img.width * ratio,
-                    img.height * ratio,
-                );
-                context.restore();
-            } else {
-                const hRatio = canvas.width / img.width;
-                const vRatio = canvas.height / img.height;
-                const ratio = Math.max(hRatio, vRatio);
-
-                const centerShift_x = (canvas.width - img.width * ratio) / 2;
-                const centerShift_y = (canvas.height - img.height * ratio) / 2;
-
-                context.drawImage(
-                    img,
-                    0,
-                    0,
-                    img.width,
-                    img.height,
-                    centerShift_x,
-                    centerShift_y,
-                    img.width * ratio,
-                    img.height * ratio,
-                );
-            }
-        }
-
-        let scrollAccumulator = 0;
-        const scrollThreshold = 5; // Pixels to advance 1 frame
-
-        function advanceFrame(delta) {
-            scrollAccumulator += Math.abs(delta);
-            if (scrollAccumulator >= scrollThreshold) {
-                sequence.frame = (sequence.frame + 1) % frameCount;
-                scrollAccumulator = 0;
-                render();
-            }
-        }
-
-        // Advance frames on mouse motion across the screen
-        let lastMouseX = 0;
-        let lastMouseY = 0;
-        $window.on("mousemove", (e) => {
-            if (lastMouseX !== 0 || lastMouseY !== 0) {
-                // Advance frames proportional to mouse movement speed
-                let deltaX = e.clientX - lastMouseX;
-                let deltaY = e.clientY - lastMouseY;
-                advanceFrame(Math.sqrt(deltaX * deltaX + deltaY * deltaY));
-            }
-            lastMouseX = e.clientX;
-            lastMouseY = e.clientY;
-        });
-
-        // Advance frames only when interacting with the journal list
-        $journalList.on("wheel", (e) => {
-            advanceFrame(e.originalEvent.deltaY || 0);
-        });
-
-        let lastScrollTop = 0;
-        $journalList.on("scroll", () => {
-            const st = $journalList.scrollTop();
-            advanceFrame(st - lastScrollTop);
-            lastScrollTop = st;
-        });
-
-        let lastTouchY = 0;
-        $journalList.on("touchstart", (e) => {
-            if (e.originalEvent.touches) {
-                lastTouchY = e.originalEvent.touches[0].clientY;
-            }
-        });
-
-        $journalList.on("touchmove", (e) => {
-            if (e.originalEvent.touches) {
-                const touchY = e.originalEvent.touches[0].clientY;
-                advanceFrame(touchY - lastTouchY);
-                lastTouchY = touchY;
-            }
-        });
-
-        // Initial render
-        render();
-    }
-
-    // ==========================================
     // Navbar Logic
     // ==========================================
 
@@ -259,6 +114,18 @@
     var $upArrow = $(".scroll-up");
     var $downArrow = $(".scroll-down");
 
+    $upArrow.on("click", function () {
+        if ($journalList.length) {
+            $journalList.animate({ scrollTop: "-=200px" }, 300);
+        }
+    });
+
+    $downArrow.on("click", function () {
+        if ($journalList.length) {
+            $journalList.animate({ scrollTop: "+=200px" }, 300);
+        }
+    });
+
     function updateArrows() {
         if (!$journalList.length) return;
 
@@ -268,16 +135,28 @@
 
         // Update Up Arrow visibility
         if (scrollTop <= 10) {
-            $upArrow.css("opacity", "0");
+            $upArrow.css({
+                opacity: "0",
+                "pointer-events": "none",
+            });
         } else {
-            $upArrow.css("opacity", "0.5");
+            $upArrow.css({
+                opacity: "0.5",
+                "pointer-events": "auto",
+            });
         }
 
         // Update Down Arrow visibility (with 10px buffer)
         if (scrollTop + height >= scrollHeight - 10) {
-            $downArrow.css("opacity", "0");
+            $downArrow.css({
+                opacity: "0",
+                "pointer-events": "none",
+            });
         } else {
-            $downArrow.css("opacity", "0.5");
+            $downArrow.css({
+                opacity: "0.5",
+                "pointer-events": "auto",
+            });
         }
     }
 
