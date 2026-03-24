@@ -4,6 +4,49 @@
         <title>Soloc | Phenomena Replication Laboratory</title>
         <meta charset="utf-8" />
         <meta
+            name="description"
+            content="Soloc: Solar System Localizer. Solar System localizer & dynamics engine & why it is needed. Phenomena Replication Laboratory (PRL)."
+        />
+        <meta
+            name="keywords"
+            content="Soloc, Solar System Localizer, PRL, Phenomena Replication Laboratory, Space Robotics, Dynamics Engine"
+        />
+        <link
+            rel="canonical"
+            href="https://phenomenareplicationlab.ca/journal/soloc.html"
+        />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="article" />
+        <meta
+            property="og:url"
+            content="https://phenomenareplicationlab.ca/journal/soloc.html"
+        />
+        <meta
+            property="og:title"
+            content="Soloc | Phenomena Replication Laboratory"
+        />
+        <meta
+            property="og:description"
+            content="Soloc: Solar System Localizer. Solar System localizer & dynamics engine & why it is needed. Phenomena Replication Laboratory (PRL)."
+        />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta
+            property="twitter:url"
+            content="https://phenomenareplicationlab.ca/journal/soloc.html"
+        />
+        <meta
+            property="twitter:title"
+            content="Soloc | Phenomena Replication Laboratory"
+        />
+        <meta
+            property="twitter:description"
+            content="Soloc: Solar System Localizer. Solar System localizer & dynamics engine & why it is needed. Phenomena Replication Laboratory (PRL)."
+        />
+
+        <meta
             name="viewport"
             content="width=device-width, initial-scale=1, user-scalable=no"
         />
@@ -155,33 +198,6 @@
                 }, 100);
 
                 var $scrollContainer = $(".journal-main");
-                var $tocContainer = $(".journal-toc");
-
-                function updateSidebarArrows() {
-                    if (!$tocContainer.length) return;
-                    var tocScrollTop = $tocContainer.scrollTop();
-                    var tocScrollHeight = $tocContainer[0].scrollHeight;
-                    var tocHeight = $tocContainer.innerHeight();
-
-                    $upArrow.css({
-                        opacity: tocScrollTop <= 10 ? "0" : "0.5",
-                        "pointer-events": tocScrollTop <= 10 ? "none" : "auto",
-                    });
-                    $downArrow.css({
-                        opacity:
-                            tocScrollTop + tocHeight >= tocScrollHeight - 10
-                                ? "0"
-                                : "0.5",
-                        "pointer-events":
-                            tocScrollTop + tocHeight >= tocScrollHeight - 10
-                                ? "none"
-                                : "auto",
-                    });
-                }
-
-                $tocContainer.on("scroll", updateSidebarArrows);
-                $window.on("load resize", updateSidebarArrows);
-                setTimeout(updateSidebarArrows, 100);
 
                 // Scroll Handling
                 function onScroll() {
@@ -194,6 +210,22 @@
                     }
                     var windowHeight = $scrollContainer.height();
                     var docHeight = $scrollContainer[0].scrollHeight;
+
+                    // Arrow Visibility
+                    $upArrow.css({
+                        opacity: scrollTop <= 50 ? "0" : "0.5",
+                        "pointer-events": scrollTop <= 50 ? "none" : "auto",
+                    });
+                    $downArrow.css({
+                        opacity:
+                            scrollTop + windowHeight >= docHeight - 50
+                                ? "0"
+                                : "0.5",
+                        "pointer-events":
+                            scrollTop + windowHeight >= docHeight - 50
+                                ? "none"
+                                : "auto",
+                    });
 
                     // TOC Active State (ScrollSpy)
                     var currentSection = "";
@@ -261,11 +293,14 @@
 
                 // Smooth scroll for arrows
                 $upArrow.on("click", function () {
-                    $tocContainer.animate({ scrollTop: "-=200px" }, 300);
+                    $scrollContainer.animate({ scrollTop: 0 }, 800);
                 });
 
                 $downArrow.on("click", function () {
-                    $tocContainer.animate({ scrollTop: "+=200px" }, 300);
+                    $scrollContainer.animate(
+                        { scrollTop: $scrollContainer[0].scrollHeight },
+                        800,
+                    );
                 });
             });
         </script>

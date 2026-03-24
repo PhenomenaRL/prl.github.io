@@ -2117,12 +2117,6 @@ body,
     margin-right: 0.5rem;
 }
 
-.journal-content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem 0;
-}
-
 .journal-header {
     margin-bottom: 3rem;
 }
@@ -2756,12 +2750,16 @@ body.is-preload #footer {
     flex: 1;
     min-width: 0;
     padding-left: 4rem;
+    padding-right: 2rem;
     border-left: 1px solid rgba(0, 0, 0, 0.05);
     height: 100%;
     overflow-y: auto;
 }
 
 .journal-main h1 {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: 0;
     text-align: right;
     font-size: 4rem;
     font-weight: 900;
@@ -2779,6 +2777,7 @@ body.is-preload #footer {
 .journal-content {
     max-width: 800px;
     margin-left: auto;
+    margin-right: 0;
     text-align: justify;
     opacity: 0;
     transform: translateY(20px);
@@ -2883,6 +2882,7 @@ body:not(.is-preload) .journal-content {
         flex: 1;
         min-width: 0;
         padding-left: 1.5rem;
+        padding-right: 1.5rem;
         border-left: 1px solid rgba(0, 0, 0, 0.05);
     }
 
@@ -2913,6 +2913,18 @@ body:not(.is-preload) .journal-content {
     font-size: 0.75rem;
     margin-bottom: 0.8rem;
     padding-left: 1.2rem;
+}
+
+@media screen and (max-width: 736px) {
+    .journal-sidebar {
+        display: none;
+    }
+
+    .journal-main {
+        padding-left: 0;
+        padding-right: 1rem;
+        border-left: none;
+    }
 }
 
 .journal-toc ul ul li::before {
