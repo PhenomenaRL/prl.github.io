@@ -75,7 +75,10 @@
                                     <a href="#Self-Repair">Self-Repair</a>
                                 </li>
                                 <li>
-                                    <a href="#Graceful-Degredation">Graceful Degredation</a>
+                                    <a href="#Graceful-Degradation">Graceful Degradation</a>
+                                </li>
+                                <li>
+                                    <a href="Emergence-Behaviour">Emergence of Behaviour & Sustainability</a>
                                 </li>
                             </ul>
                         </li>
@@ -103,7 +106,7 @@
                             efficiency has a specific definition: the ratio of
                             power output over power input. Beyond the
                             engineering definition, efficiency has been widely,
-                            and vaguely, been assigned to the concept of
+                            and vaguely, assigned to the concept of
                             increasing output, referring to speed, financials,
                             quality, ease-of-use and so on. It is easy to see
                             why maximizing efficiency or output is a good idea.
@@ -120,7 +123,7 @@
                             us about creating truly autonomous systems (robots
                             included of course), and how natural systems are
                             exceptional examples of autonomy that endures.
-                            Homeostasis is a not a commonly used word outside of
+                            Homeostasis is not a commonly used word outside of
                             biology and medicine. The argument I will make here
                             is that it should be used when speaking about
                             autonomy, and how that leads to a path towards true
@@ -161,7 +164,7 @@
                                     >How will the system perform its
                                     task(s)?</strong
                                 >
-                                <ol>
+                                <ul>
                                     <li>
                                         how do the individual robots locomote in
                                         their environment?
@@ -188,7 +191,7 @@
                                         what happens if communication is lost to
                                         the fleet, or individual robots?
                                     </li>
-                                </ol>
+                                </ul>
                             </li>
                             <li>
                                 <strong
@@ -197,7 +200,7 @@
                                     and how will they be
                                     updated/re-used/decommissioned?</strong
                                 >
-                                <ol>
+                                <ul>
                                     <li>
                                         how long will the electromechanical
                                         components perform optimally for, and
@@ -214,14 +217,14 @@
                                         will they be decommissioned after their
                                         mission is over?
                                     </li>
-                                </ol>
+                                </ul>
                             </li>
                             <li>
                                 <strong
                                     >How will the system use & recover
                                     energy?</strong
                                 >
-                                <ol>
+                                <ul>
                                     <li>
                                         what is the distribution of energy
                                         consumption per sub-system?
@@ -237,12 +240,12 @@
                                         into a low energy state without becoming
                                         junk itself?
                                     </li>
-                                </ol>
+                                </ul>
                             </li>
                         </ol>
 
                         <p>
-                            When undergoing an effort to answer these questions,
+                            In answering these questions for any autonomous system,
                             the autonomy paradox is easily revealed. Autonomy
                             relies on manual human adaptability and curation:
                             maintenance schedules, unanticipated repairs,
@@ -308,7 +311,7 @@
                             advances in what I am calling homeostatic autonomy,
                             and one which outlines the class of systems we can
                             achieve in our lifetimes. The apparent tradeoff
-                            between efficiency and resilience is not constraint
+                            between efficiency and resilience is not constrained
                             to theoretical future robotic fleets. It is
                             ever-present in all human engineered systems. Some
                             notable examples include:
@@ -318,11 +321,11 @@
                           <li>factory lines are often designed to maximize throughput of manufactured goods, but the entire line comes to a stop with supply chain perturbations, or single machine failures</li>
                           <li>mobile robotics are often designed to perform a task with the expectation that if the task fails, there exists a fallback of human teleoperation and recovery</li>
                           <li>data-centers are made to optimize the throughput of model training and inference, but any perturbation in the energy infrastructure would cause degradation of model performance or availability</li>
-                          <li>warehouses struggle to handle good shortages during global pandemics or consumer panics</li>
+                          <li>warehouses struggle to handle goods shortages during global pandemics or consumer panics</li>
                         </ul>
 
                         <p>
-                            Traditional reliability engineering is a mature and valuable discipline. It asks: what are the known ways this system can fail, and how do we account for them? It suggests redundant components, failure mode analyses, and maintenance schedules. Reliability engineering designs for the failure modes we can anticipate in advance; it fails to capture emergent failure modes. Failure Mode and Effects Analysis (FMEA) cannot resolve all cascading failures across an autonomous network, any more than a cardiologist's knowledge of the heart fully prepares them for treating a patient whose heart failure is driven by systemic metabolic collapse.
+                            Traditional reliability engineering is a mature and valuable discipline. It asks: what are the known ways this system can fail, and how do we account for them? It suggests redundant components, failure mode analyses, and maintenance schedules. Reliability engineering designs for the failure modes we can anticipate in advance; it fails to capture emergent failure modes. Failure Mode and Effects Analysis (FMEA) cannot resolve all cascading failures across an autonomous network.
                         </p>
 
                         <p>
@@ -362,7 +365,7 @@
                             Natural systems perform repairs at multiple levels simultaneously: molecular, cellular, tissue, organ, behavioural, societal and so on. The interesting implication for robotics is that self-repair doesn't have to mean a robot physically fixing itself (though I argue that is one capability we can aim for sooner than later). For our ocean-cleaning robot fleet, it can mean software fault detection and rollback, dynamic reallocation of tasks across the fleet when one unit degrades, or even robots physically rendezvousing to transfer energy or provide replacement filters. If the robots in the fleet relied solely on a human to fly out to the middle of the Pacific to perform maintenance, it would be equivalent to an organism that can only heal with external surgery. True homeostatic autonomy builds repair capacity at multiple levels.
                         </p>
 
-                        <h3 id="Graceful-Degredation">Graceful Degredation</h3>
+                        <h3 id="Graceful-Degradation">Graceful Degradation</h3>
                         <p>
                             Natural autonomy does not have a binary on/off failure mode: instead, compensations to behaviour are made to survive at reduced capacity while healing. This relates to the concept of homeostasis and self-repair discussed previously, but goes further to answer the question of “what happens when the limits of homeostatic operation are exceeded in part or entirely?”
                         </p>
@@ -386,7 +389,7 @@
                         <p>-</p>
 
                         <p>
-                            It is important to mention that I have deliberately excluded one principle of autonomy that natural systems have which engineered systems do not: self-replication. That topic and all of its considerations is good story, for another time. Even so, the discussed themes sufficiently describe what makes natural systems so enduring and sustainable. This makes them good educational models for the autonomous systems we are trying to build.
+                            It is important to mention that I have deliberately excluded one principle of autonomy that natural systems have which engineered systems do not: self-replication. That topic is a good story, for another time. Even so, the discussed themes sufficiently describe what makes natural systems so enduring and sustainable. This makes them good educational models for the autonomous systems we are trying to build.
                         </p>
 
                     </section>
@@ -407,7 +410,7 @@
                             To be clear, the argument here is not for slowing down. I am arguing for the opposite. Homeostatic autonomy is the design philosophy that makes it possible to scale autonomous systems with confidence. It enables us to build faster, deploy wider, and most importantly trust the result. When I speak about the tradeoff between efficiency and endurance, I have been careful to always qualify it with the term ‘apparent.’ This is because the tradeoff is not definitive; it dissolves when you extend the time horizon. A system that regulates itself, degrades gracefully, and repairs across scales will outperform a brittle, peak-optimized system every time, measured over the timescales that will matter in the future. This is especially true in harsh environments.
                         </p>
                         <p>
-                            Nature has been running this experiment for billions of years. The solution it came up with for the Autonomy Paradox is homeostasis: dynamic regulation toward a sustainable envelope, graceful degradation under stress, self-repair at every scale, and collective behaviour that adapts without central instruction. These are not just biological curiosities. They are directly transferable, and perhaps somehow universally fundamental, to the artificial autonomy we desire.
+                            Nature has been running this experiment for billions of years. The solution it came up with for the Autonomy Paradox is homeostasis: dynamic regulation toward a sustainable envelope, graceful degradation under stress, self-repair at every scale, and collective behaviour that adapts. These are not just biological curiosities. They are directly transferable, and perhaps somehow universally fundamental, to the artificial autonomy we desire.
                         </p>
                         <p>
                             It is also worth mentioning something of the beauty and culture of autonomous systems here. When architecture was the defining technology of its age, we built cathedrals, shrines, pyramids, castles, aqueducts, colosseums and so on, all designed to last centuries and to inspire. Beauty was part of the cultural ambition of building something useful. We have largely lost that instinct with modern technology due to practicality and profitability. For robotics particularly, homeostatic autonomy offers a chance to recover it. Referring a final time to our anecdote: a fleet of robots that sustains itself while quietly restoring one of the world's most damaged ecosystems is both meaningful and inspiring, not because it was designed to look or feel that way, but because both purpose and behaviour are truly aligned with something humans care about. That alignment between autonomous behaviour and human values is what the next generation of autonomous systems could, and I strongly argue should, be designed for. Humanoid robots moving boxes are great, but I argue our ambitions for autonomy should be more endearingly ambitious.
