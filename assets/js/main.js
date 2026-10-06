@@ -50,9 +50,10 @@
 
     // Function to align journal column height with text boundary
     function alignJournalColumn() {
+        // Breakpoints mirror the split-view media queries in main.css
         var isSplitView =
             $window.width() > 980 ||
-            ($window.width() > 600 &&
+            ($window.width() > 560 &&
                 window.matchMedia("(orientation: landscape)").matches);
 
         if (isSplitView && $textBoundary.length && $journalColumn.length) {

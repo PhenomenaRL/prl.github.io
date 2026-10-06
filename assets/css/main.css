@@ -2187,6 +2187,7 @@ body,
 
 #hero {
     height: 100vh;
+    height: 100dvh;
     width: 100%;
     background: #ffffff;
     position: relative;
@@ -2196,6 +2197,7 @@ body,
 .hero-container {
     display: flex;
     height: 100vh;
+    height: 100dvh;
     width: 100%;
     padding: 0 10%;
     align-items: center;
@@ -2584,6 +2586,7 @@ body.is-preload #footer {
 
     #hero {
         height: 100vh;
+        height: 100dvh;
         width: 100%;
         overflow: hidden;
     }
@@ -2591,8 +2594,10 @@ body.is-preload #footer {
     .hero-container {
         flex-direction: column;
         justify-content: center;
-        padding: 4rem 8%;
+        /* Extra top padding clears the fixed navbar on short screens */
+        padding: 5.5rem 8% 4rem;
         height: 100vh;
+        height: 100dvh;
         align-items: flex-end;
     }
 
@@ -2655,7 +2660,8 @@ body.is-preload #footer {
         letter-spacing: inherit;
     }
 
-    @media (orientation: landscape) and (min-width: 600px) {
+    /* Keep the 560px threshold in sync with alignJournalColumn() in main.js */
+    @media (orientation: landscape) and (min-width: 560px) {
         .hero-container {
             flex-direction: row;
             align-items: center;
@@ -2722,6 +2728,7 @@ body.is-preload #footer {
     background-color: #fdfdfd !important;
     overflow: hidden !important;
     height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
 }
@@ -2739,8 +2746,8 @@ body.is-preload #footer {
 }
 
 .journal-sidebar {
-    flex: 0 0 120px;
-    max-width: 120px;
+    flex: 0 0 14rem;
+    max-width: 14rem;
     position: relative;
     height: 100%;
     display: flex;
@@ -2812,7 +2819,7 @@ body:not(.is-preload) .journal-content {
 
 /* Table of Contents Tree View */
 .journal-toc {
-    margin: 2rem 1rem 2rem -3rem;
+    margin: 2rem 1rem 2rem 0;
     width: auto;
     flex: 1;
     overflow-y: auto;
@@ -2859,7 +2866,8 @@ body:not(.is-preload) .journal-content {
 .journal-toc a:hover,
 .journal-toc a.active {
     color: #111;
-    font-weight: 700;
+    /* Simulated bold: a real weight change widens the text and re-wraps the TOC */
+    -webkit-text-stroke: 0.035em currentColor;
 }
 
 /* Mobile Adjustments for Journal Template */
@@ -2924,7 +2932,7 @@ body:not(.is-preload) .journal-content {
     }
 
     .journal-main {
-        padding-left: 0;
+        padding-left: 1rem;
         padding-right: 1rem;
         border-left: none;
     }
