@@ -44,7 +44,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1"
         />
-        <link rel="stylesheet" href="../assets/css/main.css?v=24" />
+        <link rel="stylesheet" href="../assets/css/main.css?v=25" />
         <noscript
             ><link rel="stylesheet" href="../assets/css/noscript.css"
         /></noscript>
@@ -500,10 +500,7 @@
 
         <!-- Scripts -->
         <script src="../assets/js/jquery.min.js"></script>
-        <script src="../assets/js/browser.min.js"></script>
-        <script src="../assets/js/breakpoints.min.js"></script>
-        <script src="../assets/js/util.js"></script>
-        <script src="../assets/js/main.js?v=18"></script>
+        <script src="../assets/js/main.js?v=19"></script>
 
         <script>
             $(function () {
@@ -575,6 +572,9 @@
 
                 $scrollContainer.on("scroll", onScroll);
                 $window.on("load resize", onScroll);
+                // Also initialise now: the window load event can fire before this
+                // ready handler runs, in which case the binding above misses it
+                onScroll();
 
                 // 1. Smooth Scroll for TOC & Active State Override
                 $tocLinks.on("click", function (e) {
