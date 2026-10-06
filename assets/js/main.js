@@ -85,9 +85,10 @@
         }
     });
 
-    // Expand/Collapse on Click
+    // Expand/Collapse on Click (the logo link navigates instead; on the
+    // landing page its own handler above stops the event before this)
     $navbar.on("click", function (e) {
-        if ($navbar.hasClass("stowed")) {
+        if ($navbar.hasClass("stowed") && !$(e.target).closest(".logo a").length) {
             e.preventDefault();
             e.stopPropagation();
             $navbar.removeClass("stowed");

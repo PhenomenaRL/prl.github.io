@@ -1977,6 +1977,18 @@ body,
     color: #000;
 }
 
+/* Tighter expanded navbar so the hamburger stays inside the pill on phones */
+@media screen and (max-width: 736px) {
+    .navbar-content,
+    .nav-right-section {
+        gap: 1rem;
+    }
+
+    #navbar .contact-info {
+        margin-right: 0;
+    }
+}
+
 @media screen and (max-width: 480px) {
     .contact-label {
         display: none;
@@ -2568,7 +2580,8 @@ body.is-preload #footer {
     }
 
     @media screen and (max-width: 380px) {
-        #navbar a {
+        #navbar a,
+        #navbar .contact-info a {
             font-size: 0.7rem;
         }
         #navbar {
