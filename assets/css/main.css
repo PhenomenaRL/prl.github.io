@@ -1949,10 +1949,12 @@ body,
     opacity: 1;
     white-space: nowrap;
     max-width: 600px;
+    visibility: visible;
     transition:
         opacity 0.2s ease,
         max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        margin-right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        margin-right 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0s;
 }
 
 #navbar.stowed .contact-info {
@@ -1961,6 +1963,13 @@ body,
     margin-right: 0;
     pointer-events: none;
     overflow: hidden;
+    /* Hidden from keyboard and screen readers once the fade-out finishes */
+    visibility: hidden;
+    transition:
+        opacity 0.2s ease,
+        max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        margin-right 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0s linear 0.2s;
 }
 
 #navbar .contact-info a {
@@ -2185,6 +2194,23 @@ body,
     gap: 4px;
     z-index: 1002;
     transition: transform 0.3s ease;
+    /* Undo the generic template button styles; it should look like a bare icon */
+    height: auto;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: none;
+}
+
+.hamburger:hover,
+.hamburger:active {
+    background-color: transparent;
+}
+
+/* Keyboard-only focus ring (the template's button styles remove outlines) */
+.hamburger:focus-visible {
+    outline: 2px solid #111;
+    outline-offset: 4px;
 }
 
 .hamburger span {

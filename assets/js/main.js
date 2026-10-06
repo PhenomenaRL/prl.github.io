@@ -85,15 +85,31 @@
         }
     });
 
-    // Expand/Collapse on Click (the logo link navigates instead; on the
-    // landing page its own handler above stops the event before this)
+    // Expand on click anywhere in the stowed navbar except the logo link,
+    // which navigates instead (on the landing page its own handler above
+    // stops the event before this). The hamburger also collapses it again.
     $navbar.on("click", function (e) {
         if ($navbar.hasClass("stowed") && !$(e.target).closest(".logo a").length) {
             e.preventDefault();
             e.stopPropagation();
             $navbar.removeClass("stowed");
+        } else if ($(e.target).closest(".hamburger").length) {
+            $navbar.addClass("stowed");
         }
     });
+
+    // Mirror the stowed state onto the hamburger for assistive tech. Observing
+    // the class covers every place that stows the navbar, including the
+    // scroll handlers in the journal pages' inline scripts.
+    var $hamburger = $navbar.find(".hamburger");
+    if ($hamburger.length) {
+        new MutationObserver(function () {
+            $hamburger.attr(
+                "aria-expanded",
+                String(!$navbar.hasClass("stowed")),
+            );
+        }).observe($navbar[0], { attributes: true, attributeFilter: ["class"] });
+    }
 
     // Close when clicking outside
     $(document).on("click", function (e) {
@@ -103,6 +119,15 @@
         ) {
             $navbar.addClass("stowed");
         }
+    });
+
+    // Close with Escape; if focus was inside the navbar, return it to the
+    // hamburger so keyboard users don't lose their place
+    $(document).on("keydown", function (e) {
+        if (e.key !== "Escape" || $navbar.hasClass("stowed")) return;
+        var focusInNavbar = $navbar[0].contains(document.activeElement);
+        $navbar.addClass("stowed");
+        if (focusInNavbar) $navbar.find(".hamburger").trigger("focus");
     });
 
     // Collapse navbar when scrolling inside the journal list
