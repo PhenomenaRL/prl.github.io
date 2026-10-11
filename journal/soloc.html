@@ -5,11 +5,11 @@
         <meta charset="utf-8" />
         <meta
             name="description"
-            content="Soloc: Solar System Localizer. Solar System localizer & dynamics engine & why it is needed. Phenomena Replication Laboratory (PRL)."
+            content="Soloc: Solar System Localizer. One way to say where and when for anything in the solar system, shown through a 1,738-entity simulation study spanning the Earth, the Moon and Mars. Phenomena Replication Laboratory (PRL)."
         />
         <meta
             name="keywords"
-            content="Soloc, Solar System Localizer, PRL, Phenomena Replication Laboratory, Space Robotics, Dynamics Engine"
+            content="Soloc, Solar System Localizer, spacetimestamp, PRL, Phenomena Replication Laboratory, Space Robotics, Localization, World Model, Apache Arrow, SPICE"
         />
         <link
             rel="canonical"
@@ -28,7 +28,11 @@
         />
         <meta
             property="og:description"
-            content="Soloc: Solar System Localizer. Solar System localizer & dynamics engine & why it is needed. Phenomena Replication Laboratory (PRL)."
+            content="Soloc: Solar System Localizer. One way to say where and when for anything in the solar system, shown through a 1,738-entity simulation study spanning the Earth, the Moon and Mars. Phenomena Replication Laboratory (PRL)."
+        />
+        <meta
+            property="og:image"
+            content="https://phenomenareplicationlab.ca/images/soloc/clip_intro_poster.webp"
         />
 
         <!-- Twitter -->
@@ -43,7 +47,11 @@
         />
         <meta
             property="twitter:description"
-            content="Soloc: Solar System Localizer. Solar System localizer & dynamics engine & why it is needed. Phenomena Replication Laboratory (PRL)."
+            content="Soloc: Solar System Localizer. One way to say where and when for anything in the solar system, shown through a 1,738-entity simulation study spanning the Earth, the Moon and Mars. Phenomena Replication Laboratory (PRL)."
+        />
+        <meta
+            property="twitter:image"
+            content="https://phenomenareplicationlab.ca/images/soloc/clip_intro_poster.webp"
         />
 
         <meta
@@ -54,6 +62,371 @@
         <noscript
             ><link rel="stylesheet" href="../assets/css/noscript.css"
         /></noscript>
+
+        <!-- Styles specific to this post -->
+        <style>
+            .journal-content h3 {
+                font-size: 1rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                margin: 2.5rem 0 1rem 0;
+                text-align: left;
+            }
+
+            .journal-content figure video {
+                width: 100%;
+                height: auto;
+                background: #0a0a0d;
+                box-shadow: none;
+            }
+
+            .journal-content figure img {
+                width: 100%;
+                height: auto;
+            }
+
+            /* 3D | 2D pairs */
+            .pair-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.75rem;
+                width: 100%;
+            }
+
+            .pair-row > img,
+            .pair-row > video {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 4 / 3;
+                object-fit: contain;
+                border-radius: 6px;
+                background: #fff;
+            }
+
+            /* Two clips in a row, a third centred below at the same size */
+            .pair-row.trio > video {
+                background: #0a0a0d;
+            }
+
+            .pair-row.trio > video:last-child {
+                grid-column: 1 / -1;
+                justify-self: center;
+                width: calc(50% - 0.375rem);
+            }
+
+            .pair-row > video:first-child {
+                background: #0a0a0d;
+            }
+
+            .pair-row > img {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            }
+
+            .quote-source {
+                display: block;
+                margin-top: 0.5rem;
+                font-size: 0.8rem;
+                font-style: normal;
+                color: #888;
+            }
+
+            .stat-line {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.4rem 1.6rem;
+                margin: -1rem 0 2.5rem 0;
+                font-size: 0.75rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: #888;
+            }
+
+            .stat-line b {
+                color: #111;
+            }
+
+            /* Anatomy of a spacetimestamp row */
+            .sts-row {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                border: 1px solid #e3e3e3;
+                border-radius: 6px;
+                overflow: hidden;
+                margin: 2rem 0 0.5rem 0;
+                text-align: left;
+            }
+
+            .sts-row > div {
+                padding: 0.8rem 0.9rem;
+                border-right: 1px solid #eee;
+                border-bottom: 1px solid #eee;
+                background: #fafafa;
+            }
+
+            .sts-row .k {
+                display: block;
+                font-size: 0.65rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: #999;
+            }
+
+            .sts-row .v {
+                display: block;
+                font-size: 0.8rem;
+                color: #111;
+                word-break: break-word;
+                line-height: 1.4;
+            }
+
+            .sts-row .what {
+                display: block;
+                font-size: 0.7rem;
+                color: #777;
+                margin-top: 0.3rem;
+                line-height: 1.35;
+            }
+
+            .sts-row .where {
+                background: #f2f6fc;
+            }
+
+            .sts-row .when {
+                background: #fbf6ee;
+            }
+
+            .sts-caption {
+                font-size: 0.85rem;
+                color: #666;
+                font-style: italic;
+                text-align: center;
+                margin-bottom: 2.5rem;
+            }
+
+            /* Frame-tree explorer */
+            .frame-explorer {
+                border: 1px solid #e3e3e3;
+                border-radius: 6px;
+                padding: 1.5rem;
+                margin: 2rem 0 2.5rem 0;
+                text-align: left;
+            }
+
+            .frame-explorer .fx-pick {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .frame-explorer .fx-pick button {
+                font: inherit;
+                font-size: 0.75rem;
+                letter-spacing: 0.05em;
+                background: #fff;
+                color: #555;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 0.35rem 0.8rem;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                box-shadow: none;
+                height: auto;
+                line-height: 1.4;
+                text-transform: none;
+            }
+
+            .frame-explorer .fx-pick button:hover {
+                border-color: #111;
+                color: #111;
+            }
+
+            .frame-explorer .fx-pick button.on {
+                background: #111;
+                border-color: #111;
+                color: #fff;
+            }
+
+            .fx-chain {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 0.5rem 0.4rem;
+                min-height: 2.4rem;
+            }
+
+            .fx-node {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.6rem;
+                border-radius: 4px;
+                background: #f2f6fc;
+                border: 1px solid #d6e2f3;
+                color: #1d3d6b;
+                white-space: nowrap;
+                opacity: 0;
+                transform: translateY(4px);
+                animation: fx-in 0.3s ease forwards;
+            }
+
+            .fx-node.leaf {
+                background: #111;
+                border-color: #111;
+                color: #fff;
+            }
+
+            .fx-node.astro {
+                background: #fbf6ee;
+                border: 1px dashed #d9b98a;
+                color: #7a5212;
+            }
+
+            .fx-arrow {
+                color: #bbb;
+                font-size: 0.8rem;
+                opacity: 0;
+                animation: fx-in 0.3s ease forwards;
+            }
+
+            @keyframes fx-in {
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+
+            .fx-meta {
+                margin-top: 1.2rem;
+                font-size: 0.8rem;
+                color: #666;
+                line-height: 1.6;
+            }
+
+            .fx-meta b {
+                color: #111;
+            }
+
+            /* Timeline view, for an entity whose parent changes over time */
+            .fx-chain.is-tl {
+                display: block;
+            }
+
+            .fx-step {
+                display: grid;
+                grid-template-columns: 3.2rem 1fr;
+                column-gap: 0.9rem;
+            }
+
+            .fx-when {
+                font-size: 0.7rem;
+                line-height: 1.35;
+                color: #888;
+                text-align: right;
+                font-variant-numeric: tabular-nums;
+                opacity: 0;
+                animation: fx-in 0.3s ease forwards;
+            }
+
+            .fx-when span {
+                display: block;
+            }
+
+            .fx-step-body {
+                position: relative;
+                border-left: 2px solid #e3e3e3;
+                padding: 0 0 1.3rem 1.1rem;
+            }
+
+            .fx-step:last-child .fx-step-body {
+                border-left-color: transparent;
+                padding-bottom: 0;
+            }
+
+            .fx-step-body::before {
+                content: "";
+                position: absolute;
+                left: -7px;
+                top: 0.2rem;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #fff;
+                border: 2px solid #111;
+            }
+
+            .fx-event {
+                font-size: 0.8rem;
+                color: #111;
+                margin-bottom: 0.45rem;
+                opacity: 0;
+                animation: fx-in 0.3s ease forwards;
+            }
+
+            .fx-event span {
+                color: #888;
+            }
+
+            .fx-row {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 0.5rem 0.4rem;
+            }
+
+            .loop-steps {
+                counter-reset: step;
+                list-style: none;
+                padding: 0;
+                margin: 0 0 2rem 0;
+                text-align: left;
+            }
+
+            .loop-steps li {
+                counter-increment: step;
+                position: relative;
+                padding: 0.4rem 0 0.4rem 2.6rem;
+                color: #444;
+            }
+
+            .loop-steps li::before {
+                content: counter(step);
+                position: absolute;
+                left: 0;
+                top: 0.4rem;
+                width: 1.7rem;
+                height: 1.7rem;
+                line-height: 1.7rem;
+                border-radius: 50%;
+                background: #111;
+                color: #fff;
+                font-size: 0.75rem;
+                text-align: center;
+            }
+
+            .journal-content ul.plain {
+                text-align: left;
+                margin: 0 0 2rem 0;
+                color: #444;
+            }
+
+            .journal-content ul.plain li {
+                margin-bottom: 0.6rem;
+            }
+
+            @media screen and (max-width: 736px) {
+                .pair-row {
+                    grid-template-columns: 1fr;
+                }
+
+                .pair-row.trio > video:last-child {
+                    width: 100%;
+                }
+
+                .sts-row {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+        </style>
     </head>
 
     <body class="journal-body is-preload">
@@ -105,9 +478,71 @@
                 <nav class="journal-toc">
                     <ul>
                         <li>
-                            <a href="#coming-soon" class="active"
-                                >Coming Soon</a
+                            <a href="#purpose" class="active"
+                                >Purpose &amp; Design</a
                             >
+                            <ul>
+                                <li><a href="#why">Why Soloc</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#capabilities"
+                                >Exploration of Capabilities</a
+                            >
+                            <ul>
+                                <li>
+                                    <a href="#space"
+                                        >Solar System: Earth, Moon, Mars +</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#surface"
+                                        >Surface Mobile Robot Fleets</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#air-sea">Aircrafts and Marine</a>
+                                </li>
+                                <li><a href="#regatta">Sailing Regatta</a></li>
+                                <li>
+                                    <a href="#wildfire">Wildfire Fighting</a>
+                                </li>
+                                <li>
+                                    <a href="#factory"
+                                        >Factory Digital Replica</a
+                                    >
+                                </li>
+                                <li><a href="#arm">Robot Arm</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#next">Up Next for Soloc</a>
+                        </li>
+                        <li>
+                            <a href="#appendix">Appendix: Technical Bits</a>
+                            <ul>
+                                <li>
+                                    <a href="#spacetimestamp"
+                                        >The Spacetimestamp</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#frame-tree"
+                                        >Reference Frame Topologies</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#querying"
+                                        >Querying, Federation, Collaboration
+                                        &amp; More</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#lessons"
+                                        >Challenges &amp; Lessons Learnt</a
+                                    >
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -122,31 +557,1012 @@
                 <h1 id="title">Soloc: Solar System Localizer</h1>
 
                 <div class="journal-content">
-                    <section id="coming-soon">
-                        <h2>Coming Soon</h2>
+                    <!-- ============ PURPOSE & DESIGN ============ -->
+                    <section id="purpose">
+                        <h2>Purpose &amp; Design</h2>
                         <p>
-                            The PRL team is almost ready to share a universal
-                            way to track autonomous entities anywhere in the
-                            solar system. The first showcase of this tool will
-                            be posted here.
+                            At the core of any physical system are the
+                            questions of: where am I, and when is it? The 'I'
+                            in this case refers to anything from atoms &amp;
+                            molecules up to planets, galaxies and so on. On a
+                            factory floor the answer is in meters from a
+                            corner of the building. A ship gives it as
+                            latitude and longitude in GPS time, and a lunar
+                            orbiter in kilometers in a frame that turns with
+                            the Moon. The opportunity, and challenges, start
+                            when these systems share a single digital
+                            definition.
                         </p>
+                        <p>
+                            The PRL team created Soloc to unify how we answer
+                            both questions across the solar system. It is
+                            meant to work the same way for a ball bearing
+                            spinning inside a gearmotor and for a probe
+                            skimming the Sun. What we found in doing so, is
+                            that this tool has given us the ability to do much
+                            more. My goal in this post is to provide a
+                            high-level view of the Soloc ecosystem and the
+                            capabilities that surprised us: I’ll start with
+                            the capabilities, and provide an appendix with a
+                            brief technical description of how the ecosystem
+                            works today.
+                        </p>
+
+                        <figure>
+                            <video
+                                class="autoplay-loop"
+                                muted
+                                loop
+                                playsinline
+                                preload="none"
+                                poster="../images/soloc/clip_intro_poster.webp"
+                                width="1280"
+                                height="720"
+                            >
+                                <source
+                                    src="../images/soloc/clip_intro.mp4"
+                                    type="video/mp4"
+                                />
+                            </video>
+                            <figcaption>
+                                One ledger, every scale. The camera drops from
+                                the solar system to the Earth and on into
+                                Bedford Basin, where the regatta is racing. Each
+                                step down moves through the frame tree, from the
+                                barycentric ICRF to the rotating Earth to a
+                                venue measured in metres. Rendered from the
+                                saved ledger by the study's standalone 3D
+                                viewer.
+                            </figcaption>
+                        </figure>
+
+                        <blockquote>
+                            "Soloc feels like the GPS for the solar system."
+                            <span class="quote-source">— an early Soloc tester</span>
+                        </blockquote>
+
+                        <h3 id="why">Why Soloc</h3>
+                        <p>
+                            To understand why Soloc was created, it is first
+                            important to understand why enabling
+                            intelligence, natural, artificial or any other
+                            type, over physical assets, entities, data,
+                            operations and so on is difficult. Reasoning
+                            consistently and verifiably, is even more
+                            challenging.
+                        </p>
+                        <p>
+                            There are two trends that the PRL team constantly
+                            encounters: 1. increase in interconnected
+                            autonomous systems, resulting in
+                            emergent/cascading failure modes (read more about
+                            <a href="autonomy_paradox.html" class="animated-link"
+                                >The Autonomy Paradox</a
+                            >), and 2. integration of intelligence into all
+                            levels of decision making. We have found that
+                            most reasons for first trend is a half-baked
+                            implementation of the second trend. The challenge
+                            with implementation is that day-to-day reasoning
+                            for a single individual is quite different to
+                            reasoning for a large project; however, both
+                            types require the understanding of position and
+                            time, on different scales.
+                        </p>
+                        <p>
+                            My preferred way to introduce the two types of
+                            reasoning mentioned above is with the following
+                            anecdote: If I am told to find a banana, I can
+                            reason over the data provided to me via my senses
+                            and control my body to look for a banana.
+                            However, if someone asked me to farm bananas and
+                            distribute them to the world’s population, I
+                            could not achieve that on my own. This is
+                            fundamentally why we form groups, organizations,
+                            and countries. And for an effective group
+                            activity, I would need to coordinate a
+                            heterogeneous set of individuals, operations, and
+                            machines, planning for uncertainties, adaptations
+                            and redundancies. A robust plan requires an
+                            understanding of exactly where every individual,
+                            operation and machine is in space and time
+                            (including off-world, astronauts and future
+                            Martians deserve bananas too); Something similar
+                            can be said for finding an individual banana,
+                            which requires my brain to understand, either
+                            explicitly or implicitly, the pose of my body at
+                            all times and localization of data-streams from
+                            my senses. And, when something inevitably goes
+                            wrong, the understanding of space and time at all
+                            required scales would allow me to provide a
+                            precise &amp; robust recovery plan.
+                        </p>
+                        <p>
+                            Next it is important to understand the current
+                            state of describing space and time. Physical
+                            Localization is usually solved locally, with
+                            respect to some defined reference frame. The
+                            robotics industry has rigid transform trees, and
+                            aviation has WGS84. Space missions use SPICE
+                            kernels and inertial frames. Each stack is
+                            designed excellently. Crossing the boundaries
+                            causes issues: a unit mix-up, a timescale that is
+                            off by 37 seconds, a frame whose rotation gets
+                            applied twice, or numerical precision loss. As
+                            robots and other entities leave the lab for the
+                            seabed, the lunar surface and the space between
+                            planets, more and more of the interesting work
+                            happens across these boundaries. Fundamentally,
+                            there is no data uniformity. Fusing many
+                            different data-streams typically means rolling a
+                            custom solution that cannot be easily queried or
+                            shared with collaborators, and furthermore, it
+                            causes many issues during training or use of
+                            modern models to provide advanced capabilities.
+                        </p>
+                        <p>
+                            Therefore, we need to unify physical localization
+                            of data across all space and timescales in a
+                            manner that:
+                        </p>
+                        <ul class="plain">
+                            <li>
+                                Integrates well with existing industry tooling
+                                (SPICE kernels, GPS, robotics rigid transform
+                                trees, geospatial data and natural language)
+                            </li>
+                            <li>
+                                Is easily queried by both humans and
+                                algorithms
+                            </li>
+                            <li>
+                                Is easily partitioned and shared with
+                                collaborators
+                            </li>
+                            <li>
+                                Can natively combine real data with simulated
+                                (either physics-based or otherwise) data
+                            </li>
+                        </ul>
+                        <p>Soloc is built to address all of that.</p>
+                    </section>
+
+                    <!-- ============ EXPLORATION OF CAPABILITIES ============ -->
+                    <section id="capabilities">
+                        <h2>Exploration of Capabilities</h2>
+                        <p>
+                            To explore the design end-to-end, we spun up a
+                            local soloc server to simulate a span of
+                            five-days (September 1st-6th 2026) that combined
+                            several scenarios. In total, it defines 1,738
+                            entities across the Earth, the Moon and Mars and
+                            in orbit around the sun. They range from
+                            spacecraft and airliners down to the bearing
+                            balls inside a factory gearmotor. One of the
+                            entities is real: NASA's Parker Solar Probe,
+                            using data from JPL Horizons' state vectors. In
+                            addition, we were able to fuse in geospatial data
+                            to create what we call arenas; these arenas
+                            create representative scenarios of wildfire
+                            fighting, and a sailing regatta. While this
+                            end-to-end exploration primarily simulated
+                            entities, each scenario could, just as easily, have been
+                            pulling from real sensors, operators, robots,
+                            vehicles and so on.
+                        </p>
+
+                        <div class="stat-line" style="margin-top: 1.5rem">
+                            <span><b>1,738</b> entities</span>
+                            <span><b>3.87M</b> rows</span>
+                            <span><b>5</b> days</span>
+                            <span><b>3</b> worlds</span>
+                            <span><b>4</b> timescales</span>
+                            <span><b>1,408</b> parent changes</span>
+                        </div>
+
+                        <!-- Solar system -->
+                        <h3 id="space">Solar System: Earth, Moon, Mars +</h3>
+                        <p>
+                            This scenario created seven orbiters, across
+                            Earth, the Moon and Mars, and two rockets launch:
+                            one from Kennedy Space Center in Florida and one
+                            from Andøya Spaceport in Norway.
+                        </p>
+
+                        <figure>
+                            <img
+                                src="../images/soloc/plot_orbits.webp"
+                                alt="Spacecraft orbits around the Earth, Moon and Mars over five days"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <figcaption>
+                                Orbiters over five days, each body-centred with
+                                ICRF axes. Also viewable in the 3D visualizer
+                            </figcaption>
+                        </figure>
+
+                        <p>
+                            Further out, Parker Solar Probe reaches
+                            perihelion at 9.85 solar radii and 191 km/s. Its
+                            data was easily transferred from JPL Horizons to
+                            the Soloc format. Meanwhile, MARS-TRANSFER-1 is
+                            cruising to Mars on a Sun-centered conic
+                            transfer.
+                        </p>
+
+                        <figure>
+                            <div class="pair-row">
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_parker_3d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="Parker Solar Probe swinging around the Sun through perihelion"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_parker_3d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                                <img
+                                    src="../images/soloc/plot_heliocentric.webp"
+                                    alt="Parker Solar Probe's real trajectory around the Sun, including perihelion"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </div>
+                            <figcaption>
+                                Parker Solar Probe: real JPL Horizons vectors,
+                                perihelion on 4 September. Left: the five days
+                                in the 3D viewer.
+                                Right: the same track plotted from the ledger.
+                            </figcaption>
+                        </figure>
+                        <figure>
+                            <img
+                                src="../images/soloc/plot_transfer_mars-transfer-1.webp"
+                                alt="MARS-TRANSFER-1's Sun-centred transfer arc from Earth to Mars"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <figcaption>
+                                MARS-TRANSFER-1 on its Earth-to-Mars arc, aimed
+                                at where the planets really are. Also viewable in the 3D visualizer
+                            </figcaption>
+                        </figure>
+
+                        <p>
+                            The star of this scenario is SELENE-1, which
+                            lifts off from Kennedy Space Center and flies a
+                            patched-conic transfer to land at Shackleton Base
+                            on the lunar south pole. On the way, its parent
+                            frame changes from the launch pad to the rotating
+                            Earth, then to the Earth-centered inertial frame,
+                            then to the rotating Moon, and finally to the
+                            base itself. An hour after touchdown, the rover
+                            CARGO-01 that rode along on SELENE-1 steps off
+                            onto the base and begins performing its duties.
+                        </p>
+
+                        <figure>
+                            <div class="pair-row trio">
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_launch_3d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="SELENE-1 lifting off from Kennedy Space Center"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_launch_3d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_selene_3d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="SELENE-1 flying from the Earth to the Moon"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_selene_3d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_landing_3d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="SELENE-1 landing at Shackleton Base and CARGO-01 stepping off"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_landing_3d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                            </div>
+                            <figcaption>
+                                SELENE-1's journey in three acts: liftoff from
+                                KSC LC-39A, the transfer to the Moon (trail
+                                drawn in a non-rotating frame), and the powered
+                                descent onto Shackleton Base, fast-forwarding
+                                through the hour before CARGO-01 rolls off.
+                            </figcaption>
+                        </figure>
+
+                        <!-- Surface -->
+                        <h3 id="surface">Surface Mobile Robot Fleets</h3>
+                        <p>
+                            In this scenario, four chosen facilities host ten
+                            robots each. Two are spaceports, one is mission
+                            control in Houston, and one is Shackleton Base on
+                            the Moon. On every site, the mobile robots are
+                            assigned an arbitrary trajectory to represent
+                            possible operations, all in meters wrt. to the
+                            site's own east-north-up frame. There are also
+                            fourteen hull crawlers moving around their host
+                            spacecraft.
+                        </p>
+                        <p>
+                            The rover CARGO-01 shows reference frame
+                            parenting. It drives to the launch pad at KSC,
+                            boards SELENE-1, rides on the hull to the Moon
+                            and steps off an hour after touchdown to join the
+                            simulated lunar operations. CARGO-01 is reporting
+                            as a normal mobile robot would be, using local
+                            reference frames and creating static transform
+                            trees, but its chain runs all the way from
+                            Florida to the lunar south pole.
+                        </p>
+
+                        <figure>
+                            <div class="pair-row">
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_shk_3d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="Robots moving around Shackleton Base"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_shk_3d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                                <img
+                                    src="../images/soloc/plot_robots_shk.webp"
+                                    alt="Per-robot track plots at Shackleton Base"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </div>
+                            <figcaption>
+                                Shackleton Base after SELENE-1 lands: two hours
+                                of patrol, survey and logistics robots, with
+                                CARGO-01 and CRAWLER-01 among them. Right: every
+                                robot's track over five days.
+                            </figcaption>
+                        </figure>
+
+                        <!-- Aircraft & ships -->
+                        <h3 id="air-sea">Aircrafts and Marine</h3>
+                        <p>
+                            This scenario shows the simplicity of integrating
+                            readily available data on terrestrial vehicles.
+                            Ten airliners fly great-circle legs between 15
+                            real airports, and twenty ships work eight sea
+                            lanes, from the Strait of Malacca to the Panama
+                            Canal. Aircraft report in UTC and ships in GPS
+                            time, the way their real systems do. Soloc keeps
+                            both as received, so a question like "which ship
+                            was under which flight path at 14:00 TAI" can be
+                            easily queried over the entire ledger.
+                        </p>
+
+                        <figure>
+                            <div class="pair-row">
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_globe_3d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="Aircraft and ships moving around the Earth"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_globe_3d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                                <img
+                                    src="../images/soloc/plot_aircraft.webp"
+                                    alt="Aircraft great-circle tracks over a world map"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </div>
+                            <figcaption>
+                                Ten hours of aircraft and ship traffic in the 3D
+                                viewer, beside every aircraft track over five
+                                days.
+                            </figcaption>
+                        </figure>
+
+                        <figure>
+                            <img
+                                src="../images/soloc/plot_ships.webp"
+                                alt="Ship tracks along global sea lanes"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <figcaption>
+                                Ship tracks over five days, checked against
+                                coastlines.
+                            </figcaption>
+                        </figure>
+
+                        <!-- Regatta -->
+                        <h3 id="regatta">Sailing Regatta</h3>
+                        <p>
+                            The sailing regatta is the first of two
+                            <em>arenas</em>, scenarios in which entities are
+                            treated like chess pieces and are moved by
+                            decision makers rather than purely simulated. Ten
+                            sailboats race a three-lap windward-leeward
+                            course in Bedford Basin, Halifax. Every 10
+                            seconds each boat's tactician reads the race back
+                            out of soloc: the boats, the marks and the wind
+                            from three met buoys. It then chooses a heading,
+                            a tack or a gybe. Wind data for this scenario was
+                            simulated in a manner that shows how vector
+                            fields of any kind can be easily integrated into
+                            soloc-ledgers, for any purpose. This also enables
+                            physics-based numerical simulation via techniques
+                            that solve ordinary-differential-equations.
+                        </p>
+
+                        <figure>
+                            <div class="pair-row">
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_regatta_3d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="Sailboats racing in Bedford Basin"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_regatta_3d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_regatta_2d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="Regatta course plot with leaderboard"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_regatta_2d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                            </div>
+                            <figcaption>
+                                The race, from the warning signal to the last
+                                finish, in 3D and from the course plot with its
+                                live leaderboard. Both are read from the same
+                                ledger rows.
+                            </figcaption>
+                        </figure>
+
+                        <figure>
+                            <img
+                                src="../images/soloc/plot_regatta_speed.webp"
+                                alt="Boat speed against polar speed for each sailboat"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <figcaption>
+                                Each boat's stored speed against its polar.
+                                Dips are tacks and gybes. SAIL-10 (orange)
+                                can be swapped for your own strategy.
+                            </figcaption>
+                        </figure>
+
+                        <!-- Wildfire -->
+                        <h3 id="wildfire">Wildfire Fighting</h3>
+                        <p>
+                            In the Squamish Valley, British Columbia, a fire
+                            ignites at 14:00 PDT and spreads over
+                            pre-determined fuel zones, bounded by the river
+                            and a power-line corridor. Similar to the sailing
+                            regatta, this scenario uses geospatial data to
+                            create an arena. Every five minutes an incident
+                            commander reads the perimeter of the fire, and
+                            the positions of twelve crews, and commands them
+                            to dig containment lines. The perimeter vertices,
+                            the crews and each 50 m trench they finish are
+                            all entities in the same ledger. In this
+                            scenario, we experimented with letting a modern
+                            LLM act as the incident commander.
+                        </p>
+
+                        <figure>
+                            <div class="pair-row">
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_wildfire_3d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="Wildfire perimeter and crews in the 3D viewer"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_wildfire_3d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_wildfire_2d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="Wildfire plot with perimeter, finished line and crews"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_wildfire_2d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                            </div>
+                            <figcaption>
+                                Ignition to containment, about 20 hours. Left:
+                                the 3D venue with crews and perimeter. Right:
+                                the fire (red), finished line (dark) and crews
+                                (blue), with live stats.
+                            </figcaption>
+                        </figure>
+
+                        <figure>
+                            <img
+                                src="../images/soloc/plot_wildfire_crews.webp"
+                                alt="Each crew's distance to the nearest spreading vertex over time"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <figcaption>
+                                Each crew's distance to the nearest
+                                spreading front, a safety check computed
+                                from the ledger.
+                            </figcaption>
+                        </figure>
+
+                        <!-- Factory -->
+                        <h3 id="factory">Factory Digital Replica</h3>
+                        <p>
+                            In a plant in Steyr, Austria, three conveyor
+                            lines move 1,350 boxes through an eight-hour
+                            shift. Each box changes parent from Machine A to
+                            Machine B (conveyor belt) to Machine C. Below
+                            that level the simulation goes further: every
+                            shaft, cage and bearing ball in the drive
+                            gearmotors is an entity that has a physics-based
+                            dynamics model. It reports at 5s through the
+                            shift and at 20 Hz in a ten-minute burst. The
+                            shafts also record at 5 kHz in eight ten-second
+                            captures.
+                        </p>
+
+                        <figure>
+                            <video
+                                class="autoplay-loop"
+                                muted
+                                loop
+                                playsinline
+                                preload="none"
+                                poster="../images/soloc/clip_factory_2d_poster.webp"
+                                width="1280"
+                                height="490"
+                                aria-label="Plant floor, belt and bearing plots from the 20 Hz burst"
+                            >
+                                <source
+                                    src="../images/soloc/clip_factory_2d.mp4"
+                                    type="video/mp4"
+                                />
+                            </video>
+                            <figcaption>
+                                Sixteen seconds of the 20 Hz burst: the plant
+                                floor, a box riding Machine B's belt to Machine C,
+                                and bearing 1's balls spinning in their cage, all
+                                decoded from the stored rows.
+                            </figcaption>
+                        </figure>
+
+                        <figure>
+                            <img
+                                src="../images/soloc/plot_bearing_capture.webp"
+                                alt="Shaft acceleration captures showing spall impacts"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <figcaption>
+                                5 kHz shaft captures. Line 3's spalled ball
+                                shows up as impacts inside the load zone.
+                            </figcaption>
+                        </figure>
+
+                        <!-- Arm -->
+                        <h3 id="arm">Robot Arm</h3>
+                        <p>
+                            In a cell in Odense, Denmark, a UR10e-class
+                            six-axis arm unstacks 24 boxes from one pallet
+                            and stacks them on another. The arm is stored the
+                            way ROS (a library often used in the robotics
+                            ecosystem) stores it, as a transform tree: each
+                            link is a row parented to the previous one, at
+                            125 Hz. A held box is the deepest chain in the
+                            study, at ten hops from box to Earth’s
+                            astronomical reference frame.
+                        </p>
+
+                        <figure>
+                            <div class="pair-row">
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_arm_3d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="The robot arm moving boxes between pallets"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_arm_3d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                                <video
+                                    class="autoplay-loop"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="none"
+                                    poster="../images/soloc/clip_arm_2d_poster.webp"
+                                    width="800"
+                                    height="600"
+                                    aria-label="Top-down plot of the arm and pallets with joint readout"
+                                >
+                                    <source
+                                        src="../images/soloc/clip_arm_2d.mp4"
+                                        type="video/mp4"
+                                    />
+                                </video>
+                            </div>
+                            <figcaption>
+                                The first minute of the episode in 3D and from
+                                above, with the joint angles decoded from the
+                                link quaternions.
+                            </figcaption>
+                        </figure>
+
+                        <figure>
+                            <img
+                                src="../images/soloc/plot_arm_joints.webp"
+                                alt="Joint angles and angular velocities of the arm over the episode"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <figcaption>
+                                Joint angles and speeds over the whole six-
+                                minute episode, against their limits.
+                            </figcaption>
+                        </figure>
+                    </section>
+
+                    <!-- ============ UP NEXT ============ -->
+                    <section id="next">
+                        <h2>Up Next for Soloc</h2>
+                        <p>
+                            This is the first showcase of what Soloc is
+                            capable of. As with any new technology, there are
+                            many lessons learnt and challenges remaining to
+                            solve; a brief list of those is provided in the
+                            appendix. The PRL team is already working with
+                            partners to further develop the capabilities of
+                            the ecosystem, and resolve open questions in a
+                            manner than benefits real use cases. Internally,
+                            the PRL team is using the ecosystem as a standard
+                            for how we perform simulations for all projects.
+                        </p>
+                        <p>Some of the next steps for the ecosystem are:</p>
+                        <ul class="plain">
+                            <li>
+                                A debugging and visualizer tool for inspecting
+                                frames, chains and poses, growing out of the
+                                viewer shown above
+                            </li>
+                            <li>
+                                Ledger performance benchmarks and storage
+                                optimizations
+                            </li>
+                            <li>
+                                Ecosystem integrations: ROS 2 tf2,
+                                GPS-to-spacetimestamp ingestion, and ArcGIS /
+                                GeoArrow
+                            </li>
+                            <li>
+                                Integration with real hardware, and
+                                hardware-in-the-loop capabilities
+                            </li>
+                            <li>
+                                A growing schema library beyond the
+                                first-party Entity schema
+                            </li>
+                        </ul>
+                        <p>
+                            Soloc is open source under the Apache 2.0
+                            licence. If you are working on localization,
+                            multi-robot systems, or anything that has to
+                            agree on where and when, please reach out. Soloc
+                            has the potential to enable many emergent
+                            capabilities, especially relating to the creation
+                            of truly autonomous systems; how it gets there is
+                            with an open source community of contributors
+                            from many industries and backgrounds.
+                        </p>
+                    </section>
+
+                    <!-- ============ APPENDIX ============ -->
+                    <section id="appendix">
+                        <h2>Appendix: Technical Bits</h2>
+
+                        <h3 id="spacetimestamp">The Spacetimestamp</h3>
+                        <p>
+                            The core of soloc is one record, the
+                            <em>spacetimestamp</em>. A spacetimestamp is one
+                            row that pins a pose (position and orientation)
+                            to an explicit parent frame, at an explicit
+                            instant on an explicit timescale, in native
+                            units. Tag any data stream with spacetimestamps
+                            and it can be addressed in space and time, then
+                            compared, transformed and merged with anyone
+                            else's. The underlying technology we rely on is
+                            the apache arrow format, which we found to be the
+                            most effective for handling large quantities of
+                            data.
+                        </p>
+
+                        <div class="sts-row" aria-label="Anatomy of a spacetimestamp row">
+                            <div>
+                                <span class="k">entity_id</span>
+                                <span class="v">SAIL-03</span>
+                                <span class="what">who: minted from (authority, name)</span>
+                            </div>
+                            <div class="where">
+                                <span class="k">parent_frame</span>
+                                <span class="v">Bedford Basin</span>
+                                <span class="what">relative to what: any entity or astro frame</span>
+                            </div>
+                            <div class="where">
+                                <span class="k">position · units</span>
+                                <span class="v">[412.6, 880.1, 0.0] m</span>
+                                <span class="what">stored in its native units</span>
+                            </div>
+                            <div class="where">
+                                <span class="k">orientation</span>
+                                <span class="v">[0.92, 0, 0, 0.38]</span>
+                                <span class="what">unit quaternion</span>
+                            </div>
+                            <div class="when">
+                                <span class="k">epoch · timescale</span>
+                                <span class="v">2026-09-05 17:42:05 GPST</span>
+                                <span class="what">normalised to TAI on append</span>
+                            </div>
+                            <div>
+                                <span class="k">source · estimate</span>
+                                <span class="v">kinematic_sim_v1 · SIMULATED</span>
+                                <span class="what">provenance travels with the row</span>
+                            </div>
+                        </div>
+                        <p class="sts-caption">
+                            An illustrative row. Optional columns carry
+                            velocity, angular velocity, acceleration, mass,
+                            dimensions and a 6×6 covariance.
+                        </p>
+
+                        <h3 id="frame-tree">Reference Frame Topologies</h3>
+                        <p>
+                            Every row in a ledger contains its parent
+                            reference frame, via the spacetimestamp, the
+                            ledger builds a frame tree with just the data
+                            itself. ie. a ledger defines it’s reference frame
+                            topology: a collection of reference frame trees
+                            that all have a SPICE defined astronomical
+                            reference frame. A robot is parented to its site,
+                            the site to the rotating Earth, and the Earth is
+                            resolved against the solar system by NASA's SPICE
+                            ephemerides. Parents can change over time: a
+                            rover boards a rocket, the rocket lands on the
+                            Moon, and the rover steps off onto a lunar base.
+                            Pick an entity below to trace its chain.
+                        </p>
+
+                        <div class="frame-explorer" id="frame-explorer">
+                            <div class="fx-pick" role="group" aria-label="Choose an entity"></div>
+                            <div class="fx-chain" aria-live="polite"></div>
+                            <div class="fx-meta"></div>
+                        </div>
+
+                        <h3 id="querying">
+                            Querying, Federation, Collaboration &amp; More
+                        </h3>
+                        <p>
+                            A core design philosophy of Soloc, with advice
+                            from the astronomy community, is that
+                            observations must stay in their reported frame,
+                            units and timescale. Any transform to an inertial
+                            frame (ICRF, GCRF) or a body-fixed one happens at
+                            query time, through a physics engine backed by
+                            NAIF SPICE kernels. Nothing is lost to an early
+                            conversion, and when the ephemerides improve,
+                            every past row improves with them. This also
+                            helps with historical analysis and collaboration.
+                        </p>
+                        <p>
+                            Every batch is an Apache Arrow
+                            <code>RecordBatch</code>, so the ledger reads
+                            straight into Python, Julia or anything else that
+                            speaks Arrow. A ledger can be served over Arrow
+                            Flight or as a .arrow IPC file, which makes
+                            federated collaboration simple. Each operator
+                            runs their own server or hosts their own ledger,
+                            and they can exchange streams of RecordBatches or
+                            large IPC files. The code snippet below shows the
+                            simplicity of writing a new entity to a
+                            soloc-ledger.
+                        </p>
+
+                        <pre><code>client = SolocClient("grpc://localhost:50051")
+
+site  = mint(KIND_SOLOC, "example.org", "test_range")
+rover = mint(KIND_SOLOC, "example.org", "rover_1")
+
+# the site sits on the rotating Earth, in km
+buf.append(site, IAU_EARTH, [6378.137, 0, 0], [1, 0, 0, 0], t0)
+
+# the rover drives across the site, in metres
+for k in range(5):
+    buf.append(rover, site, [10.0 * k, 0, 0], [1, 0, 0, 0],
+               t0 + k * 10**9, units="m", velocity=[10, 0, 0])
+client.put(buf.flush())
+
+client.current_state([rover])   # -&gt; [40, 0, 0] m, on the site</code></pre>
+
+                        <h3 id="lessons">Challenges &amp; Lessons Learnt</h3>
+                        <p>
+                            This is a list of the most important lessons
+                            learnt over the initial development of the Soloc
+                            ecosystem:
+                        </p>
+                        <ul class="plain">
+                            <li>
+                                <b>Timescales are worth being explicit
+                                about:</b> We used UTC, GPST, TT and TAI side
+                                by side. Normalising to TAI on append, and
+                                using only fixed-offset scales, put a child's
+                                epoch and its host's on the same nanosecond,
+                                which removed a whole class of off-by-seconds
+                                bugs
+                            </li>
+                            <li>
+                                <b>Cadence/Sample Time is a modelling
+                                decision:</b> Different scenarios require a
+                                different rate of recording to preserve
+                                fidelity without loss. The tradeoff is
+                                compute and storage required. This is true
+                                for all computer systems, but especially true
+                                for Soloc, which deals with physical data at
+                                many different space and time scales. Good
+                                modelling is therefore required to
+                                appropriately capture all scenarios
+                            </li>
+                            <li>
+                                <b>Zero-order hold needs Further Work:</b> A
+                                row framed on a moving entity resolves
+                                through that entity's latest pose at or
+                                before it. Hosts therefore have to report at
+                                least as often as their passengers
+                            </li>
+                            <li>
+                                <b>Memory is finite, and data can pile up
+                                quickly:</b> The full study holds about 1.9
+                                GB in the server. A rolling-window memory
+                                limit is the simplest implementation for how
+                                to handle this. About 50% of the memory cost
+                                is due to un-used covariance datums, which
+                                are important for usecases such as satellite
+                                conjunction and other stochastic simulations
+                            </li>
+                            <li>
+                                <b>Composability pays off:</b> These
+                                scenarios can be performed individually and
+                                merged back row for row. We could iterate on
+                                the factory without rerunning the solar
+                                system. This also translates to data being
+                                generated from real sensors; two computers
+                                can store their own ledgers and combine later
+                                when a decision needs to be made that
+                                requires both data-streams
+                            </li>
+                        </ul>
                     </section>
 
                     <div class="journal-post-footer">
                         <div class="footer-row">
                             <div class="footer-label">Authors:</div>
                             <div class="footer-content">
-                                Manit Ginoya, Ignacio Tartavull
+                                Manit Ginoya, Nader El-Ghotmi, Osman El-Ghotmi
                             </div>
                         </div>
                         <div class="footer-row">
                             <div class="footer-label">Project Links:</div>
                             <div class="footer-content">
-                                <a href="#" class="animated-link"
+                                <a
+                                    href="https://github.com/PhenomenaRL/soloc"
+                                    class="animated-link"
+                                    target="_blank"
+                                    rel="noopener"
                                     ><span class="icon brands fa-github"></span>
                                     GitHub Repository</a
                                 >
-                                <a href="#" class="animated-link"
+                                <a
+                                    href="https://github.com/PhenomenaRL/soloc/tree/main/examples/sim_study_0"
+                                    class="animated-link"
+                                    target="_blank"
+                                    rel="noopener"
                                     ><span
                                         class="icon solid fa-arrow-right"
                                     ></span>
@@ -201,7 +1617,25 @@
 
                 var $scrollContainer = $(".journal-main");
 
-                // Scroll Handling
+                // Scroll Handling. Section positions are cached and only re-measured when
+                // the content changes size, so scrolling never forces a layout per section
+                var sectionTops = [];
+                var lastArrowState = "";
+
+                function measureSections() {
+                    var base =
+                        $scrollContainer.offset().top -
+                        $scrollContainer.scrollTop();
+                    sectionTops = $sections
+                        .map(function () {
+                            return {
+                                id: this.id,
+                                top: $(this).offset().top - base,
+                            };
+                        })
+                        .get();
+                }
+
                 function onScroll() {
                     var scrollTop = $scrollContainer.scrollTop();
 
@@ -213,33 +1647,29 @@
                     var windowHeight = $scrollContainer.height();
                     var docHeight = $scrollContainer[0].scrollHeight;
 
-                    // Arrow Visibility
-                    $upArrow.css({
-                        opacity: scrollTop <= 50 ? "0" : "0.5",
-                        "pointer-events": scrollTop <= 50 ? "none" : "auto",
-                    });
-                    $downArrow.css({
-                        opacity:
-                            scrollTop + windowHeight >= docHeight - 50
-                                ? "0"
-                                : "0.5",
-                        "pointer-events":
-                            scrollTop + windowHeight >= docHeight - 50
-                                ? "none"
-                                : "auto",
-                    });
+                    // Arrow Visibility (only touch the DOM when it changes)
+                    var atTop = scrollTop <= 50;
+                    var atBottom = scrollTop + windowHeight >= docHeight - 50;
+                    var arrowState = atTop + "|" + atBottom;
+                    if (arrowState !== lastArrowState) {
+                        lastArrowState = arrowState;
+                        $upArrow.css({
+                            opacity: atTop ? "0" : "0.5",
+                            "pointer-events": atTop ? "none" : "auto",
+                        });
+                        $downArrow.css({
+                            opacity: atBottom ? "0" : "0.5",
+                            "pointer-events": atBottom ? "none" : "auto",
+                        });
+                    }
 
                     // TOC Active State (ScrollSpy)
                     var currentSection = "";
-                    $sections.each(function () {
-                        var sectionTop =
-                            $(this).offset().top -
-                            $scrollContainer.offset().top +
-                            scrollTop;
-                        if (scrollTop >= sectionTop - 150) {
-                            currentSection = $(this).attr("id");
+                    for (var i = 0; i < sectionTops.length; i++) {
+                        if (scrollTop >= sectionTops[i].top - 150) {
+                            currentSection = sectionTops[i].id;
                         }
-                    });
+                    }
 
                     // Fix for bottom of page always highlighting the last item
                     if (scrollTop + windowHeight >= docHeight - 15) {
@@ -251,20 +1681,57 @@
                     }
                 }
 
+                var scrollQueued = false;
+                // Scroll speed in px/ms, smoothed, so videos can tell a fast fling
+                // from reading speed
+                var scrollSpeed = 0;
+                var lastScrollTop = 0;
+                var lastScrollTime = 0;
+                function queueScroll() {
+                    var now = Date.now();
+                    var top = $scrollContainer.scrollTop();
+                    var dt = Math.max(now - lastScrollTime, 1);
+                    var v = Math.abs(top - lastScrollTop) / dt;
+                    scrollSpeed = dt > 200 ? v : scrollSpeed * 0.6 + v * 0.4;
+                    lastScrollTop = top;
+                    lastScrollTime = now;
+                    if (scrollQueued) return;
+                    scrollQueued = true;
+                    window.requestAnimationFrame(function () {
+                        scrollQueued = false;
+                        onScroll();
+                    });
+                }
+
+                function remeasure() {
+                    measureSections();
+                    queueScroll();
+                }
+
                 var manualOverride = false;
 
+                var activeTocId = "";
+
                 function activateTocItem(id) {
+                    if (id === activeTocId) return;
+                    activeTocId = id;
                     $tocLinks.removeClass("active");
                     var $activeLink = $('.journal-toc a[href="#' + id + '"]');
                     $activeLink.addClass("active");
                     $activeLink.parents("li").children("a").addClass("active");
                 }
 
-                $scrollContainer.on("scroll", onScroll);
-                $window.on("load resize", onScroll);
+                $scrollContainer.on("scroll", queueScroll);
+                $window.on("load resize", remeasure);
+                // Lazy images and videos change the content's height as they load
+                if ("ResizeObserver" in window) {
+                    new ResizeObserver(remeasure).observe(
+                        document.querySelector(".journal-content"),
+                    );
+                }
                 // Also initialise now: the window load event can fire before this
                 // ready handler runs, in which case the binding above misses it
-                onScroll();
+                remeasure();
 
                 // 1. Smooth Scroll for TOC & Active State Override
                 $tocLinks.on("click", function (e) {
@@ -307,6 +1774,268 @@
                         800,
                     );
                 });
+
+                // 3. Loops: only the most visible figure (or side-by-side row) plays,
+                // once it is at least half on screen. Clips buffer a screen ahead. During
+                // a fast fling a clip that would only flash past is not started, which
+                // saves a decoder start-up mid-scroll; at reading speed it starts at once
+                var loops = Array.prototype.slice.call(
+                    document.querySelectorAll("video.autoplay-loop"),
+                );
+                if ("IntersectionObserver" in window) {
+                    var ratios = new Map();
+                    var groupOf = function (v) {
+                        return v.closest(".pair-row, .figure-grid") || v;
+                    };
+                    var FAST_SCROLL = 1.5; // px/ms
+                    // Clips of one row start this far apart, so their decoders don't all
+                    // spin up in the same frame
+                    var STAGGER_MS = 120;
+                    var RECHECK_MS = 100;
+                    var playTimer = null;
+                    var currentGroup = null;
+
+                    var updatePlayback = function () {
+                        var best = null;
+                        var bestRatio = 0.5;
+                        loops.forEach(function (v) {
+                            var r = ratios.get(v) || 0;
+                            if (r >= bestRatio) {
+                                best = groupOf(v);
+                                bestRatio = r;
+                            }
+                        });
+                        var stale = Date.now() - lastScrollTime > RECHECK_MS;
+                        var fast = !stale && scrollSpeed > FAST_SCROLL;
+                        var waiting = false;
+                        var starting = 0;
+                        loops.forEach(function (v) {
+                            if (best && groupOf(v) === best) {
+                                if (!v.paused || v.dataset.starting) return;
+                                if (fast) {
+                                    waiting = true;
+                                    return;
+                                }
+                                // Paired clips cover the same sim window; start them from the top
+                                if (best !== v) v.currentTime = 0;
+                                v.dataset.starting = "1";
+                                setTimeout(function () {
+                                    delete v.dataset.starting;
+                                    if (groupOf(v) !== currentGroup) return;
+                                    var p = v.play();
+                                    if (p && p.catch) p.catch(function () {});
+                                }, starting++ * STAGGER_MS);
+                            } else if (!v.paused) {
+                                v.pause();
+                            }
+                        });
+                        currentGroup = best;
+                        clearTimeout(playTimer);
+                        if (waiting) playTimer = setTimeout(updatePlayback, RECHECK_MS);
+                    };
+
+                    var loopObserver = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (entry) {
+                                ratios.set(entry.target, entry.intersectionRatio);
+                            });
+                            updatePlayback();
+                        },
+                        { threshold: [0, 0.25, 0.5, 0.75, 1] },
+                    );
+                    var preloadObserver = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (entry) {
+                                if (!entry.isIntersecting) return;
+                                entry.target.preload = "auto";
+                                preloadObserver.unobserve(entry.target);
+                            });
+                        },
+                        { root: $scrollContainer[0], rootMargin: "100% 0px" },
+                    );
+                    loops.forEach(function (v) {
+                        loopObserver.observe(v);
+                        preloadObserver.observe(v);
+                    });
+                } else {
+                    loops.forEach(function (v) {
+                        v.setAttribute("controls", "");
+                    });
+                }
+
+                // 4. Frame-tree explorer (chains as in sim_study_0's scenario notes)
+                var chains = [
+                    {
+                        name: "Bearing ball",
+                        chain: [
+                            "STY-L1-B1-BALL1",
+                            "Cage",
+                            "Outer ring",
+                            "Stator",
+                            "Machine B",
+                            "Line 1",
+                            "Steyr plant",
+                            "IAU_EARTH",
+                        ],
+                        meta: "m · TAI · 5 s in the shift, 20 Hz in the burst. Its spin rides in <b>angular_velocity</b>.",
+                    },
+                    {
+                        name: "Held box",
+                        chain: [
+                            "CELL-BOX-01",
+                            "ARM-1-GRIPPER",
+                            "ARM-1-L6",
+                            "ARM-1-L5",
+                            "ARM-1-L4",
+                            "ARM-1-L3",
+                            "ARM-1-L2",
+                            "ARM-1-L1",
+                            "ARM-1-BASE",
+                            "Odense cell",
+                            "IAU_EARTH",
+                        ],
+                        meta: "m · TAI · 125 Hz while held. The deepest chain in the study: grasped off PALLET-A, released onto PALLET-B.",
+                    },
+                    {
+                        name: "CRAWLER-04",
+                        chain: [
+                            "CRAWLER-04",
+                            "LUNA-1",
+                            "Shackleton Base",
+                            "IAU_MOON",
+                        ],
+                        meta: "m · TAI · 30 s. A hull robot riding a lander that has touched down on the Moon.",
+                    },
+                    {
+                        name: "SELENE-1 (over time)",
+                        timeline: [
+                            {
+                                date: "09-01",
+                                time: "00:00",
+                                event: "On the pad",
+                                lasts: "8 h 35 min",
+                                chain: ["SELENE-1", "KSC LC-39A", "IAU_EARTH"],
+                            },
+                            {
+                                date: "09-01",
+                                time: "08:35",
+                                event: "Liftoff",
+                                lasts: "1 h, to a 200 km parking orbit",
+                                chain: ["SELENE-1", "IAU_EARTH"],
+                            },
+                            {
+                                date: "09-01",
+                                time: "09:35",
+                                event: "Translunar injection",
+                                lasts: "2 d 8 h coast",
+                                chain: ["SELENE-1", "GCRF"],
+                            },
+                            {
+                                date: "09-03",
+                                time: "18:01",
+                                event: "Enters the Moon's sphere of influence",
+                                lasts: "22 h, through capture and descent",
+                                chain: ["SELENE-1", "IAU_MOON"],
+                            },
+                            {
+                                date: "09-04",
+                                time: "16:16",
+                                event: "Touchdown",
+                                lasts: "to the end of the study",
+                                chain: ["SELENE-1", "Shackleton Base", "IAU_MOON"],
+                            },
+                        ],
+                        meta: "km · TT · 30 s, 5 s in ascent and descent. Its <b>parent</b> changes four times between liftoff and touchdown. Times in UTC.",
+                    },
+                    {
+                        name: "Sailboat",
+                        chain: ["SAIL-03", "Bedford Basin", "IAU_EARTH"],
+                        meta: "m · GPST · 5 s on race day. Read back every 10 s by its tactician.",
+                    },
+                    {
+                        name: "Parker Solar Probe",
+                        chain: ["Parker Solar Probe", "ICRF"],
+                        meta: "km · UTC · 60 s. Real data from JPL Horizons, tagged <b>ESTIMATED</b>.",
+                    },
+                ];
+
+                var $fx = $("#frame-explorer");
+                var $pick = $fx.find(".fx-pick");
+                var $chain = $fx.find(".fx-chain");
+                var $meta = $fx.find(".fx-meta");
+
+                // Draws one chain into $into, its nodes appearing from `start` seconds on
+                function drawChain($into, chain, start) {
+                    var nodes = chain.slice();
+                    var last = nodes[nodes.length - 1];
+                    var astro = /^(IAU_|ICRF|GCRF)/.test(last);
+                    if (astro && last !== "ICRF") nodes.push("ICRF");
+                    nodes.forEach(function (n, k) {
+                        var delay = start + k * 0.07 + "s";
+                        if (k > 0) {
+                            var viaSpice = astro && k === nodes.length - 1 && last !== "ICRF";
+                            $("<span class='fx-arrow'>")
+                                .text(viaSpice ? "→ SPICE →" : "→")
+                                .css("animation-delay", delay)
+                                .appendTo($into);
+                        }
+                        var cls = "fx-node";
+                        if (k === 0) cls += " leaf";
+                        if (/^(IAU_|ICRF|GCRF)/.test(n)) cls += " astro";
+                        $("<span>")
+                            .addClass(cls)
+                            .text(n)
+                            .css("animation-delay", delay)
+                            .appendTo($into);
+                    });
+                }
+
+                // A top-down timeline: one step per parent, with the chain in force from then on
+                function drawTimeline($into, steps) {
+                    steps.forEach(function (s, k) {
+                        var start = k * 0.25;
+                        var $step = $("<div class='fx-step'>").appendTo($into);
+                        $("<div class='fx-when'>")
+                            .append($("<span>").text(s.date), $("<span>").text(s.time))
+                            .css("animation-delay", start + "s")
+                            .appendTo($step);
+                        var $body = $("<div class='fx-step-body'>").appendTo($step);
+                        $("<div class='fx-event'>")
+                            .text(s.event)
+                            .append($("<span>").text(" · " + s.lasts))
+                            .css("animation-delay", start + "s")
+                            .appendTo($body);
+                        drawChain($("<div class='fx-row'>").appendTo($body), s.chain, start);
+                    });
+                }
+
+                function showChain(i) {
+                    var c = chains[i];
+                    $pick.children().removeClass("on").eq(i).addClass("on");
+                    $chain.empty().toggleClass("is-tl", !!c.timeline);
+                    if (c.timeline) {
+                        drawTimeline($chain, c.timeline);
+                        $meta.html(c.meta);
+                        return;
+                    }
+                    drawChain($chain, c.chain, 0);
+                    var hops = c.chain.length - 1;
+                    $meta.html(
+                        (hops > 1
+                            ? "<b>" + hops + " hop" + (hops === 1 ? "" : "s") + "</b> to an astronomical frame · "
+                            : "") + c.meta,
+                    );
+                }
+
+                chains.forEach(function (c, i) {
+                    $("<button type='button'>")
+                        .text(c.name)
+                        .on("click", function () {
+                            showChain(i);
+                        })
+                        .appendTo($pick);
+                });
+                showChain(0);
             });
         </script>
     </body>
