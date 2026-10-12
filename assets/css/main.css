@@ -1175,13 +1175,15 @@ body.is-preload #footer {
     height: 100dvh;
     display: flex;
     flex-direction: column;
+    /* Space above the article at rest; the band itself stays transparent */
+    --journal-top: 12rem;
 }
 
 .journal-container {
     display: flex;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 12rem 5% 5rem 5%;
+    padding: var(--journal-top) 5% 5rem 5%;
     flex: 1;
     min-height: 0;
     width: 100%;
@@ -1206,7 +1208,11 @@ body.is-preload #footer {
     padding-left: 4rem;
     padding-right: 2rem;
     border-left: 1px solid rgba(0, 0, 0, 0.05);
-    height: 100%;
+    /* Extend the scroll box up into the top band so text scrolls under the
+       navbar instead of being cut off below it */
+    margin-top: calc(-1 * var(--journal-top));
+    padding-top: var(--journal-top);
+    height: calc(100% + var(--journal-top));
     overflow-y: auto;
 }
 
@@ -1316,8 +1322,8 @@ body:not(.is-preload) .journal-content {
 
 /* Mobile Adjustments for Journal Template */
 @media screen and (max-width: 980px) {
-    .journal-container {
-        padding-top: 8rem;
+    .journal-body {
+        --journal-top: 8rem;
     }
 
     .journal-sidebar {
